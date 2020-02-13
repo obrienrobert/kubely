@@ -23,7 +23,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         textView = view.findViewById(R.id.home_fragment_text)
-        textView.text  = "Home Fragment"
+        textView.text  = "Home"
 
     }
 

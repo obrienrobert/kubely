@@ -6,9 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.obrienrobert.kubely.MainActivity
 import com.obrienrobert.kubely.R
 
-class PodFragment : Fragment() {
+class DeploymentFragment : Fragment() {
 
     lateinit var textView: TextView
     override fun onCreateView(
@@ -17,19 +18,19 @@ class PodFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.pod_fragment, container, false)
+        return inflater.inflate(R.layout.deployment_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        textView = view.findViewById(R.id.pod_fragment_text)
-        textView.text  = "Pods"
+        textView = view.findViewById(R.id.deployment_fragment_text)
+        textView.text  = "Deployments"
 
     }
 
     companion object {
-        fun newInstance(): PodFragment {
-            return PodFragment()
+        fun newInstance(): DeploymentFragment {
+            return DeploymentFragment()
         }
     }
 }
