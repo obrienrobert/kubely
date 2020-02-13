@@ -10,7 +10,7 @@ import com.obrienrobert.kubely.R
 
 class PVFragment : Fragment() {
 
-    lateinit var textView: TextView
+    private lateinit var textView: TextView
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -23,7 +23,7 @@ class PVFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         textView = view.findViewById(R.id.pv_fragment_text)
-        textView.text  = "Persistent Volumes"
+        textView.text = "Persistent Volumes"
 
     }
 

@@ -6,12 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.obrienrobert.kubely.MainActivity
 import com.obrienrobert.kubely.R
 
 class DeploymentFragment : Fragment() {
 
-    lateinit var textView: TextView
+    private lateinit var textView: TextView
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -24,7 +23,7 @@ class DeploymentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         textView = view.findViewById(R.id.deployment_fragment_text)
-        textView.text  = "Deployments"
+        textView.text = "Deployments"
 
     }
 

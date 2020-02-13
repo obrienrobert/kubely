@@ -1,6 +1,5 @@
 package com.obrienrobert.kubely
 
-import android.app.PendingIntent.getActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -8,11 +7,15 @@ import androidx.fragment.app.Fragment
 import co.zsmb.materialdrawerkt.builders.drawer
 import co.zsmb.materialdrawerkt.draweritems.badgeable.primaryItem
 import co.zsmb.materialdrawerkt.draweritems.sectionHeader
+import com.obrienrobert.client.Client
 import com.obrienrobert.fragments.*
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 
-class MainActivity : AppCompatActivity(), AnkoLogger{
+class Main : AppCompatActivity(), AnkoLogger {
 
     private val fragmentManager = supportFragmentManager
     private val homeFragment = HomeFragment()
@@ -26,6 +29,14 @@ class MainActivity : AppCompatActivity(), AnkoLogger{
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.homeFragment, homeFragment)
         fragmentTransaction.commit()
+
+        // Test client
+        val client = Client("<MASTER_URL>", "<TOKEN>")
+
+        // Cannot execute network calls on the main thread
+        GlobalScope.async {
+            info("${client.getPods()}")
+        }
 
         // Nav draw setup
         drawer {
@@ -114,7 +125,7 @@ class MainActivity : AppCompatActivity(), AnkoLogger{
     }
 
     // Separate function to allow for any future action bar modifications
-    private fun setActionBarTitle(title: Int){
+    private fun setActionBarTitle(title: Int) {
         supportActionBar?.setTitle(title)
     }
 }
