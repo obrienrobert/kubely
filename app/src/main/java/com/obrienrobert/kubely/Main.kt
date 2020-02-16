@@ -7,18 +7,14 @@ import androidx.fragment.app.Fragment
 import co.zsmb.materialdrawerkt.builders.drawer
 import co.zsmb.materialdrawerkt.draweritems.badgeable.primaryItem
 import co.zsmb.materialdrawerkt.draweritems.sectionHeader
-import com.obrienrobert.client.Client
 import com.obrienrobert.fragments.*
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 
 class Main : AppCompatActivity(), AnkoLogger {
 
     private val fragmentManager = supportFragmentManager
-    private val homeFragment = HomeFragment()
+    private val clusterFragment = ClusterFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,25 +23,20 @@ class Main : AppCompatActivity(), AnkoLogger {
 
         // Display First Fragment initially
         val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.homeFragment, homeFragment)
+        fragmentTransaction.replace(R.id.homeFragment, clusterFragment)
         fragmentTransaction.commit()
-
-        // Test client
-        val client = Client("<MASTER_URL>", "<TOKEN>")
-
-        // Cannot execute network calls on the main thread
-        GlobalScope.async {
-            info("${client.getPods()}")
-        }
 
         // Nav draw setup
         drawer {
-            primaryItem("Home") {
+            sectionHeader("Cluster").withDivider(false)
+            primaryItem("Clusters") {
+                icon = R.drawable.kubernetes
                 onClick { _ ->
-                    Log.d("DRAWER", "Home")
+                    Log.d("DRAWER", "Clusters")
                     setActionBarTitle(R.string.app_name)
-                    navigateTo(HomeFragment.newInstance())
+                    navigateTo(ClusterFragment.newInstance())
                     false
+
                 }
             }
 
