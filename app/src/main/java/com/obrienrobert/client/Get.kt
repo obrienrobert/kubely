@@ -8,9 +8,9 @@ interface Get {
     // Pods
     fun getAllPods(): PodList?
 
-    fun getAllPodsInNamespace(namespace: String): PodList?
+    fun getAllPodsInNamespace(namespace: String): List<Pod>
 
-    fun getPod(namespace: String, pod: String): PodSpec?
+    fun getPod(namespace: String, pod: String): PodSpec
 
 
     // Services

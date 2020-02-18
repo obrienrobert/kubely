@@ -13,6 +13,7 @@ import org.jetbrains.anko.AnkoLogger
 
 class Main : AppCompatActivity(), AnkoLogger {
 
+
     private val fragmentManager = supportFragmentManager
     private val clusterFragment = ClusterFragment()
 
@@ -26,6 +27,7 @@ class Main : AppCompatActivity(), AnkoLogger {
         fragmentTransaction.replace(R.id.homeFragment, clusterFragment)
         fragmentTransaction.commit()
 
+
         // Nav draw setup
         drawer {
             sectionHeader("Cluster").withDivider(false)
@@ -33,14 +35,40 @@ class Main : AppCompatActivity(), AnkoLogger {
                 icon = R.drawable.kubernetes
                 onClick { _ ->
                     Log.d("DRAWER", "Clusters")
-                    setActionBarTitle(R.string.app_name)
+                    setActionBarTitle(R.string.clusters)
                     navigateTo(ClusterFragment.newInstance())
                     false
-
                 }
             }
-
+            primaryItem("Namespaces") {
+                icon = R.drawable.namespace
+                onClick { _ ->
+                    Log.d("DRAWER", "Namespaces")
+                    setActionBarTitle(R.string.namespaces)
+                    navigateTo(NamespaceFragment.newInstance())
+                    false
+                }
+            }
+            primaryItem("Nodes") {
+                icon = R.drawable.node
+                onClick { _ ->
+                    Log.d("DRAWER", "Nodes")
+                    setActionBarTitle(R.string.nodes)
+                    navigateTo(NodeFragment.newInstance())
+                    false
+                }
+            }
             sectionHeader("Workloads")
+            primaryItem("Cron Jobs") {
+                icon = R.drawable.cronjob
+                onClick { _ ->
+                    Log.d("DRAWER", "Cron Jobs")
+                    setActionBarTitle(R.string.cronjobs)
+                    navigateTo(CronJobFragment.newInstance())
+                    false
+                }
+
+            }
             primaryItem("Deployments") {
                 icon = R.drawable.deployment
                 onClick { _ ->
@@ -61,7 +89,16 @@ class Main : AppCompatActivity(), AnkoLogger {
                 }
 
             }
+            primaryItem("Secrets") {
+                icon = R.drawable.secrets
+                onClick { _ ->
+                    Log.d("DRAWER", "Cron Jobs")
+                    setActionBarTitle(R.string.secrets)
+                    navigateTo(SecretFragment.newInstance())
+                    false
+                }
 
+            }
             sectionHeader("Networking")
             primaryItem("Ingresses") {
                 icon = R.drawable.ingress

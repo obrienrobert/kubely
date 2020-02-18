@@ -16,15 +16,15 @@ class Client(masterURL: String, OauthToken: String) : Get {
     private val client: KubernetesClient = DefaultKubernetesClient(config)
 
     // Pods
-    override fun getAllPods(): PodList? {
+    override fun getAllPods(): PodList {
         return client.pods().list()
     }
 
-    override fun getAllPodsInNamespace(namespace: String): PodList? {
-        return client.pods().inNamespace(namespace).list()
+    override fun getAllPodsInNamespace(namespace: String): List<Pod> {
+        return client.pods().inNamespace(namespace).list().items
     }
 
-    override fun getPod(namespace: String, pod: String): PodSpec? {
+    override fun getPod(namespace: String, pod: String): PodSpec {
         return client.pods().inNamespace(namespace).withName(pod).get().spec
     }
 
