@@ -27,7 +27,6 @@ class Main : AppCompatActivity(), AnkoLogger {
         fragmentTransaction.replace(R.id.homeFragment, clusterFragment)
         fragmentTransaction.commit()
 
-
         // Nav draw setup
         drawer {
             sectionHeader("Cluster").withDivider(false)

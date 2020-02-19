@@ -5,12 +5,11 @@ import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.kubely.R
-import io.fabric8.kubernetes.api.model.Pod
 import kotlinx.android.synthetic.main.card_view.view.*
 
 
-class ClusterAdapter(private val clusters: List<Pod>) :
-    RecyclerView.Adapter<ClusterAdapter.MyViewHolder>() {
+class NodeAdapter(private val nodes: List<String>) :
+    RecyclerView.Adapter<NodeAdapter.MyViewHolder>() {
 
     class MyViewHolder(val cardView: CardView) : RecyclerView.ViewHolder(cardView)
 
@@ -26,11 +25,11 @@ class ClusterAdapter(private val clusters: List<Pod>) :
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        clusters.forEachIndexed { index, element ->
-            holder.cardView.info_text.text = element.spec.containers[index].name
+        nodes.forEachIndexed { index, element ->
+            holder.cardView.info_text.text = nodes[index]
         }
 
     }
 
-    override fun getItemCount() = clusters.size
+    override fun getItemCount() = nodes.size
 }

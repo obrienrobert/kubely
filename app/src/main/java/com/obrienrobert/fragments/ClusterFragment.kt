@@ -11,8 +11,7 @@ import com.obrienrobert.adapter.ClusterAdapter
 import com.obrienrobert.client.Client
 import com.obrienrobert.kubely.R
 import io.fabric8.kubernetes.api.model.Pod
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
+import kotlinx.coroutines.*
 import org.jetbrains.anko.AnkoLogger
 
 class ClusterFragment : Fragment(), AnkoLogger {
@@ -27,7 +26,6 @@ class ClusterFragment : Fragment(), AnkoLogger {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.cluster_fragment, container, false)
     }
 
@@ -35,7 +33,7 @@ class ClusterFragment : Fragment(), AnkoLogger {
         super.onViewCreated(view, savedInstanceState)
 
         val client = Client(
-            "<MASTER_URL>",
+            "<API_URL>",
             "<OAUTH_TOKEN>"
         )
         // Cannot execute network calls on the main thread
@@ -45,12 +43,13 @@ class ClusterFragment : Fragment(), AnkoLogger {
             // arr.forEachIndexed { index, element -> info("Spec: $element") }
         }
 
-        Thread.sleep(10000)
+
+        Thread.sleep(5000)
 
         viewManager = LinearLayoutManager(this.context)
         viewAdapter = ClusterAdapter(arr)
 
-        recyclerView = view.findViewById<RecyclerView>(R.id.my_recycler_view).apply {
+        recyclerView = view.findViewById<RecyclerView>(R.id.cluster_recycler_view).apply {
             // use this setting to improve performance if you know that changes
             // in content do not change the layout size of the RecyclerView
             setHasFixedSize(true)
