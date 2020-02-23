@@ -1,15 +1,15 @@
-package com.obrienrobert.adapter
+package com.obrienrobert.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.obrienrobert.kubely.R
+import com.obrienrobert.main.R
 import kotlinx.android.synthetic.main.card_view.view.*
 
 
-class PodAdapter(private val pods: List<String>) :
-    RecyclerView.Adapter<PodAdapter.MyViewHolder>() {
+class ServiceAdapter(private val services: List<String>) :
+    RecyclerView.Adapter<ServiceAdapter.MyViewHolder>() {
 
     class MyViewHolder(val cardView: CardView) : RecyclerView.ViewHolder(cardView)
 
@@ -25,11 +25,11 @@ class PodAdapter(private val pods: List<String>) :
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        pods.forEachIndexed { index, element ->
-            holder.cardView.info_text.text = pods[index]
+        services.forEachIndexed { index, element ->
+            holder.cardView.info_text.text = services[index]
         }
 
     }
 
-    override fun getItemCount() = pods.size
+    override fun getItemCount() = services.size
 }

@@ -1,4 +1,4 @@
-package com.obrienrobert.kubely
+package com.obrienrobert.main
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

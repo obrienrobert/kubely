@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.obrienrobert.adapter.NamespaceAdapter
-import com.obrienrobert.kubely.R
+import com.obrienrobert.adapters.ProjectAdapter
+import com.obrienrobert.main.R
 
-class NamespaceFragment : Fragment() {
+class ProjectFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
@@ -21,19 +21,19 @@ class NamespaceFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.namespace_fragment, container, false)
+        return inflater.inflate(R.layout.project_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val arraylist=ArrayList<String>()
-        arraylist.add("Namespaces")
+        arraylist.add("Projects")
 
         viewManager = LinearLayoutManager(this.context)
-        viewAdapter = NamespaceAdapter(arraylist)
+        viewAdapter = ProjectAdapter(arraylist)
 
-        recyclerView = view.findViewById<RecyclerView>(R.id.namespace_recycler_view).apply {
+        recyclerView = view.findViewById<RecyclerView>(R.id.project_recycler_view).apply {
             setHasFixedSize(true)
 
             layoutManager = viewManager
@@ -45,8 +45,8 @@ class NamespaceFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(): NamespaceFragment {
-            return NamespaceFragment()
+        fun newInstance(): ProjectFragment {
+            return ProjectFragment()
         }
     }
 }

@@ -1,15 +1,15 @@
-package com.obrienrobert.adapter
+package com.obrienrobert.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.obrienrobert.kubely.R
+import com.obrienrobert.main.R
 import kotlinx.android.synthetic.main.card_view.view.*
 
 
-class NamespaceAdapter(private val namespaces: List<String>) :
-    RecyclerView.Adapter<NamespaceAdapter.MyViewHolder>() {
+class NodeAdapter(private val nodes: List<String>) :
+    RecyclerView.Adapter<NodeAdapter.MyViewHolder>() {
 
     class MyViewHolder(val cardView: CardView) : RecyclerView.ViewHolder(cardView)
 
@@ -25,11 +25,11 @@ class NamespaceAdapter(private val namespaces: List<String>) :
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        namespaces.forEachIndexed { index, element ->
-            holder.cardView.info_text.text = namespaces[index]
+        nodes.forEachIndexed { index, element ->
+            holder.cardView.info_text.text = nodes[index]
         }
 
     }
 
-    override fun getItemCount() = namespaces.size
+    override fun getItemCount() = nodes.size
 }

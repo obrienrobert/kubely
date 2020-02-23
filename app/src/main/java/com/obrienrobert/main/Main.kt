@@ -1,4 +1,4 @@
-package com.obrienrobert.kubely
+package com.obrienrobert.main
 
 import android.os.Bundle
 import android.util.Log
@@ -12,7 +12,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.AnkoLogger
 
 class Main : AppCompatActivity(), AnkoLogger {
-
 
     private val fragmentManager = supportFragmentManager
     private val clusterFragment = ClusterFragment()
@@ -29,9 +28,8 @@ class Main : AppCompatActivity(), AnkoLogger {
 
         // Nav draw setup
         drawer {
-            sectionHeader("Cluster").withDivider(false)
-            primaryItem("Clusters") {
-                icon = R.drawable.kubernetes
+            primaryItem("Home") {
+                //icon = R.drawable.kubernetes
                 onClick { _ ->
                     Log.d("DRAWER", "Clusters")
                     setActionBarTitle(R.string.clusters)
@@ -39,31 +37,22 @@ class Main : AppCompatActivity(), AnkoLogger {
                     false
                 }
             }
-            primaryItem("Namespaces") {
-                icon = R.drawable.namespace
+            primaryItem("Projects") {
+                icon = R.drawable.project
                 onClick { _ ->
-                    Log.d("DRAWER", "Namespaces")
-                    setActionBarTitle(R.string.namespaces)
-                    navigateTo(NamespaceFragment.newInstance())
-                    false
-                }
-            }
-            primaryItem("Nodes") {
-                icon = R.drawable.node
-                onClick { _ ->
-                    Log.d("DRAWER", "Nodes")
-                    setActionBarTitle(R.string.nodes)
-                    navigateTo(NodeFragment.newInstance())
+                    Log.d("DRAWER", "Projects")
+                    setActionBarTitle(R.string.projects)
+                    navigateTo(ProjectFragment.newInstance())
                     false
                 }
             }
             sectionHeader("Workloads")
-            primaryItem("Cron Jobs") {
-                icon = R.drawable.cronjob
+            primaryItem("Pods") {
+                icon = R.drawable.pod
                 onClick { _ ->
-                    Log.d("DRAWER", "Cron Jobs")
-                    setActionBarTitle(R.string.cronjobs)
-                    navigateTo(CronJobFragment.newInstance())
+                    Log.d("DRAWER", "Pods")
+                    setActionBarTitle(R.string.pods)
+                    navigateTo(PodFragment.newInstance())
                     false
                 }
 
@@ -78,43 +67,43 @@ class Main : AppCompatActivity(), AnkoLogger {
                 }
 
             }
-            primaryItem("Pods") {
-                icon = R.drawable.pod
-                onClick { _ ->
-                    Log.d("DRAWER", "Pods")
-                    setActionBarTitle(R.string.pods)
-                    navigateTo(PodFragment.newInstance())
-                    false
-                }
-
-            }
             primaryItem("Secrets") {
-                icon = R.drawable.secrets
+                icon = R.drawable.secret
                 onClick { _ ->
-                    Log.d("DRAWER", "Cron Jobs")
+                    Log.d("DRAWER", "Secrets")
                     setActionBarTitle(R.string.secrets)
                     navigateTo(SecretFragment.newInstance())
                     false
                 }
 
             }
-            sectionHeader("Networking")
-            primaryItem("Ingresses") {
-                icon = R.drawable.ingress
+            primaryItem("Cron Jobs") {
+                icon = R.drawable.cron_job
                 onClick { _ ->
-                    Log.d("DRAWER", "Ingresses")
-                    setActionBarTitle(R.string.ingresses)
-                    navigateTo(IngressFragment.newInstance())
+                    Log.d("DRAWER", "Cron Jobs")
+                    setActionBarTitle(R.string.cronjobs)
+                    navigateTo(CronJobFragment.newInstance())
                     false
                 }
 
             }
+            sectionHeader("Networking")
             primaryItem("Services") {
                 icon = R.drawable.service
                 onClick { _ ->
                     Log.d("DRAWER", "Services")
                     setActionBarTitle(R.string.services)
                     navigateTo(ServiceFragment.newInstance())
+                    false
+                }
+
+            }
+            primaryItem("Routes") {
+                icon = R.drawable.route
+                onClick { _ ->
+                    Log.d("DRAWER", "Routes")
+                    setActionBarTitle(R.string.routes)
+                    navigateTo(RouteFragment.newInstance())
                     false
                 }
 
@@ -138,10 +127,18 @@ class Main : AppCompatActivity(), AnkoLogger {
                     navigateTo(PVCFragment.newInstance())
                     false
                 }
-
+            }
+            sectionHeader("Compute")
+            primaryItem("Nodes") {
+                icon = R.drawable.node
+                onClick { _ ->
+                    Log.d("DRAWER", "Nodes")
+                    setActionBarTitle(R.string.nodes)
+                    navigateTo(NodeFragment.newInstance())
+                    false
+                }
             }
         }
-
     }
 
     private fun navigateTo(fragment: Fragment) {

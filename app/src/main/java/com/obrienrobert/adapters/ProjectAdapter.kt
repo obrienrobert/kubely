@@ -1,15 +1,15 @@
-package com.obrienrobert.adapter
+package com.obrienrobert.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.obrienrobert.kubely.R
+import com.obrienrobert.main.R
 import kotlinx.android.synthetic.main.card_view.view.*
 
 
-class SercretAdapter(private val secrets: List<String>) :
-    RecyclerView.Adapter<SercretAdapter.MyViewHolder>() {
+class ProjectAdapter(private val projects: List<String>) :
+    RecyclerView.Adapter<ProjectAdapter.MyViewHolder>() {
 
     class MyViewHolder(val cardView: CardView) : RecyclerView.ViewHolder(cardView)
 
@@ -25,11 +25,11 @@ class SercretAdapter(private val secrets: List<String>) :
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        secrets.forEachIndexed { index, element ->
-            holder.cardView.info_text.text = secrets[index]
+        projects.forEachIndexed { index, element ->
+            holder.cardView.info_text.text = projects[index]
         }
 
     }
 
-    override fun getItemCount() = secrets.size
+    override fun getItemCount() = projects.size
 }

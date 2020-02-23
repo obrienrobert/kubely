@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.obrienrobert.adapter.DeploymentAdapter
-import com.obrienrobert.kubely.R
+import com.obrienrobert.adapters.DeploymentAdapter
+import com.obrienrobert.main.R
 
 class DeploymentFragment : Fragment() {
 

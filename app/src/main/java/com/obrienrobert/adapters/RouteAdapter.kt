@@ -1,15 +1,15 @@
-package com.obrienrobert.adapter
+package com.obrienrobert.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.obrienrobert.kubely.R
+import com.obrienrobert.main.R
 import kotlinx.android.synthetic.main.card_view.view.*
 
 
-class DeploymentAdapter(private val cronjobs: List<String>) :
-    RecyclerView.Adapter<DeploymentAdapter.MyViewHolder>() {
+class RouteAdapter(private val routes: List<String>) :
+    RecyclerView.Adapter<RouteAdapter.MyViewHolder>() {
 
     class MyViewHolder(val cardView: CardView) : RecyclerView.ViewHolder(cardView)
 
@@ -25,11 +25,11 @@ class DeploymentAdapter(private val cronjobs: List<String>) :
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        cronjobs.forEachIndexed { index, element ->
-            holder.cardView.info_text.text = cronjobs[index]
+        routes.forEachIndexed { index, element ->
+            holder.cardView.info_text.text = routes[index]
         }
 
     }
 
-    override fun getItemCount() = cronjobs.size
+    override fun getItemCount() = routes.size
 }

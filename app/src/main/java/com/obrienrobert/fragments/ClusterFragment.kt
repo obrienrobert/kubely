@@ -7,21 +7,23 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.obrienrobert.adapter.ClusterAdapter
+import com.obrienrobert.adapters.ClusterAdapter
 import com.obrienrobert.client.Client
-import com.obrienrobert.kubely.R
-import io.fabric8.kubernetes.api.model.Pod
-import kotlinx.coroutines.*
+import com.obrienrobert.main.R
+import me.nikhilchaudhari.asynkio.core.async
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
+import com.obrienrobert.client.Requests
+import io.fabric8.kubernetes.api.model.Pod
 
 class ClusterFragment : Fragment(), AnkoLogger {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
-    private lateinit var arr: List<Pod>
+    private lateinit var podList: List<Pod>
 
-    override fun onCreateView(
+    override fun onCreateView (
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,34 +34,30 @@ class ClusterFragment : Fragment(), AnkoLogger {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val arraylist=ArrayList<String>()
+        arraylist.add("Clusters")
+
         val client = Client(
-            "<API_URL>",
+            "<MASTER_URL>",
             "<OAUTH_TOKEN>"
-        )
-        // Cannot execute network calls on the main thread
-        GlobalScope.async {
-            arr = client.getAllPodsInNamespace("openshift-apiserver-operator")
+        ).getClient()
 
-            // arr.forEachIndexed { index, element -> info("Spec: $element") }
-        }
+        async {
+            podList = await { Requests(client).getAllPodsInNamespace("<NAMESPACE>") }
+            info { podList }
 
 
-        Thread.sleep(5000)
+            viewManager = LinearLayoutManager(context)
+            viewAdapter = ClusterAdapter(podList)
 
-        viewManager = LinearLayoutManager(this.context)
-        viewAdapter = ClusterAdapter(arr)
+            recyclerView = view.findViewById<RecyclerView>(R.id.cluster_recycler_view).apply {
 
-        recyclerView = view.findViewById<RecyclerView>(R.id.cluster_recycler_view).apply {
-            // use this setting to improve performance if you know that changes
-            // in content do not change the layout size of the RecyclerView
-            setHasFixedSize(true)
+                setHasFixedSize(true)
+                layoutManager = viewManager
 
-            // use a linear layout manager
-            layoutManager = viewManager
+                adapter = viewAdapter
 
-            // specify an viewAdapter (see also next example)
-            adapter = viewAdapter
-
+            }
         }
     }
 
@@ -68,6 +66,4 @@ class ClusterFragment : Fragment(), AnkoLogger {
             return ClusterFragment()
         }
     }
-
-
 }

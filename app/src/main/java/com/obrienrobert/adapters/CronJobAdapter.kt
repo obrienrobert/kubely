@@ -1,15 +1,14 @@
-package com.obrienrobert.adapter
+package com.obrienrobert.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.obrienrobert.kubely.R
+import com.obrienrobert.main.R
 import kotlinx.android.synthetic.main.card_view.view.*
 
-
-class IngressAdapter(private val ingresses: List<String>) :
-    RecyclerView.Adapter<IngressAdapter.MyViewHolder>() {
+class CronJobAdapter(private val cronjobs: List<String>) :
+    RecyclerView.Adapter<CronJobAdapter.MyViewHolder>() {
 
     class MyViewHolder(val cardView: CardView) : RecyclerView.ViewHolder(cardView)
 
@@ -25,11 +24,11 @@ class IngressAdapter(private val ingresses: List<String>) :
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        ingresses.forEachIndexed { index, element ->
-            holder.cardView.info_text.text = ingresses[index]
+        cronjobs.forEachIndexed { index, element ->
+            holder.cardView.info_text.text = cronjobs[index]
         }
 
     }
 
-    override fun getItemCount() = ingresses.size
+    override fun getItemCount() = cronjobs.size
 }

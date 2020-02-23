@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.obrienrobert.adapter.IngressAdapter
-import com.obrienrobert.kubely.R
+import com.obrienrobert.adapters.RouteAdapter
+import com.obrienrobert.main.R
 
-class IngressFragment : Fragment() {
+class RouteFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
@@ -21,19 +21,19 @@ class IngressFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.ingress_fragment, container, false)
+        return inflater.inflate(R.layout.route_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val arraylist=ArrayList<String>()
-        arraylist.add("Ingresses")
+        arraylist.add("Routes")
 
         viewManager = LinearLayoutManager(this.context)
-        viewAdapter = IngressAdapter(arraylist)
+        viewAdapter = RouteAdapter(arraylist)
 
-        recyclerView = view.findViewById<RecyclerView>(R.id.ingress_recycler_view).apply {
+        recyclerView = view.findViewById<RecyclerView>(R.id.route_recycler_view).apply {
 
             setHasFixedSize(true)
 
@@ -45,8 +45,8 @@ class IngressFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(): IngressFragment {
-            return IngressFragment()
+        fun newInstance(): RouteFragment {
+            return RouteFragment()
         }
     }
 }

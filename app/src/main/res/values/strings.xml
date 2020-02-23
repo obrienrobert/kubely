@@ -1,13 +1,13 @@
 <resources>
-    <string name="app_name">Kubely</string>
+    <string name="app_name">Shifty</string>
     <string name="cronjobs">Cron Jobs</string>
     <string name="clusters">Clusters</string>
     <string name="deployments">Deployments</string>
-    <string name="ingresses">Ingresses</string>
+    <string name="routes">Routes</string>
     <string name="pods">Pods</string>
     <string name="persistent_volume_claims">Persistent Volume Claims</string>
     <string name="persistent_volumes">Persistent Volumes</string>
-    <string name="namespaces">Namespaces</string>
+    <string name="projects">Projects</string>
     <string name="nodes">Nodes</string>
     <string name="secrets">Secrets</string>
     <string name="services">Services</string>

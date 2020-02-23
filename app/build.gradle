@@ -8,7 +8,7 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
     defaultConfig {
-        applicationId "org.obrienrobert.kubely"
+        applicationId "org.obrienrobert.shifty"
         minSdkVersion 28
         targetSdkVersion 29
         versionCode 1
@@ -59,7 +59,15 @@ dependencies {
 
     implementation 'io.fabric8:kubernetes-client:4.8.0'
     implementation 'io.fabric8:kubernetes-model:4.8.0'
-    implementation 'io.fabric8:kubernetes-model:4.8.0'
+
+    //implementation 'co.metalab.asyncawait:asyncawait:1.0.0'
+
+    implementation 'com.rasalexman.coroutinesmanager:coroutinesmanager:1.2.31'
+
+    implementation "me.nikhilchaudhari:asynkio:1.0.0"
+
+
+    implementation "com.mikepenz:fastadapter:4.1.2"
 
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

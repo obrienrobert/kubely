@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.obrienrobert.adapter.CronJobAdapter
-import com.obrienrobert.kubely.R
+import com.obrienrobert.adapters.CronJobAdapter
+import com.obrienrobert.main.R
 
 class CronJobFragment : Fragment() {
 
