@@ -12,10 +12,6 @@ import com.obrienrobert.main.R
 
 class NodeFragment : Fragment() {
 
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
-    private lateinit var viewManager: RecyclerView.LayoutManager
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,22 +23,21 @@ class NodeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val arraylist=ArrayList<String>()
-        arraylist.add("Nodes")
+        val arrayList=ArrayList<String>()
+        arrayList.add("Clusters")
+        arrayList.add("Pods")
+        arrayList.add("Nodes")
+        arrayList.add("Storage")
 
-        viewManager = LinearLayoutManager(this.context)
-        viewAdapter = NodeAdapter(arraylist)
+        val viewManager:  RecyclerView.LayoutManager = LinearLayoutManager(context)
+        val viewAdapter: RecyclerView.Adapter<*> =  NodeAdapter(arrayList)
 
-        recyclerView = view.findViewById<RecyclerView>(R.id.node_recycler_view).apply {
+        view.findViewById<RecyclerView>(R.id.node_recycler_view).apply {
 
             setHasFixedSize(true)
-
             layoutManager = viewManager
-
             adapter = viewAdapter
-
         }
-
     }
 
     companion object {

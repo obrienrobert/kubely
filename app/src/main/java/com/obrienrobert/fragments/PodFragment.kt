@@ -7,14 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+
 import com.obrienrobert.adapters.PodAdapter
 import com.obrienrobert.main.R
 
 class PodFragment : Fragment() {
-
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
-    private lateinit var viewManager: RecyclerView.LayoutManager
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,21 +24,21 @@ class PodFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val arraylist=ArrayList<String>()
-        arraylist.add("Pods")
+        val arrayList=ArrayList<String>()
+        arrayList.add("Clusters")
+        arrayList.add("Pods")
+        arrayList.add("Nodes")
+        arrayList.add("Storage")
 
-        viewManager = LinearLayoutManager(this.context)
-        viewAdapter = PodAdapter(arraylist)
+        val viewManager:  RecyclerView.LayoutManager = LinearLayoutManager(context)
+        val viewAdapter: RecyclerView.Adapter<*> =  PodAdapter(arrayList)
 
-        recyclerView = view.findViewById<RecyclerView>(R.id.pod_recycler_view).apply {
+        view.findViewById<RecyclerView>(R.id.pod_recycler_view).apply {
+
             setHasFixedSize(true)
-
             layoutManager = viewManager
-
             adapter = viewAdapter
-
         }
-
     }
 
     companion object {

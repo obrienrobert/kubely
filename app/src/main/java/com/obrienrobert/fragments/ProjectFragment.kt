@@ -8,13 +8,15 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.adapters.ProjectAdapter
+import com.obrienrobert.client.Client
+import com.obrienrobert.client.Requests
 import com.obrienrobert.main.R
+import io.fabric8.openshift.api.model.Project
+import me.nikhilchaudhari.asynkio.core.async
 
 class ProjectFragment : Fragment() {
 
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
-    private lateinit var viewManager: RecyclerView.LayoutManager
+    private lateinit var projectList: List<Project>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,21 +29,30 @@ class ProjectFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val arraylist=ArrayList<String>()
-        arraylist.add("Projects")
+        val arrayList=ArrayList<String>()
+        arrayList.add("Clusters")
+        arrayList.add("Pods")
+        arrayList.add("Nodes")
+        arrayList.add("Storage")
 
-        viewManager = LinearLayoutManager(this.context)
-        viewAdapter = ProjectAdapter(arraylist)
+        val client = Client(
+            "<MASTER_URL>",
+            "<OAUTH_TOKEN>"
+        ).getClient()
 
-        recyclerView = view.findViewById<RecyclerView>(R.id.project_recycler_view).apply {
-            setHasFixedSize(true)
+        async {
+            projectList = await { Requests(client).getAllNamespaces() }
 
-            layoutManager = viewManager
+            val viewManager:  RecyclerView.LayoutManager = LinearLayoutManager(context)
+            val viewAdapter: RecyclerView.Adapter<*> =  ProjectAdapter(projectList)
 
-            adapter = viewAdapter
+            view.findViewById<RecyclerView>(R.id.project_recycler_view).apply {
 
+                setHasFixedSize(true)
+                layoutManager = viewManager
+                adapter = viewAdapter
+            }
         }
-
     }
 
     companion object {

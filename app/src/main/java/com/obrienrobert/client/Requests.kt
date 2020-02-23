@@ -2,8 +2,11 @@ package com.obrienrobert.client
 
 import io.fabric8.kubernetes.api.model.*
 import io.fabric8.kubernetes.client.KubernetesClient
+import io.fabric8.openshift.api.model.Project
+import io.fabric8.openshift.api.model.ProjectList
+import io.fabric8.openshift.client.OpenShiftClient
 
-class Requests(private var client: KubernetesClient) : Get {
+class Requests(private var client: OpenShiftClient) : Get {
 
         // Pods
         override fun getAllPods(): PodList {
@@ -20,8 +23,8 @@ class Requests(private var client: KubernetesClient) : Get {
 
 
         // Namespaces
-        override fun getAllNamespaces(): NamespaceList? {
-            return client.namespaces().list()
+        override fun getAllNamespaces(): List<Project> {
+            return client.projects().list().items
         }
 
         override fun getSpecificNamespace(namespace: String): Namespace? {

@@ -27,25 +27,24 @@ class PVFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val arraylist=ArrayList<String>()
-        arraylist.add("PVs")
+        val arrayList=ArrayList<String>()
+        arrayList.add("Clusters")
+        arrayList.add("Pods")
+        arrayList.add("Nodes")
+        arrayList.add("Storage")
 
         viewManager = LinearLayoutManager(this.context)
-        viewAdapter = PVAdapter(arraylist)
+        viewAdapter = PVAdapter(arrayList)
 
-        recyclerView = view.findViewById<RecyclerView>(R.id.pv_recycler_view).apply {
-            // use this setting to improve performance if you know that changes
-            // in content do not change the layout size of the RecyclerView
+        val viewManager:  RecyclerView.LayoutManager = LinearLayoutManager(context)
+        val viewAdapter: RecyclerView.Adapter<*> =  PVAdapter(arrayList)
+
+        view.findViewById<RecyclerView>(R.id.pv_recycler_view).apply {
+
             setHasFixedSize(true)
-
-            // use a linear layout manager
             layoutManager = viewManager
-
-            // specify an viewAdapter (see also next example)
             adapter = viewAdapter
-
         }
-
     }
 
     companion object {

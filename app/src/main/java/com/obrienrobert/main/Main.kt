@@ -20,16 +20,16 @@ class Main : AppCompatActivity(), AnkoLogger {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+        setActionBarTitle(R.string.clusters)
 
         // Display First Fragment initially
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.homeFragment, clusterFragment)
-        fragmentTransaction.commit()
+        fragmentManager.beginTransaction().replace(R.id.homeFragment, clusterFragment).commit()
 
         // Nav draw setup
         drawer {
-            primaryItem("Home") {
-                //icon = R.drawable.kubernetes
+            sectionHeader("Home")
+            primaryItem("Clusters") {
+                icon = R.drawable.openshift
                 onClick { _ ->
                     Log.d("DRAWER", "Clusters")
                     setActionBarTitle(R.string.clusters)

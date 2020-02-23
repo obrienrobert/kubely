@@ -12,10 +12,6 @@ import com.obrienrobert.main.R
 
 class ServiceFragment : Fragment() {
 
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
-    private lateinit var viewManager: RecyclerView.LayoutManager
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,23 +23,20 @@ class ServiceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val arraylist = ArrayList<String>()
-        arraylist.add("Services")
+        val arrayList=ArrayList<String>()
+        arrayList.add("Clusters")
+        arrayList.add("Pods")
+        arrayList.add("Nodes")
+        arrayList.add("Storage")
 
-        viewManager = LinearLayoutManager(this.context)
-        viewAdapter = ServiceAdapter(arraylist)
+        val viewManager:  RecyclerView.LayoutManager = LinearLayoutManager(context)
+        val viewAdapter: RecyclerView.Adapter<*> =  ServiceAdapter(arrayList)
 
-        recyclerView = view.findViewById<RecyclerView>(R.id.service_recycler_view).apply {
-            // use this setting to improve performance if you know that changes
-            // in content do not change the layout size of the RecyclerView
+        view.findViewById<RecyclerView>(R.id.service_recycler_view).apply {
+
             setHasFixedSize(true)
-
-            // use a linear layout manager
             layoutManager = viewManager
-
-            // specify an viewAdapter (see also next example)
             adapter = viewAdapter
-
         }
 
     }

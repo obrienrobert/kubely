@@ -1,4 +1,7 @@
 package com.obrienrobert.models
 
-object ClusterModel {
-}
+data class ClusterModel(
+    var uid: String? = "",
+    var masterURL: String? = "",
+    var OauthToken: String? = ""
+)

@@ -1,6 +1,8 @@
 package com.obrienrobert.client
 
 import io.fabric8.kubernetes.api.model.*
+import io.fabric8.openshift.api.model.Project
+import io.fabric8.openshift.api.model.ProjectList
 
 
 interface Get {
@@ -22,7 +24,7 @@ interface Get {
 
 
     // Namespaces
-    fun getAllNamespaces(): NamespaceList?
+    fun getAllNamespaces(): List<Project>
 
     fun getSpecificNamespace(namespace: String): Namespace?
 
