@@ -13,11 +13,30 @@
         android:layout_gravity="center">
 
         <TextView
+            android:id="@+id/info_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/info_text"
-            android:layout_alignParentTop="true"
-            android:textSize="30sp" />
+            android:padding="1dp"
+            android:textColor="@color/md_black_1000"
+            android:textSize="18sp" />
+        <TextView
+            android:id="@+id/txtDistance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="1dp"
+            android:textColor="@color/md_black_1000" />
+        <TextView
+            android:id="@+id/txtGravity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="1dp"
+            android:textColor="@color/md_black_1000" />
+        <TextView
+            android:id="@+id/txtDiameter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="1dp"
+            android:textColor="@color/md_black_1000" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
