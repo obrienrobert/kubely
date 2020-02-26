@@ -12,7 +12,7 @@ class Client(masterURL: String, OauthToken: String){
         .withTrustCerts(true)
         .build()
 
-    var osClient: OpenShiftClient = DefaultOpenShiftClient(config)
+    private var osClient: OpenShiftClient = DefaultOpenShiftClient(config)
 
 
     fun getClient(): OpenShiftClient{

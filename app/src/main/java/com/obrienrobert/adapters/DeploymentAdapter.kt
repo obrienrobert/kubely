@@ -11,32 +11,31 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.main.R
 
-class DeploymentAdapter(private val arrayOfStrings: List<String>) :
+class DeploymentAdapter(private val arrayOfDeployments: List<String>) :
     RecyclerView.Adapter<DeploymentAdapter.ViewHolder>(), Filterable {
 
-    private var copyOfStrings: List<String> = arrayOfStrings.toList()
+    private var copyOfDeployments: List<String> = arrayOfDeployments.toList()
 
-    override fun getFilter(): Filter =
-        object : Filter() {
-            override fun performFiltering(value: CharSequence?): FilterResults {
-                val results = FilterResults()
-                if (value.isNullOrEmpty()) {
-                    results.values = arrayOfStrings
-                } else {
-                    copyOfStrings = arrayOfStrings.filter {
-                        it.contains(value, true)
-                    }
-                    results.values = copyOfStrings
+    override fun getFilter(): Filter = object : Filter() {
+        override fun performFiltering(value: CharSequence?): FilterResults {
+            val results = FilterResults()
+            if (value.isNullOrEmpty()) {
+                results.values = arrayOfDeployments
+            } else {
+                copyOfDeployments = arrayOfDeployments.filter {
+                    it.contains(value, true)
                 }
-                return results
+                results.values = copyOfDeployments
             }
-
-            override fun publishResults(value: CharSequence?, results: FilterResults?) {
-                copyOfStrings = (results?.values as? List<String>).orEmpty()
-                notifyDataSetChanged()
-            }
-
+            return results
         }
+
+        override fun publishResults(value: CharSequence?, results: FilterResults?) {
+            copyOfDeployments = (results?.values as? List<String>).orEmpty()
+            notifyDataSetChanged()
+        }
+
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -46,17 +45,17 @@ class DeploymentAdapter(private val arrayOfStrings: List<String>) :
     }
 
     override fun getItemCount(): Int {
-        return copyOfStrings.size
+        return copyOfDeployments.size
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.bind(copyOfStrings[position], position)
+        viewHolder.bind(copyOfDeployments[position], position)
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         fun bind(value: String, position: Int) {
-            this.itemView.findViewById<TextView>(R.id.info_text).text = value
+            this.itemView.findViewById<TextView>(R.id.resource_name).text = value
             this.itemView.setOnClickListener {
                 Log.e("CLICK", "Clicked item $value at $position")
             }

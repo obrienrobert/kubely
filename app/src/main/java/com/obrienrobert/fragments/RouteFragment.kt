@@ -23,14 +23,14 @@ class RouteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val arrayList=ArrayList<String>()
-        arrayList.add("Clusters")
-        arrayList.add("Pods")
-        arrayList.add("Nodes")
-        arrayList.add("Storage")
+        val arrayList = ArrayList<String>()
+        arrayList.add("Route 1")
+        arrayList.add("Route 2")
+        arrayList.add("Route 3")
+        arrayList.add("Route 4")
 
-        val viewManager:  RecyclerView.LayoutManager = LinearLayoutManager(context)
-        val viewAdapter: RecyclerView.Adapter<*> =  RouteAdapter(arrayList)
+        val viewManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
+        val viewAdapter: RecyclerView.Adapter<*> = RouteAdapter(arrayList)
 
         view.findViewById<RecyclerView>(R.id.route_recycler_view).apply {
 

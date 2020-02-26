@@ -24,14 +24,14 @@ class PodFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val arrayList=ArrayList<String>()
-        arrayList.add("Clusters")
-        arrayList.add("Pods")
-        arrayList.add("Nodes")
-        arrayList.add("Storage")
+        val arrayList = ArrayList<String>()
+        arrayList.add("Pod 1")
+        arrayList.add("Pod 2")
+        arrayList.add("Pod 3")
+        arrayList.add("Pod 4")
 
-        val viewManager:  RecyclerView.LayoutManager = LinearLayoutManager(context)
-        val viewAdapter: RecyclerView.Adapter<*> =  PodAdapter(arrayList)
+        val viewManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
+        val viewAdapter: RecyclerView.Adapter<*> = PodAdapter(arrayList)
 
         view.findViewById<RecyclerView>(R.id.pod_recycler_view).apply {
 

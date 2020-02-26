@@ -23,14 +23,14 @@ class ServiceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val arrayList=ArrayList<String>()
-        arrayList.add("Clusters")
-        arrayList.add("Pods")
-        arrayList.add("Nodes")
-        arrayList.add("Storage")
+        val arrayList = ArrayList<String>()
+        arrayList.add("Service 1")
+        arrayList.add("Service 2")
+        arrayList.add("Service 3")
+        arrayList.add("Service 4")
 
-        val viewManager:  RecyclerView.LayoutManager = LinearLayoutManager(context)
-        val viewAdapter: RecyclerView.Adapter<*> =  ServiceAdapter(arrayList)
+        val viewManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
+        val viewAdapter: RecyclerView.Adapter<*> = ServiceAdapter(arrayList)
 
         view.findViewById<RecyclerView>(R.id.service_recycler_view).apply {
 
@@ -38,7 +38,6 @@ class ServiceFragment : Fragment() {
             layoutManager = viewManager
             adapter = viewAdapter
         }
-
     }
 
     companion object {

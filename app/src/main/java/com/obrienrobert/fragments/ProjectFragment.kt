@@ -16,6 +16,8 @@ import me.nikhilchaudhari.asynkio.core.async
 
 class ProjectFragment : Fragment() {
 
+    private lateinit var viewManager: RecyclerView.LayoutManager
+    private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var projectList: List<Project>
 
     override fun onCreateView(
@@ -29,11 +31,11 @@ class ProjectFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val arrayList=ArrayList<String>()
-        arrayList.add("Clusters")
-        arrayList.add("Pods")
-        arrayList.add("Nodes")
-        arrayList.add("Storage")
+        val arrayList = ArrayList<String>()
+        arrayList.add("Project 1")
+        arrayList.add("Project 2")
+        arrayList.add("Project 3")
+        arrayList.add("Project 4")
 
         val client = Client(
             "<MASTER_URL>",
@@ -43,8 +45,8 @@ class ProjectFragment : Fragment() {
         async {
             projectList = await { Requests(client).getAllNamespaces() }
 
-            val viewManager:  RecyclerView.LayoutManager = LinearLayoutManager(context)
-            val viewAdapter: RecyclerView.Adapter<*> =  ProjectAdapter(projectList)
+            viewManager = LinearLayoutManager(context)
+            viewAdapter = ProjectAdapter(projectList)
 
             view.findViewById<RecyclerView>(R.id.project_recycler_view).apply {
 

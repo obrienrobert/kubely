@@ -17,26 +17,25 @@ class ProjectAdapter(private val projectList: List<Project>) :
 
     private var copyOfProjects: List<Project> = projectList.toList()
 
-    override fun getFilter(): Filter =
-        object : Filter() {
-            override fun performFiltering(value: CharSequence?): FilterResults {
-                val results = FilterResults()
-                if (value.isNullOrEmpty()) {
-                    results.values = projectList
-                } else {
-                    copyOfProjects = projectList.filter {
-                        it.metadata.name.contains(value, true)
-                    }
-                    results.values = copyOfProjects
+    override fun getFilter(): Filter = object : Filter() {
+        override fun performFiltering(value: CharSequence?): FilterResults {
+            val results = FilterResults()
+            if (value.isNullOrEmpty()) {
+                results.values = projectList
+            } else {
+                copyOfProjects = projectList.filter {
+                    it.metadata.name.contains(value, true)
                 }
-                return results
+                results.values = copyOfProjects
             }
-
-            override fun publishResults(value: CharSequence?, results: FilterResults?) {
-                copyOfProjects = (results?.values as List<Project>)
-                notifyDataSetChanged()
-            }
+            return results
         }
+
+        override fun publishResults(value: CharSequence?, results: FilterResults?) {
+            copyOfProjects = (results?.values as List<Project>)
+            notifyDataSetChanged()
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -51,16 +50,22 @@ class ProjectAdapter(private val projectList: List<Project>) :
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.bind(copyOfProjects[position].metadata.name, position)
+        viewHolder.bind(copyOfProjects, position)
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bind(value: String, position: Int) {
-            this.itemView.findViewById<TextView>(R.id.info_text).text = value
+        fun bind(project: List<Project>, position: Int) {
+            this.itemView.findViewById<TextView>(R.id.resource_name).text =
+                project[position].metadata.name
+
             this.itemView.setOnClickListener {
-                Log.e("CLICK", "Clicked item $value at $position")
+                Log.e("CLICK", "Clicked item ${project[position].metadata.name} at $position")
             }
+
+            this.itemView.findViewById<TextView>(R.id.info_text).text =
+                project[position].metadata.creationTimestamp
+
         }
     }
 }

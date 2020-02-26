@@ -1,9 +1,7 @@
 package com.obrienrobert.client
 
 import io.fabric8.kubernetes.api.model.*
-import io.fabric8.kubernetes.client.KubernetesClient
 import io.fabric8.openshift.api.model.Project
-import io.fabric8.openshift.api.model.ProjectList
 import io.fabric8.openshift.client.OpenShiftClient
 
 class Requests(private var client: OpenShiftClient) : Get {

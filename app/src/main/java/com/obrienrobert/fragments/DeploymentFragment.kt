@@ -23,14 +23,15 @@ class DeploymentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val arrayList=ArrayList<String>()
-        arrayList.add("Clusters")
-        arrayList.add("Pods")
-        arrayList.add("Nodes")
-        arrayList.add("Storage")
+        val arrayList = ArrayList<String>()
+        arrayList.add("Deployment 1")
+        arrayList.add("Deployment 2")
+        arrayList.add("Deployment 3")
+        arrayList.add("Deployment 4")
 
-        val viewManager:  RecyclerView.LayoutManager = LinearLayoutManager(context)
-        val viewAdapter: RecyclerView.Adapter<*> =  DeploymentAdapter(arrayList)
+
+        val viewManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
+        val viewAdapter: RecyclerView.Adapter<*> = DeploymentAdapter(arrayList)
 
         view.findViewById<RecyclerView>(R.id.deployment_recycler_view).apply {
 

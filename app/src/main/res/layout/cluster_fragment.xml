@@ -1,20 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
+    android:gravity="center"
+    android:orientation="vertical">
 
     <com.nicolettilu.hiddensearchwithrecyclerview.HiddenSearchWithRecyclerView
+        android:id="@+id/hiddenSearch"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:visibleAtInit="true">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/cluster_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="vertical" />
+            android:scrollbars="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="82dp" />
+
     </com.nicolettilu.hiddensearchwithrecyclerview.HiddenSearchWithRecyclerView>
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/empty_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_clusters_found"
+            tools:layout_editor_absoluteX="158dp"
+            tools:layout_editor_absoluteY="367dp" />
+
+        <Button
+           android:id="@+id/add_cluster"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="@string/add_cluster"
+           tools:layout_editor_absoluteX="144dp"
+           tools:layout_editor_absoluteY="421dp" />
+
+</LinearLayout>

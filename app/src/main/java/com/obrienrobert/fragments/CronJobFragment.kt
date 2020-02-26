@@ -23,14 +23,14 @@ class CronJobFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val arrayList=ArrayList<String>()
-        arrayList.add("Clusters")
-        arrayList.add("Pods")
-        arrayList.add("Nodes")
-        arrayList.add("Storage")
+        val arrayList = ArrayList<String>()
+        arrayList.add("CronJob 1")
+        arrayList.add("CronJob 2")
+        arrayList.add("CronJob 3")
+        arrayList.add("CronJob 4")
 
-        val viewManager:  RecyclerView.LayoutManager = LinearLayoutManager(context)
-        val viewAdapter: RecyclerView.Adapter<*> =  CronJobAdapter(arrayList)
+        val viewManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
+        val viewAdapter: RecyclerView.Adapter<*> = CronJobAdapter(arrayList)
 
         view.findViewById<RecyclerView>(R.id.cronjob_recycler_view).apply {
 

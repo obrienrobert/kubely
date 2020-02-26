@@ -23,14 +23,14 @@ class SecretFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val arrayList=ArrayList<String>()
-        arrayList.add("Clusters")
-        arrayList.add("Pods")
-        arrayList.add("Nodes")
-        arrayList.add("Storage")
+        val arrayList = ArrayList<String>()
+        arrayList.add("Secret 1")
+        arrayList.add("Secret 2")
+        arrayList.add("Secret 3")
+        arrayList.add("Secret 4")
 
-        val viewManager:  RecyclerView.LayoutManager = LinearLayoutManager(context)
-        val viewAdapter: RecyclerView.Adapter<*> =  SecretAdapter(arrayList)
+        val viewManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
+        val viewAdapter: RecyclerView.Adapter<*> = SecretAdapter(arrayList)
 
         view.findViewById<RecyclerView>(R.id.secret_recycler_view).apply {
 

@@ -81,7 +81,7 @@ class Main : AppCompatActivity(), AnkoLogger {
                 icon = R.drawable.cron_job
                 onClick { _ ->
                     Log.d("DRAWER", "Cron Jobs")
-                    setActionBarTitle(R.string.cronjobs)
+                    setActionBarTitle(R.string.cron_jobs)
                     navigateTo(CronJobFragment.newInstance())
                     false
                 }

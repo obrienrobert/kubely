@@ -12,10 +12,6 @@ import com.obrienrobert.main.R
 
 class PVFragment : Fragment() {
 
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
-    private lateinit var viewManager: RecyclerView.LayoutManager
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,17 +23,14 @@ class PVFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val arrayList=ArrayList<String>()
-        arrayList.add("Clusters")
-        arrayList.add("Pods")
-        arrayList.add("Nodes")
-        arrayList.add("Storage")
+        val arrayList = ArrayList<String>()
+        arrayList.add("PV 1")
+        arrayList.add("PV 2")
+        arrayList.add("PV 3")
+        arrayList.add("PV 4")
 
-        viewManager = LinearLayoutManager(this.context)
-        viewAdapter = PVAdapter(arrayList)
-
-        val viewManager:  RecyclerView.LayoutManager = LinearLayoutManager(context)
-        val viewAdapter: RecyclerView.Adapter<*> =  PVAdapter(arrayList)
+        val viewManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
+        val viewAdapter: RecyclerView.Adapter<*> = PVAdapter(arrayList)
 
         view.findViewById<RecyclerView>(R.id.pv_recycler_view).apply {
 
