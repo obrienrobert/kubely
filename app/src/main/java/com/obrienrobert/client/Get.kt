@@ -3,7 +3,6 @@ package com.obrienrobert.client
 import io.fabric8.kubernetes.api.model.*
 import io.fabric8.openshift.api.model.Project
 
-
 interface Get {
 
     // Pods
@@ -27,5 +26,6 @@ interface Get {
 
     fun getSpecificNamespace(namespace: String): Namespace?
 
-
+    // Nodes
+    fun getAllNodes(): List<Node>
 }

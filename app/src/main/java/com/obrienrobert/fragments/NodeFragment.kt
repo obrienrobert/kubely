@@ -8,9 +8,17 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.adapters.NodeAdapter
+import com.obrienrobert.client.Client
+import com.obrienrobert.client.Requests
 import com.obrienrobert.main.R
+import io.fabric8.kubernetes.api.model.Node
+import me.nikhilchaudhari.asynkio.core.async
 
 class NodeFragment : Fragment() {
+
+    private lateinit var viewManager: RecyclerView.LayoutManager
+    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var nodeList: List<Node>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,14 +37,24 @@ class NodeFragment : Fragment() {
         arrayList.add("Node 3")
         arrayList.add("Node 4")
 
-        val viewManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
-        val viewAdapter: RecyclerView.Adapter<*> = NodeAdapter(arrayList)
+        val client = Client(
+            "<MASTER_URL>",
+            "<USER_NAME>",
+            "<PASSWORD>"
+        ).getClient()
 
-        view.findViewById<RecyclerView>(R.id.node_recycler_view).apply {
+        async {
+            nodeList = await { Requests(client).getAllNodes() }
 
-            setHasFixedSize(true)
-            layoutManager = viewManager
-            adapter = viewAdapter
+            viewManager = LinearLayoutManager(context)
+            viewAdapter = NodeAdapter(nodeList)
+
+            view.findViewById<RecyclerView>(R.id.node_recycler_view).apply {
+
+                setHasFixedSize(true)
+                layoutManager = viewManager
+                adapter = viewAdapter
+            }
         }
     }
 

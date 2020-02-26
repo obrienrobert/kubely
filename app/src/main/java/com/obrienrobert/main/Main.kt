@@ -2,12 +2,14 @@ package com.obrienrobert.main
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import co.zsmb.materialdrawerkt.builders.drawer
 import co.zsmb.materialdrawerkt.draweritems.badgeable.primaryItem
 import co.zsmb.materialdrawerkt.draweritems.sectionHeader
 import com.obrienrobert.fragments.*
+import kotlinx.android.synthetic.main.activity_add_cluster.*
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.AnkoLogger
 
@@ -18,9 +20,28 @@ class Main : AppCompatActivity(), AnkoLogger {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
+        // If there are no clusters present, return the add cluster activity
+        when (1 > 0) {
+            true -> createNavDrawer()
+            false -> addClusterView()
+        }
+    }
+
+    private fun addClusterView(){
+        setContentView(R.layout.activity_add_cluster)
+        setSupportActionBar(toolBarAddCluster)
         setActionBarTitle(R.string.clusters)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+    private fun createNavDrawer(){
+        setContentView(R.layout.activity_main)
+        setSupportActionBar(toolBarResource)
 
         // Display First Fragment initially
         fragmentManager.beginTransaction().replace(R.id.homeFragment, clusterFragment).commit()

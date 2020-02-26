@@ -23,20 +23,4 @@
 
     </com.nicolettilu.hiddensearchwithrecyclerview.HiddenSearchWithRecyclerView>
 
-        <TextView
-            android:id="@+id/empty_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/no_clusters_found"
-            tools:layout_editor_absoluteX="158dp"
-            tools:layout_editor_absoluteY="367dp" />
-
-        <Button
-           android:id="@+id/add_cluster"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="@string/add_cluster"
-           tools:layout_editor_absoluteX="144dp"
-           tools:layout_editor_absoluteY="421dp" />
-
 </LinearLayout>

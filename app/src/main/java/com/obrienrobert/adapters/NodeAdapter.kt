@@ -10,11 +10,12 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.main.R
+import io.fabric8.kubernetes.api.model.Node
 
-class NodeAdapter(private val arrayOfNodes: List<String>) :
+class NodeAdapter(private val arrayOfNodes: List<Node>) :
     RecyclerView.Adapter<NodeAdapter.ViewHolder>(), Filterable {
 
-    private var copyOfNodes: List<String> = arrayOfNodes.toList()
+    private var copyOfNodes: List<Node> = arrayOfNodes.toList()
 
     override fun getFilter(): Filter = object : Filter() {
         override fun performFiltering(value: CharSequence?): FilterResults {
@@ -23,7 +24,7 @@ class NodeAdapter(private val arrayOfNodes: List<String>) :
                 results.values = arrayOfNodes
             } else {
                 copyOfNodes = arrayOfNodes.filter {
-                    it.contains(value, true)
+                    it.metadata.name.contains(value, true)
                 }
                 results.values = copyOfNodes
             }
@@ -31,7 +32,7 @@ class NodeAdapter(private val arrayOfNodes: List<String>) :
         }
 
         override fun publishResults(value: CharSequence?, results: FilterResults?) {
-            copyOfNodes = (results?.values as? List<String>).orEmpty()
+            copyOfNodes = (results?.values as? List<Node>).orEmpty()
             notifyDataSetChanged()
         }
 
@@ -49,15 +50,17 @@ class NodeAdapter(private val arrayOfNodes: List<String>) :
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.bind(copyOfNodes[position], position)
+        viewHolder.bind(copyOfNodes, position)
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bind(value: String, position: Int) {
-            this.itemView.findViewById<TextView>(R.id.resource_name).text = value
+        fun bind(nodes: List<Node>, position: Int) {
+            this.itemView.findViewById<TextView>(R.id.resource_name).text =
+                nodes[position].metadata.name
+
             this.itemView.setOnClickListener {
-                Log.e("CLICK", "Clicked item $value at $position")
+                Log.e("CLICK", "Clicked item ${nodes[position].metadata.name} at $position")
             }
         }
     }

@@ -39,7 +39,8 @@ class ProjectFragment : Fragment() {
 
         val client = Client(
             "<MASTER_URL>",
-            "<OAUTH_TOKEN>"
+            "<USER_NAME>",
+            "<PASSWORD>"
         ).getClient()
 
         async {

@@ -39,8 +39,13 @@ class Requests(private var client: OpenShiftClient) : Get {
             return client.services().inNamespace(namespace).list()
         }
 
-
         override fun getService(namespace: String, service: String): ServiceSpec? {
             return client.services().inNamespace(namespace).withName(service).get().spec
+        }
+
+
+        // Nodes
+        override fun getAllNodes(): List<Node> {
+            return client.nodes().list().items
         }
     }
