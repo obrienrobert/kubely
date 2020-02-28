@@ -1,12 +1,13 @@
 package com.obrienrobert.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import org.jetbrains.anko.AnkoLogger
 
-class AddCluster : AppCompatActivity() {
+class AddCluster : AppCompatActivity(), AnkoLogger{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_cluster)
+        setContentView(R.layout.add_cluster)
     }
 }

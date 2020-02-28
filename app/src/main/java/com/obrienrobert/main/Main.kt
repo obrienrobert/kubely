@@ -3,34 +3,25 @@ package com.obrienrobert.main
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import co.zsmb.materialdrawerkt.builders.drawer
 import co.zsmb.materialdrawerkt.draweritems.badgeable.primaryItem
 import co.zsmb.materialdrawerkt.draweritems.sectionHeader
 import com.obrienrobert.fragments.*
-import kotlinx.android.synthetic.main.activity_add_cluster.*
+import kotlinx.android.synthetic.main.add_cluster.*
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
+
 
 class Main : AppCompatActivity(), AnkoLogger {
 
-    private val fragmentManager = supportFragmentManager
-    private val clusterFragment = ClusterFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // If there are no clusters present, return the add cluster activity
-        when (1 > 0) {
-            true -> createNavDrawer()
-            false -> addClusterView()
-        }
-    }
-
-    private fun addClusterView(){
-        setContentView(R.layout.activity_add_cluster)
-        setSupportActionBar(toolBarAddCluster)
-        setActionBarTitle(R.string.clusters)
+        createNavDrawer()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -39,12 +30,25 @@ class Main : AppCompatActivity(), AnkoLogger {
         return true
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.add_cluster -> {
+                info { "Add button clicked!" }
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun createNavDrawer(){
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolBarResource)
 
-        // Display First Fragment initially
-        fragmentManager.beginTransaction().replace(R.id.homeFragment, clusterFragment).commit()
+        // Display First Fragment initially - this needs to be updated to represent cluster size
+        when(true){
+            true -> navigateTo(AddClusterFragment.newInstance())
+            false -> navigateTo(ClusterFragment.newInstance())
+        }
 
         // Nav draw setup
         drawer {
@@ -56,8 +60,7 @@ class Main : AppCompatActivity(), AnkoLogger {
                     setActionBarTitle(R.string.clusters)
                     navigateTo(ClusterFragment.newInstance())
                     false
-                }
-            }
+                } }
             primaryItem("Projects") {
                 icon = R.drawable.project
                 onClick { _ ->
@@ -162,11 +165,21 @@ class Main : AppCompatActivity(), AnkoLogger {
         }
     }
 
-    private fun navigateTo(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.homeFragment, fragment)
+    private fun navigateTo(_fragment: Fragment) {
+        var fragmentCopy: Fragment = _fragment
+
+        // this needs to be updated to represent cluster size
+        if(true) {
+            fragmentCopy = AddClusterFragment.newInstance()
+            setActionBarTitle(R.string.clusters)
+        }
+
+        supportFragmentManager.apply {
+            beginTransaction()
+            .replace(R.id.homeFragment, fragmentCopy)
             .addToBackStack(null)
             .commit()
+        }
     }
 
     // Separate function to allow for any future action bar modifications

@@ -39,7 +39,7 @@ class NodeFragment : Fragment() {
 
         val client = Client(
             "<MASTER_URL>",
-            "<USER_NAME>",
+            "<USERNAME>",
             "<PASSWORD>"
         ).getClient()
 

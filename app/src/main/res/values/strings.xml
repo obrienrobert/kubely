@@ -1,10 +1,12 @@
 <resources>
     <string name="add_cluster">Add Cluster</string>
+    <string name="cluster_api_url">Cluster API URL</string>
     <string name="no_clusters_found">No clusters found</string>
     <string name="app_name">Shifty</string>
     <string name="cron_jobs">Cron Jobs</string>
     <string name="clusters">Clusters</string>
     <string name="deployments">Deployments</string>
+    <string name="password">Password</string>
     <string name="routes">Routes</string>
     <string name="pods">Pods</string>
     <string name="persistent_volume_claims">Persistent Volume Claims</string>
@@ -13,4 +15,5 @@
     <string name="nodes">Nodes</string>
     <string name="secrets">Secrets</string>
     <string name="services">Services</string>
+    <string name="user_name">Username</string>
 </resources>
