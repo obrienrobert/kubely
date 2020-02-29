@@ -10,7 +10,6 @@ import co.zsmb.materialdrawerkt.builders.drawer
 import co.zsmb.materialdrawerkt.draweritems.badgeable.primaryItem
 import co.zsmb.materialdrawerkt.draweritems.sectionHeader
 import com.obrienrobert.fragments.*
-import kotlinx.android.synthetic.main.add_cluster.*
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -18,13 +17,12 @@ import org.jetbrains.anko.info
 
 class Main : AppCompatActivity(), AnkoLogger {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         createNavDrawer()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
         inflater.inflate(R.menu.main_menu, menu)
         return true
@@ -32,8 +30,8 @@ class Main : AppCompatActivity(), AnkoLogger {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.add_cluster -> {
-                info { "Add button clicked!" }
+            R.id.main_menu_item -> {
+                info { "Add button clicked Main!" }
                 return true
             }
         }
