@@ -19,7 +19,7 @@ class ProjectFragment : Fragment() {
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var projectList: List<Project>
 
-    lateinit var optionsMenu: Menu
+    private lateinit var optionsMenu: Menu
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,13 +29,11 @@ class ProjectFragment : Fragment() {
         return inflater.inflate(R.layout.project_fragment, container, false)
     }
 
-    //enable options menu in this fragment
     override fun onCreate(savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
         super.onCreate(savedInstanceState)
     }
 
-    //inflate the menu
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()
         inflater.inflate(R.menu.project_menu, menu)
@@ -46,7 +44,6 @@ class ProjectFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.project_menu_item -> {
-                Log.d("TEST TEST TEST", "Add Project!")
                 return true
             }
         }
@@ -55,12 +52,6 @@ class ProjectFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val arrayList = ArrayList<String>()
-        arrayList.add("Project 1")
-        arrayList.add("Project 2")
-        arrayList.add("Project 3")
-        arrayList.add("Project 4")
 
         val client = Client(
             "<MASTER_URL>",

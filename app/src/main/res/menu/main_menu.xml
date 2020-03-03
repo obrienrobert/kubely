@@ -5,6 +5,5 @@
         android:id="@+id/main_menu_item"
         android:icon="@drawable/add"
         app:showAsAction="ifRoom"
-        android:title="@string/add_cluster">
-    </item>
+        android:title="@string/add_cluster" />
 </menu>

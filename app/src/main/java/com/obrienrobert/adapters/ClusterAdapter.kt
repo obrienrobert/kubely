@@ -10,11 +10,12 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.main.R
+import com.obrienrobert.models.ClusterModel
 
-class ClusterAdapter(private val arrayOfClusters: List<String>) :
+class ClusterAdapter(private val arrayOfClusters: List<ClusterModel>) :
     RecyclerView.Adapter<ClusterAdapter.ViewHolder>(), Filterable {
 
-    private var copyOfClusters: List<String> = arrayOfClusters.toList()
+    private var copyOfClusters: List<ClusterModel> = arrayOfClusters.toList()
 
     override fun getFilter(): Filter = object : Filter() {
         override fun performFiltering(value: CharSequence?): FilterResults {
@@ -23,7 +24,7 @@ class ClusterAdapter(private val arrayOfClusters: List<String>) :
                 results.values = arrayOfClusters
             } else {
                 copyOfClusters = arrayOfClusters.filter {
-                    it.contains(value, true)
+                    it.masterURL?.contains(value, true)!!
                 }
                 results.values = copyOfClusters
             }
@@ -31,7 +32,7 @@ class ClusterAdapter(private val arrayOfClusters: List<String>) :
         }
 
         override fun publishResults(value: CharSequence?, results: FilterResults?) {
-            copyOfClusters = (results?.values as? List<String>).orEmpty()
+            copyOfClusters = (results?.values as? List<ClusterModel>).orEmpty()
             notifyDataSetChanged()
         }
 
@@ -40,7 +41,7 @@ class ClusterAdapter(private val arrayOfClusters: List<String>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.card_view, parent, false) as CardView
+                .inflate(R.layout.cluster_card_view, parent, false) as CardView
         )
     }
 
@@ -49,15 +50,17 @@ class ClusterAdapter(private val arrayOfClusters: List<String>) :
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.bind(copyOfClusters[position], position)
+        viewHolder.bind(copyOfClusters, position)
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bind(value: String, position: Int) {
-            this.itemView.findViewById<TextView>(R.id.resource_name).text = value
+        fun bind(nodes: List<ClusterModel>, position: Int) {
+            this.itemView.findViewById<TextView>(R.id.cluster_name).text =
+                nodes[position].masterURL
+
             this.itemView.setOnClickListener {
-                Log.e("CLICK", "Clicked item $value at $position")
+                Log.e("CLICK", "Clicked item ${nodes[position].masterURL} at $position")
             }
         }
     }

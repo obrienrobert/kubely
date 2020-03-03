@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.obrienrobert.main.AddCluster">
 
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/cluster_url_text_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -24,7 +23,7 @@
             android:id="@+id/cluster_url"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="textUri"/>
+            android:inputType="textUri" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -44,7 +43,7 @@
             android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="textPersonName"/>
+            android:inputType="textPersonName" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -70,7 +69,6 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <ImageView
-        android:id="@+id/imageView"
         android:layout_width="174dp"
         android:layout_height="152dp"
         android:layout_marginStart="118dp"
@@ -81,6 +79,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/openshift" />
+        app:srcCompat="@drawable/openshift"
+        android:contentDescription="@string/openshift_logo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

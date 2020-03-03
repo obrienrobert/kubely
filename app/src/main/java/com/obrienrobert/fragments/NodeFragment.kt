@@ -31,12 +31,6 @@ class NodeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val arrayList = ArrayList<String>()
-        arrayList.add("Node 1")
-        arrayList.add("Node 2")
-        arrayList.add("Node 3")
-        arrayList.add("Node 4")
-
         val client = Client(
             "<MASTER_URL>",
             "<USERNAME>",

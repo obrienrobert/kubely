@@ -41,7 +41,7 @@ class NodeAdapter(private val arrayOfNodes: List<Node>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.card_view, parent, false) as CardView
+                .inflate(R.layout.resource_card_view, parent, false) as CardView
         )
     }
 

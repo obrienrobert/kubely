@@ -29,7 +29,6 @@ class DeploymentFragment : Fragment() {
         arrayList.add("Deployment 3")
         arrayList.add("Deployment 4")
 
-
         val viewManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
         val viewAdapter: RecyclerView.Adapter<*> = DeploymentAdapter(arrayList)
 

@@ -10,6 +10,8 @@ import co.zsmb.materialdrawerkt.builders.drawer
 import co.zsmb.materialdrawerkt.draweritems.badgeable.primaryItem
 import co.zsmb.materialdrawerkt.draweritems.sectionHeader
 import com.obrienrobert.fragments.*
+import com.obrienrobert.models.ClusterModel
+import com.obrienrobert.models.ClusterStore
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -19,6 +21,14 @@ class Main : AppCompatActivity(), AnkoLogger {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Mocking the client for now
+        ClusterStore.listOfClusters.add(
+            ClusterModel(
+                "<MASTER_URL>",
+                "kubeadmin",
+                "<PASSWORD>"
+            )
+        )
         createNavDrawer()
     }
 
@@ -38,12 +48,13 @@ class Main : AppCompatActivity(), AnkoLogger {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun createNavDrawer(){
+    private fun createNavDrawer() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolBarResource)
+        setActionBarTitle(R.string.clusters)
 
-        // Display First Fragment initially - this needs to be updated to represent cluster size
-        when(true){
+        // ClusterStore.listOfClusters.add(ClusterModel("https://api.robrien.b7z8.s1.devshift.org:6443", "kubeadmin", "trY9s-z5Mot-mEWM9-xS64I"))
+        when (ClusterStore.listOfClusters.isEmpty()) {
             true -> navigateTo(AddClusterFragment.newInstance())
             false -> navigateTo(ClusterFragment.newInstance())
         }
@@ -58,7 +69,8 @@ class Main : AppCompatActivity(), AnkoLogger {
                     setActionBarTitle(R.string.clusters)
                     navigateTo(ClusterFragment.newInstance())
                     false
-                } }
+                }
+            }
             primaryItem("Projects") {
                 icon = R.drawable.project
                 onClick { _ ->
@@ -164,23 +176,21 @@ class Main : AppCompatActivity(), AnkoLogger {
     }
 
     private fun navigateTo(_fragment: Fragment) {
-        var fragmentCopy: Fragment = _fragment
 
-        // this needs to be updated to represent cluster size
-        if(true) {
+        var fragmentCopy: Fragment = _fragment
+        if (ClusterStore.listOfClusters.isEmpty()) {
             fragmentCopy = AddClusterFragment.newInstance()
             setActionBarTitle(R.string.clusters)
         }
 
         supportFragmentManager.apply {
             beginTransaction()
-            .replace(R.id.homeFragment, fragmentCopy)
-            .addToBackStack(null)
-            .commit()
+                .replace(R.id.homeFragment, fragmentCopy)
+                .addToBackStack(null)
+                .commit()
         }
     }
 
-    // Separate function to allow for any future action bar modifications
     private fun setActionBarTitle(title: Int) {
         supportActionBar?.setTitle(title)
     }
