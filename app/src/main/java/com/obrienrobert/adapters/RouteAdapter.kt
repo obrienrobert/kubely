@@ -30,6 +30,7 @@ class RouteAdapter(private val arrayOfRoutes: List<String>) :
             return results
         }
 
+        @Suppress("UNCHECKED_CAST")
         override fun publishResults(value: CharSequence?, results: FilterResults?) {
             copyOfRoutes = (results?.values as? List<String>).orEmpty()
             notifyDataSetChanged()

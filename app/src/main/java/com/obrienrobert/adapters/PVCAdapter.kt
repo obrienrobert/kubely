@@ -30,6 +30,7 @@ class PVCAdapter(private val arrayOfPVCs: List<String>) :
             return results
         }
 
+        @Suppress("UNCHECKED_CAST")
         override fun publishResults(value: CharSequence?, results: FilterResults?) {
             copyOfPVCs = (results?.values as? List<String>).orEmpty()
             notifyDataSetChanged()

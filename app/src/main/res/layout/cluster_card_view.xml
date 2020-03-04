@@ -27,10 +27,13 @@
             android:padding="1dp"
             android:textColor="@color/md_black_1000" />
 
-        <CheckBox
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/textButton"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/active_cluster" />
+            android:text="@string/action" />
+
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

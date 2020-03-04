@@ -1,7 +1,6 @@
 package com.obrienrobert.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -55,7 +54,7 @@ class ProjectFragment : Fragment() {
 
         val client = Client(
             "<MASTER_URL>",
-            "<USERNAME>",
+            "kubeadmin",
             "<PASSWORD>"
         ).getClient()
 

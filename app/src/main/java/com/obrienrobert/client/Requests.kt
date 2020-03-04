@@ -7,8 +7,8 @@ import io.fabric8.openshift.client.OpenShiftClient
 class Requests(private var client: OpenShiftClient) : Get {
 
     // Pods
-    override fun getAllPods(): PodList {
-        return client.pods().list()
+    override fun getAllPods(): List<Pod> {
+        return client.pods().list().items
     }
 
     override fun getAllPodsInNamespace(namespace: String): List<Pod> {
@@ -31,8 +31,8 @@ class Requests(private var client: OpenShiftClient) : Get {
 
 
     // Services
-    override fun getAllServices(): ServiceList? {
-        return client.services().list()
+    override fun getAllServices(): List<Service> {
+        return client.services().list().items
     }
 
     override fun getAllServicesInNamespace(namespace: String): ServiceList? {

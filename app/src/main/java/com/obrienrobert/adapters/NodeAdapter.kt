@@ -31,6 +31,7 @@ class NodeAdapter(private val arrayOfNodes: List<Node>) :
             return results
         }
 
+        @Suppress("UNCHECKED_CAST")
         override fun publishResults(value: CharSequence?, results: FilterResults?) {
             copyOfNodes = (results?.values as? List<Node>).orEmpty()
             notifyDataSetChanged()
@@ -58,6 +59,8 @@ class NodeAdapter(private val arrayOfNodes: List<Node>) :
         fun bind(nodes: List<Node>, position: Int) {
             this.itemView.findViewById<TextView>(R.id.resource_name).text =
                 nodes[position].metadata.name
+
+            Log.d("TEST: ", nodes[position].metadata.name)
 
             this.itemView.setOnClickListener {
                 Log.e("CLICK", "Clicked item ${nodes[position].metadata.name} at $position")

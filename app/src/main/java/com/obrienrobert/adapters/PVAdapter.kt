@@ -30,6 +30,7 @@ class PVAdapter(private val arrayOfPVs: List<String>) :
             return results
         }
 
+        @Suppress("UNCHECKED_CAST")
         override fun publishResults(value: CharSequence?, results: FilterResults?) {
             copyOfPVs = (results?.values as? List<String>).orEmpty()
             notifyDataSetChanged()

@@ -25,6 +25,7 @@ class Main : AppCompatActivity(), AnkoLogger {
         ClusterStore.listOfClusters.add(
             ClusterModel(
                 "<MASTER_URL>",
+                "Test cluster",
                 "kubeadmin",
                 "<PASSWORD>"
             )
@@ -53,7 +54,6 @@ class Main : AppCompatActivity(), AnkoLogger {
         setSupportActionBar(toolBarResource)
         setActionBarTitle(R.string.clusters)
 
-        // ClusterStore.listOfClusters.add(ClusterModel("https://api.robrien.b7z8.s1.devshift.org:6443", "kubeadmin", "trY9s-z5Mot-mEWM9-xS64I"))
         when (ClusterStore.listOfClusters.isEmpty()) {
             true -> navigateTo(AddClusterFragment.newInstance())
             false -> navigateTo(ClusterFragment.newInstance())

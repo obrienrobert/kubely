@@ -30,6 +30,7 @@ class CronJobAdapter(private val arrayOfCronjobs: List<String>) :
             return results
         }
 
+        @Suppress("UNCHECKED_CAST")
         override fun publishResults(value: CharSequence?, results: FilterResults?) {
             copyOfCronjobs = (results?.values as? List<String>).orEmpty()
             notifyDataSetChanged()

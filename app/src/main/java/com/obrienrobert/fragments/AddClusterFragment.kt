@@ -48,7 +48,12 @@ class AddClusterFragment : Fragment(), AnkoLogger {
             input(R.id.cluster_url) {
                 isNotEmpty() //isUrl(); //contains("http")
             }
-
+            input(R.id.cluster_name) {
+                isNotEmpty()
+                /*
+                         length().greaterThan(6)
+                         length().lessThan(16)*/
+            }
             input(R.id.username) {
                 isNotEmpty()
                 /*
@@ -69,12 +74,14 @@ class AddClusterFragment : Fragment(), AnkoLogger {
 
             val result: FormResult = addClusterForm
             val clusterURL: FieldValue<*>? = result["cluster_url"]
+            val clusterName: FieldValue<*>? = result["cluster_name"]
             val username: FieldValue<*>? = result["username"]
             val password: FieldValue<*>? = result["password"]
 
             ClusterStore.listOfClusters.add(
                 ClusterModel(
                     clusterURL?.asString(),
+                    clusterName?.asString(),
                     username?.asString(),
                     password?.asString()
                 )

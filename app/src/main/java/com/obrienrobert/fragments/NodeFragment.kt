@@ -33,8 +33,8 @@ class NodeFragment : Fragment() {
 
         val client = Client(
             "<MASTER_URL>",
-            "<USERNAME>",
-            "<PASSWORD>"
+            "kubeadmin",
+            "PASSWORD"
         ).getClient()
 
         async {

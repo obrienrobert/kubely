@@ -6,7 +6,7 @@ import io.fabric8.openshift.api.model.Project
 interface Get {
 
     // Pods
-    fun getAllPods(): PodList?
+    fun getAllPods(): List<Pod>
 
     fun getAllPodsInNamespace(namespace: String): List<Pod>
 
@@ -14,7 +14,7 @@ interface Get {
 
 
     // Services
-    fun getAllServices(): ServiceList?
+    fun getAllServices(): List<Service>
 
     fun getAllServicesInNamespace(namespace: String): ServiceList?
 
