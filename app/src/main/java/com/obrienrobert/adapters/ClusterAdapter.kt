@@ -24,13 +24,14 @@ class ClusterAdapter(private val arrayOfClusters: List<ClusterModel>) :
                 results.values = arrayOfClusters
             } else {
                 copyOfClusters = arrayOfClusters.filter {
-                    it.masterURL?.contains(value, true)!!
+                    it.clusterName?.contains(value, true)!!
                 }
                 results.values = copyOfClusters
             }
             return results
         }
 
+        @Suppress("UNCHECKED_CAST")
         override fun publishResults(value: CharSequence?, results: FilterResults?) {
             copyOfClusters = (results?.values as? List<ClusterModel>).orEmpty()
             notifyDataSetChanged()
@@ -57,10 +58,10 @@ class ClusterAdapter(private val arrayOfClusters: List<ClusterModel>) :
 
         fun bind(nodes: List<ClusterModel>, position: Int) {
             this.itemView.findViewById<TextView>(R.id.cluster_name).text =
-                nodes[position].masterURL
+                nodes[position].clusterName
 
             this.itemView.setOnClickListener {
-                Log.e("CLICK", "Clicked item ${nodes[position].masterURL} at $position")
+                Log.e("CLICK", "Clicked item ${nodes[position].clusterName} at $position")
             }
         }
     }

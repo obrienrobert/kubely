@@ -7,11 +7,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 import com.obrienrobert.adapters.PodAdapter
+import com.obrienrobert.client.Client
+import com.obrienrobert.client.Requests
 import com.obrienrobert.main.R
+import io.fabric8.kubernetes.api.model.Pod
+import me.nikhilchaudhari.asynkio.core.async
 
 class PodFragment : Fragment() {
+
+    private lateinit var viewManager: RecyclerView.LayoutManager
+    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var podList: List<Pod>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,20 +31,24 @@ class PodFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val arrayList = ArrayList<String>()
-        arrayList.add("Pod 1")
-        arrayList.add("Pod 2")
-        arrayList.add("Pod 3")
-        arrayList.add("Pod 4")
+        val client = Client(
+            "<MASTER_URL>",
+            "kubeadmin",
+            "<PASSWORD>"
+        ).getClient()
 
-        val viewManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
-        val viewAdapter: RecyclerView.Adapter<*> = PodAdapter(arrayList)
+        async {
+            podList = await { Requests(client).getAllPods() }
 
-        view.findViewById<RecyclerView>(R.id.pod_recycler_view).apply {
+            viewManager = LinearLayoutManager(context)
+            viewAdapter = PodAdapter(podList)
 
-            setHasFixedSize(true)
-            layoutManager = viewManager
-            adapter = viewAdapter
+            view.findViewById<RecyclerView>(R.id.pod_recycler_view).apply {
+
+                setHasFixedSize(true)
+                layoutManager = viewManager
+                adapter = viewAdapter
+            }
         }
     }
 

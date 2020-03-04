@@ -10,11 +10,12 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.main.R
+import io.fabric8.kubernetes.api.model.Service
 
-class ServiceAdapter(private val arrayOfServices: List<String>) :
+class ServiceAdapter(private val arrayOfServices: List<Service>) :
     RecyclerView.Adapter<ServiceAdapter.ViewHolder>(), Filterable {
 
-    private var copyOfServices: List<String> = arrayOfServices.toList()
+    private var copyOfServices: List<Service> = arrayOfServices.toList()
 
     override fun getFilter(): Filter = object : Filter() {
         override fun performFiltering(value: CharSequence?): FilterResults {
@@ -22,15 +23,16 @@ class ServiceAdapter(private val arrayOfServices: List<String>) :
             if (value.isNullOrEmpty()) results.values = arrayOfServices
             else {
                 copyOfServices = arrayOfServices.filter {
-                    it.contains(value, true)
+                    it.metadata.name.contains(value, true)
                 }
                 results.values = copyOfServices
             }
             return results
         }
 
+        @Suppress("UNCHECKED_CAST")
         override fun publishResults(value: CharSequence?, results: FilterResults?) {
-            copyOfServices = (results?.values as? List<String>).orEmpty()
+            copyOfServices = (results?.values as? List<Service>).orEmpty()
             notifyDataSetChanged()
         }
 
@@ -48,15 +50,17 @@ class ServiceAdapter(private val arrayOfServices: List<String>) :
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.bind(copyOfServices[position], position)
+        viewHolder.bind(copyOfServices, position)
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bind(value: String, position: Int) {
-            this.itemView.findViewById<TextView>(R.id.resource_name).text = value
+        fun bind(services: List<Service>, position: Int) {
+            this.itemView.findViewById<TextView>(R.id.resource_name).text =
+                services[position].metadata.name
+
             this.itemView.setOnClickListener {
-                Log.e("CLICK", "Clicked item $value at $position")
+                Log.e("CLICK", "Clicked item ${services[position].metadata.name} at $position")
             }
         }
     }

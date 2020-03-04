@@ -31,6 +31,7 @@ class ProjectAdapter(private val projectList: List<Project>) :
             return results
         }
 
+        @Suppress("UNCHECKED_CAST")
         override fun publishResults(value: CharSequence?, results: FilterResults?) {
             copyOfProjects = (results?.values as List<Project>)
             notifyDataSetChanged()

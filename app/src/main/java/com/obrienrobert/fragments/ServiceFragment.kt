@@ -8,9 +8,17 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.adapters.ServiceAdapter
+import com.obrienrobert.client.Client
+import com.obrienrobert.client.Requests
 import com.obrienrobert.main.R
+import io.fabric8.kubernetes.api.model.Service
+import me.nikhilchaudhari.asynkio.core.async
 
 class ServiceFragment : Fragment() {
+
+    private lateinit var viewManager: RecyclerView.LayoutManager
+    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var serviceList: List<Service>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,20 +31,24 @@ class ServiceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val arrayList = ArrayList<String>()
-        arrayList.add("Service 1")
-        arrayList.add("Service 2")
-        arrayList.add("Service 3")
-        arrayList.add("Service 4")
+        val client = Client(
+            "<MASTER_URL>",
+            "kubeadmin",
+            "<PASSWORD>"
+        ).getClient()
 
-        val viewManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
-        val viewAdapter: RecyclerView.Adapter<*> = ServiceAdapter(arrayList)
+        async {
+            serviceList = await { Requests(client).getAllServices() }
 
-        view.findViewById<RecyclerView>(R.id.service_recycler_view).apply {
+            viewManager = LinearLayoutManager(context)
+            viewAdapter = ServiceAdapter(serviceList)
 
-            setHasFixedSize(true)
-            layoutManager = viewManager
-            adapter = viewAdapter
+            view.findViewById<RecyclerView>(R.id.service_recycler_view).apply {
+
+                setHasFixedSize(true)
+                layoutManager = viewManager
+                adapter = viewAdapter
+            }
         }
     }
 

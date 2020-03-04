@@ -30,6 +30,7 @@ class DeploymentAdapter(private val arrayOfDeployments: List<String>) :
             return results
         }
 
+        @Suppress("UNCHECKED_CAST")
         override fun publishResults(value: CharSequence?, results: FilterResults?) {
             copyOfDeployments = (results?.values as? List<String>).orEmpty()
             notifyDataSetChanged()

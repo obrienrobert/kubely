@@ -30,6 +30,7 @@ class SecretAdapter(private val arrayOfSecrets: List<String>) :
             return results
         }
 
+        @Suppress("UNCHECKED_CAST")
         override fun publishResults(value: CharSequence?, results: FilterResults?) {
             copyOfSecrets = (results?.values as? List<String>).orEmpty()
             notifyDataSetChanged()

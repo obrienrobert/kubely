@@ -25,6 +25,7 @@ class Main : AppCompatActivity(), AnkoLogger {
         ClusterStore.listOfClusters.add(
             ClusterModel(
                 "<MASTER_URL>",
+                "Test cluster",
                 "kubeadmin",
                 "<PASSWORD>"
             )

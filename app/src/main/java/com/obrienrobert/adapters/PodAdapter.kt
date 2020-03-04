@@ -10,11 +10,12 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.main.R
+import io.fabric8.kubernetes.api.model.Pod
 
-class PodAdapter(private val arrayOfPods: List<String>) :
+class PodAdapter(private val arrayOfPods: List<Pod>) :
     RecyclerView.Adapter<PodAdapter.ViewHolder>(), Filterable {
 
-    private var copyOfPods: List<String> = arrayOfPods.toList()
+    private var copyOfPods: List<Pod> = arrayOfPods.toList()
 
     override fun getFilter(): Filter = object : Filter() {
         override fun performFiltering(value: CharSequence?): FilterResults {
@@ -23,18 +24,18 @@ class PodAdapter(private val arrayOfPods: List<String>) :
                 results.values = arrayOfPods
             } else {
                 copyOfPods = arrayOfPods.filter {
-                    it.contains(value, true)
+                    it.metadata.name.contains(value, true)
                 }
                 results.values = copyOfPods
             }
             return results
         }
 
+        @Suppress("UNCHECKED_CAST")
         override fun publishResults(value: CharSequence?, results: FilterResults?) {
-            copyOfPods = (results?.values as? List<String>).orEmpty()
+            copyOfPods = (results?.values as? List<Pod>).orEmpty()
             notifyDataSetChanged()
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -49,15 +50,17 @@ class PodAdapter(private val arrayOfPods: List<String>) :
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.bind(copyOfPods[position], position)
+        viewHolder.bind(copyOfPods, position)
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bind(value: String, position: Int) {
-            this.itemView.findViewById<TextView>(R.id.resource_name).text = value
+        fun bind(pods: List<Pod>, position: Int) {
+            this.itemView.findViewById<TextView>(R.id.resource_name).text =
+                pods[position].metadata.name
+
             this.itemView.setOnClickListener {
-                Log.e("CLICK", "Clicked item $value at $position")
+                Log.e("CLICK", "Clicked item ${pods[position].metadata.name} at $position")
             }
         }
     }
