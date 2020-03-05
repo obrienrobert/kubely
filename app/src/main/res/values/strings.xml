@@ -1,6 +1,5 @@
 <resources>
     <string name="action">Action</string>
-    <string name="active_cluster">Active Cluster</string>
     <string name="add_cluster">Add Cluster</string>
     <string name="cluster_api_url">Cluster API URL</string>
     <string name="app_name">Shifty</string>

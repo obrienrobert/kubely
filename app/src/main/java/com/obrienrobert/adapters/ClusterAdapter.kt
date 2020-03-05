@@ -1,6 +1,5 @@
 package com.obrienrobert.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +10,11 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.main.R
 import com.obrienrobert.models.ClusterModel
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 
 class ClusterAdapter(private val arrayOfClusters: List<ClusterModel>) :
-    RecyclerView.Adapter<ClusterAdapter.ViewHolder>(), Filterable {
+    RecyclerView.Adapter<ClusterAdapter.ViewHolder>(), Filterable, AnkoLogger {
 
     private var copyOfClusters: List<ClusterModel> = arrayOfClusters.toList()
 
@@ -47,6 +48,7 @@ class ClusterAdapter(private val arrayOfClusters: List<ClusterModel>) :
     }
 
     override fun getItemCount(): Int {
+
         return copyOfClusters.size
     }
 
@@ -54,14 +56,14 @@ class ClusterAdapter(private val arrayOfClusters: List<ClusterModel>) :
         viewHolder.bind(copyOfClusters, position)
     }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view), AnkoLogger {
 
         fun bind(nodes: List<ClusterModel>, position: Int) {
             this.itemView.findViewById<TextView>(R.id.cluster_name).text =
                 nodes[position].clusterName
 
             this.itemView.setOnClickListener {
-                Log.e("CLICK", "Clicked item ${nodes[position].clusterName} at $position")
+                info{ "Clicked item ${nodes[position].clusterName} at $position" }
             }
         }
     }

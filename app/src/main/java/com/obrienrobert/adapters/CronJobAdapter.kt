@@ -1,6 +1,5 @@
 package com.obrienrobert.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +9,8 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.main.R
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 
 class CronJobAdapter(private val arrayOfCronjobs: List<String>) :
     RecyclerView.Adapter<CronJobAdapter.ViewHolder>(), Filterable {
@@ -53,12 +54,12 @@ class CronJobAdapter(private val arrayOfCronjobs: List<String>) :
         viewHolder.bind(copyOfCronjobs[position], position)
     }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view), AnkoLogger {
 
         fun bind(value: String, position: Int) {
             this.itemView.findViewById<TextView>(R.id.resource_name).text = value
             this.itemView.setOnClickListener {
-                Log.e("CLICK", "Clicked item $value at $position")
+                info{ "Clicked item $value at $position" }
             }
         }
     }

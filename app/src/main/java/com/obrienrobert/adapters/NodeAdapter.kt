@@ -1,6 +1,5 @@
 package com.obrienrobert.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +10,8 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.main.R
 import io.fabric8.kubernetes.api.model.Node
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 
 class NodeAdapter(private val arrayOfNodes: List<Node>) :
     RecyclerView.Adapter<NodeAdapter.ViewHolder>(), Filterable {
@@ -54,16 +55,14 @@ class NodeAdapter(private val arrayOfNodes: List<Node>) :
         viewHolder.bind(copyOfNodes, position)
     }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view), AnkoLogger {
 
         fun bind(nodes: List<Node>, position: Int) {
             this.itemView.findViewById<TextView>(R.id.resource_name).text =
                 nodes[position].metadata.name
 
-            Log.d("TEST: ", nodes[position].metadata.name)
-
             this.itemView.setOnClickListener {
-                Log.e("CLICK", "Clicked item ${nodes[position].metadata.name} at $position")
+                info{ "Clicked item ${nodes[position].metadata.name} at $position" }
             }
         }
     }

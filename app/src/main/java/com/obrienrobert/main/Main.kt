@@ -22,14 +22,15 @@ class Main : AppCompatActivity(), AnkoLogger {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Mocking the client for now
-        ClusterStore.listOfClusters.add(
-            ClusterModel(
-                "<MASTER_URL>",
-                "Test cluster",
-                "kubeadmin",
-                "<PASSWORD>"
+            ClusterStore.listOfClusters.add(
+                ClusterModel(
+                    "<MASTER_URL>",
+                    "Test cluster",
+                    "kubeadmin",
+                    "<PASSWORD>"
+                )
             )
-        )
+
         createNavDrawer()
     }
 
