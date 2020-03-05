@@ -8,8 +8,8 @@ import com.afollestad.vvalidator.field.FieldValue
 import com.afollestad.vvalidator.form
 import com.afollestad.vvalidator.form.FormResult
 import com.obrienrobert.main.R
+import com.obrienrobert.models.ClusterMemStore
 import com.obrienrobert.models.ClusterModel
-import com.obrienrobert.models.ClusterStore
 import org.jetbrains.anko.AnkoLogger
 
 class AddClusterFragment : Fragment(), AnkoLogger {
@@ -78,7 +78,7 @@ class AddClusterFragment : Fragment(), AnkoLogger {
             val username: FieldValue<*>? = result["username"]
             val password: FieldValue<*>? = result["password"]
 
-            ClusterStore.listOfClusters.add(
+            ClusterMemStore.listOfClusters.add(
                 ClusterModel(
                     clusterURL?.asString(),
                     clusterName?.asString(),

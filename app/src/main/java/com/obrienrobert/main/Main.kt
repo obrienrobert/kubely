@@ -10,27 +10,30 @@ import co.zsmb.materialdrawerkt.builders.drawer
 import co.zsmb.materialdrawerkt.draweritems.badgeable.primaryItem
 import co.zsmb.materialdrawerkt.draweritems.sectionHeader
 import com.obrienrobert.fragments.*
+import com.obrienrobert.models.ClusterMemStore
 import com.obrienrobert.models.ClusterModel
-import com.obrienrobert.models.ClusterStore
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
-
 
 class Main : AppCompatActivity(), AnkoLogger {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Mocking the client for now
-        ClusterStore.listOfClusters.add(
+        ClusterMemStore.create(
             ClusterModel(
                 "<MASTER_URL>",
                 "Test cluster",
-                "kubeadmin",
+                "kube",
                 "<PASSWORD>"
             )
         )
+
         createNavDrawer()
+
+        // ClusterMemStore.serialize(applicationContext)
+        // ClusterMemStore.deserialize(applicationContext)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -54,8 +57,8 @@ class Main : AppCompatActivity(), AnkoLogger {
         setSupportActionBar(toolBarResource)
         setActionBarTitle(R.string.clusters)
 
-        // ClusterStore.listOfClusters.add(ClusterModel("https://api.robrien.b7z8.s1.devshift.org:6443", "kubeadmin", "trY9s-z5Mot-mEWM9-xS64I"))
-        when (ClusterStore.listOfClusters.isEmpty()) {
+        // ClusterMemStore.listOfClusters.add(ClusterModel("https://api.robrien.b7z8.s1.devshift.org:6443", "kubeadmin", "trY9s-z5Mot-mEWM9-xS64I"))
+        when (ClusterMemStore.listOfClusters.isEmpty()) {
             true -> navigateTo(AddClusterFragment.newInstance())
             false -> navigateTo(ClusterFragment.newInstance())
         }
@@ -179,7 +182,7 @@ class Main : AppCompatActivity(), AnkoLogger {
     private fun navigateTo(_fragment: Fragment) {
 
         var fragmentCopy: Fragment = _fragment
-        if (ClusterStore.listOfClusters.isEmpty()) {
+        if (ClusterMemStore.listOfClusters.isEmpty()) {
             fragmentCopy = AddClusterFragment.newInstance()
             setActionBarTitle(R.string.clusters)
         }

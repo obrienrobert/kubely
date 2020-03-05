@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.adapters.ClusterAdapter
 import com.obrienrobert.main.R
-import com.obrienrobert.models.ClusterStore
+import com.obrienrobert.models.ClusterMemStore
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
@@ -47,7 +47,7 @@ class ClusterFragment : Fragment(), AnkoLogger {
         super.onViewCreated(view, savedInstanceState)
 
         val viewManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
-        val viewAdapter: RecyclerView.Adapter<*> = ClusterAdapter(ClusterStore.listOfClusters)
+        val viewAdapter: RecyclerView.Adapter<*> = ClusterAdapter(ClusterMemStore.listOfClusters)
 
         view.findViewById<RecyclerView>(R.id.cluster_recycler_view).apply {
 
