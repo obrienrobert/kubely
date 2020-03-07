@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.adapters.ServiceAdapter
+import com.obrienrobert.client.ActiveClient
 import com.obrienrobert.client.Client
 import com.obrienrobert.client.Requests
 import com.obrienrobert.main.R
@@ -31,14 +32,8 @@ class ServiceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val client = Client(
-            "<MASTER_URL>",
-            "kubeadmin",
-            "<PASSWORD>"
-        ).getClient()
-
         async {
-            serviceList = await { Requests(client).getAllServices() }
+            serviceList = await { Requests(ActiveClient.client).getAllServices() }
 
             viewManager = LinearLayoutManager(context)
             viewAdapter = ServiceAdapter(serviceList)

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import co.zsmb.materialdrawerkt.builders.drawer
 import co.zsmb.materialdrawerkt.draweritems.badgeable.primaryItem
 import co.zsmb.materialdrawerkt.draweritems.sectionHeader
+import com.obrienrobert.client.ActiveClient
 import com.obrienrobert.fragments.*
 import com.obrienrobert.models.ClusterModel
 import com.obrienrobert.models.ClusterStore
@@ -25,21 +26,12 @@ class Main : AppCompatActivity(), AnkoLogger {
             ClusterStore.listOfClusters.add(
                 ClusterModel(
                     "<MASTER_URL>",
-                    "Test cluster",
+                    "Test cluster active",
                     "kubeadmin",
                     "<PASSWORD>",
                     true
                 )
             )
-
-        ClusterStore.listOfClusters.add(
-            ClusterModel(
-                "<MASTER_URL>",
-                "Test cluster",
-                "kubeadmin",
-                "<PASSWORD>"
-            )
-        )
 
         createNavDrawer()
     }
