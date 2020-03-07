@@ -1,5 +1,6 @@
 package com.obrienrobert.adapters
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import com.obrienrobert.main.R
 import com.obrienrobert.models.ClusterModel
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
+
 
 class ClusterAdapter(private val arrayOfClusters: List<ClusterModel>) :
     RecyclerView.Adapter<ClusterAdapter.ViewHolder>(), Filterable, AnkoLogger {
@@ -56,14 +58,26 @@ class ClusterAdapter(private val arrayOfClusters: List<ClusterModel>) :
         viewHolder.bind(copyOfClusters, position)
     }
 
+
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view), AnkoLogger {
 
-        fun bind(nodes: List<ClusterModel>, position: Int) {
+        fun bind(clusters: List<ClusterModel>, position: Int) {
             this.itemView.findViewById<TextView>(R.id.cluster_name).text =
-                nodes[position].clusterName
+                clusters[position].clusterName
+
+            clusters.forEach {
+                if (clusters[position].isActiveCluster) {
+                    itemView.setBackgroundColor(Color.LTGRAY)
+                } else {
+                    itemView.setBackgroundColor(Color.WHITE)
+                }
+            }
 
             this.itemView.setOnClickListener {
-                info{ "Clicked item ${nodes[position].clusterName} at $position" }
+                info{ "Clicked item ${clusters[position].clusterName} at $position" }
+                itemView.setBackgroundColor(Color.LTGRAY)
+                clusters[position].isActiveCluster = true
+
             }
         }
     }

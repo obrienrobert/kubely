@@ -27,9 +27,19 @@ class Main : AppCompatActivity(), AnkoLogger {
                     "<MASTER_URL>",
                     "Test cluster",
                     "kubeadmin",
-                    "<PASSWORD>"
+                    "<PASSWORD>",
+                    true
                 )
             )
+
+        ClusterStore.listOfClusters.add(
+            ClusterModel(
+                "<MASTER_URL>",
+                "Test cluster",
+                "kubeadmin",
+                "<PASSWORD>"
+            )
+        )
 
         createNavDrawer()
     }
