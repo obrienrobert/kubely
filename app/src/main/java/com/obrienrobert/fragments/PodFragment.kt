@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.adapters.PodAdapter
 import com.obrienrobert.client.ActiveClient
+import com.obrienrobert.client.ActiveNamespace
 import com.obrienrobert.client.Client
 import com.obrienrobert.client.Requests
 import com.obrienrobert.main.R
@@ -33,7 +34,7 @@ class PodFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         async {
-            podList = await { Requests(ActiveClient.client).getAllPods() }
+            podList = await { Requests(ActiveClient.client).getAllPodsInNamespace(ActiveNamespace.currentActiveNamespace) }
 
             viewManager = LinearLayoutManager(context)
             viewAdapter = PodAdapter(podList)

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.adapters.ProjectAdapter
+import com.obrienrobert.client.ActiveClient
 import com.obrienrobert.client.Client
 import com.obrienrobert.client.Requests
 import com.obrienrobert.main.R
@@ -14,10 +15,7 @@ import me.nikhilchaudhari.asynkio.core.async
 
 class ProjectFragment : Fragment() {
 
-    private lateinit var viewManager: RecyclerView.LayoutManager
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var projectList: List<Project>
-
     private lateinit var optionsMenu: Menu
 
     override fun onCreateView(
@@ -52,17 +50,11 @@ class ProjectFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val client = Client(
-            "<MASTER_URL>",
-            "kubeadmin",
-            "<PASSWORD>"
-        ).getClient()
-
         async {
-            projectList = await { Requests(client).getAllNamespaces() }
+            projectList = await { Requests(ActiveClient.client).getAllNamespaces() }
 
-            viewManager = LinearLayoutManager(context)
-            viewAdapter = ProjectAdapter(projectList)
+            val viewManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
+            val viewAdapter: RecyclerView.Adapter<*> = ProjectAdapter(projectList)
 
             view.findViewById<RecyclerView>(R.id.project_recycler_view).apply {
 

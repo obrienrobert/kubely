@@ -25,10 +25,10 @@ class Main : AppCompatActivity(), AnkoLogger {
         // Mocking the client for now
             ClusterStore.listOfClusters.add(
                 ClusterModel(
-                    "<MASTER_URL>",
+                    "https://api.robrien.p6m4.s1.devshift.org:6443",
                     "Test cluster active",
                     "kubeadmin",
-                    "<PASSWORD>",
+                    "Kz5zm-PmRBF-LwDPz-zF4bs",
                     true
                 )
             )

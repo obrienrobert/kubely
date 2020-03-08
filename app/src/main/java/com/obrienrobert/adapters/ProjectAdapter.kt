@@ -8,6 +8,7 @@ import android.widget.Filterable
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.obrienrobert.client.ActiveNamespace
 import com.obrienrobert.main.R
 import io.fabric8.openshift.api.model.Project
 import org.jetbrains.anko.AnkoLogger
@@ -57,16 +58,17 @@ class ProjectAdapter(private val projectList: List<Project>) :
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view), AnkoLogger {
 
-        fun bind(project: List<Project>, position: Int) {
+        fun bind(projects: List<Project>, position: Int) {
             this.itemView.findViewById<TextView>(R.id.resource_name).text =
-                project[position].metadata.name
+                projects[position].metadata.name
 
             this.itemView.setOnClickListener {
-                info { "Clicked item ${project[position].metadata.name} at $position" }
+                ActiveNamespace.currentActiveNamespace = projects[position].metadata.name
+                info { "Clicked item ${projects[position].metadata.name} at $position" }
             }
 
             this.itemView.findViewById<TextView>(R.id.info_text).text =
-                project[position].metadata.creationTimestamp
+                projects[position].metadata.creationTimestamp
         }
     }
 }
