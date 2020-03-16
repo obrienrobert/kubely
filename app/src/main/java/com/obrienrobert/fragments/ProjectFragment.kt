@@ -9,9 +9,11 @@ import com.obrienrobert.adapters.ProjectAdapter
 import com.obrienrobert.client.ActiveClient
 import com.obrienrobert.client.Requests
 import com.obrienrobert.main.R
+import com.obrienrobert.models.ClusterStore
 import io.fabric8.openshift.api.model.Project
 import me.nikhilchaudhari.asynkio.core.async
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 
 class ProjectFragment : Fragment(), AnkoLogger {
 
@@ -51,7 +53,7 @@ class ProjectFragment : Fragment(), AnkoLogger {
         super.onViewCreated(view, savedInstanceState)
 
         async {
-            projectList = await { Requests(ActiveClient.client).getAllNamespaces() }
+            projectList = await { Requests(ActiveClient.newInstance()).getAllNamespaces() }
 
             val viewManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
             val viewAdapter: RecyclerView.Adapter<*> = ProjectAdapter(projectList)

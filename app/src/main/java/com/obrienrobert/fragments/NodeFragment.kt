@@ -32,7 +32,7 @@ class NodeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         async {
-            nodeList = await { Requests(ActiveClient.client).getAllNodes() }
+            nodeList = await { Requests(ActiveClient.newInstance()).getAllNodes() }
 
             viewManager = LinearLayoutManager(context)
             viewAdapter = NodeAdapter(nodeList)

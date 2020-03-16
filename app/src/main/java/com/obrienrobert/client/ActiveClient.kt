@@ -1,12 +1,16 @@
 package com.obrienrobert.client
 
 import com.obrienrobert.models.ClusterStore
+import io.fabric8.openshift.client.OpenShiftClient
 
-object ActiveClient {
+class ActiveClient {
 
-    var client  = Client(
-        ClusterStore.getActiveCluster()?.masterURL,
-        ClusterStore.getActiveCluster()?.userName,
-        ClusterStore.getActiveCluster()?.password
-    ).getClient()
+    companion object {
+        fun newInstance(): OpenShiftClient {
+                return  Client(ClusterStore.getActiveCluster()?.masterURL,
+            ClusterStore.getActiveCluster()?.userName,
+            ClusterStore.getActiveCluster()?.password
+            ).getClient()
+        }
+    }
 }

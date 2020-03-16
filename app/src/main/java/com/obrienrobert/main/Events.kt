@@ -26,7 +26,7 @@ class Watch : AppCompatActivity(), AnkoLogger {
         val namespaceEvents = intent.getStringExtra("namespace")
 
         async {
-            eventList = await { Requests(ActiveClient.client).getAllEventsInNamespace(namespaceEvents).sortedByDescending { it.lastTimestamp } }
+            eventList = await { Requests(ActiveClient.newInstance()).getAllEventsInNamespace(namespaceEvents).sortedByDescending { it.lastTimestamp } }
 
             val viewManager: RecyclerView.LayoutManager = LinearLayoutManager(applicationContext)
             val viewAdapter: RecyclerView.Adapter<*> = EventAdapter(eventList)

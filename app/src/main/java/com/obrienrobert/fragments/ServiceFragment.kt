@@ -32,7 +32,7 @@ class ServiceFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         async {
-            serviceList = await { Requests(ActiveClient.client).getAllServices() }
+            serviceList = await { Requests(ActiveClient.newInstance()).getAllServices() }
 
             viewManager = LinearLayoutManager(context)
             viewAdapter = ServiceAdapter(serviceList)

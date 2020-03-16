@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.adapters.PodAdapter
-import com.obrienrobert.client.ActiveClient.client
+import com.obrienrobert.client.ActiveClient
 import com.obrienrobert.client.ActiveNamespace
 import com.obrienrobert.client.Requests
 import com.obrienrobert.main.R
@@ -34,7 +34,7 @@ class PodFragment : Fragment(), AnkoLogger {
         super.onViewCreated(view, savedInstanceState)
 
         async {
-            podList = await { Requests(client).getAllPodsInNamespace(ActiveNamespace.currentActiveNamespace) }
+            podList = await { Requests(ActiveClient.newInstance()).getAllPodsInNamespace(ActiveNamespace.currentActiveNamespace) }
 
             viewManager = LinearLayoutManager(context)
             viewAdapter = PodAdapter(podList)

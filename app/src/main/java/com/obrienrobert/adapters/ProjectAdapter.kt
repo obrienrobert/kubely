@@ -1,6 +1,7 @@
 package com.obrienrobert.adapters
 
 import android.content.Intent
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,8 +21,9 @@ import org.jetbrains.anko.info
 class ProjectAdapter(private val projectList: List<Project>) :
     RecyclerView.Adapter<ProjectAdapter.ViewHolder>(), Filterable {
 
-    private var copyOfProjects: List<Project> = projectList.toList()
+    var currentActiveNamespace: Int = 0
 
+    private var copyOfProjects: List<Project> = projectList.toList()
     override fun getFilter(): Filter = object : Filter() {
         override fun performFiltering(value: CharSequence?): FilterResults {
             val results = FilterResults()
@@ -59,15 +61,27 @@ class ProjectAdapter(private val projectList: List<Project>) :
         viewHolder.bind(copyOfProjects, position)
     }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view), AnkoLogger {
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view), AnkoLogger {
 
         fun bind(projects: List<Project>, position: Int) {
             this.itemView.findViewById<TextView>(R.id.resource_name).text =
                 projects[position].metadata.name
 
+
+            repeat(projects.size) {
+                if (projects[position].metadata.name == ActiveNamespace.currentActiveNamespace) {
+                    itemView.setBackgroundColor(Color.LTGRAY)
+                } else {
+                    itemView.setBackgroundColor(Color.WHITE)
+                }
+            }
+
             this.itemView.setOnClickListener {
                 ActiveNamespace.currentActiveNamespace = projects[position].metadata.name
                 info { "Clicked item ${projects[position].metadata.name} at $position" }
+                itemView.setBackgroundColor(Color.LTGRAY)
+                info { "Testing: " + ActiveNamespace.currentActiveNamespace }
+                info { "Testing" + {currentActiveNamespace} }
             }
 
             this.itemView.findViewById<TextView>(R.id.info_text).text =

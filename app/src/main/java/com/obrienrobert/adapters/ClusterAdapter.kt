@@ -11,16 +11,14 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.main.R
 import com.obrienrobert.models.ClusterModel
-import com.obrienrobert.models.ClusterStore
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 
 class ClusterAdapter(private val arrayOfClusters: List<ClusterModel>) :
     RecyclerView.Adapter<ClusterAdapter.ViewHolder>(), Filterable, AnkoLogger {
 
     var currentActiveCluster: Int = 0
 
-    private var copyOfClusters: List<ClusterModel> = arrayOfClusters.toList()
+    private var copyOfClusters: List<ClusterModel> = arrayOfClusters.toList().sortedByDescending { it.isActiveCluster }
 
     override fun getFilter(): Filter = object : Filter() {
         override fun performFiltering(value: CharSequence?): FilterResults {
