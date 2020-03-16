@@ -15,7 +15,6 @@ class Client(masterURL: String?, userName: String?, password: String?) {
 
     private var osClient: OpenShiftClient = DefaultOpenShiftClient(config)
 
-
     fun getClient(): OpenShiftClient {
         return osClient
     }

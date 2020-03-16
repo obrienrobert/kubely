@@ -11,12 +11,14 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.main.R
 import com.obrienrobert.models.ClusterModel
+import com.obrienrobert.models.ClusterStore
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
-
 class ClusterAdapter(private val arrayOfClusters: List<ClusterModel>) :
     RecyclerView.Adapter<ClusterAdapter.ViewHolder>(), Filterable, AnkoLogger {
+
+    var currentActiveCluster: Int = 0
 
     private var copyOfClusters: List<ClusterModel> = arrayOfClusters.toList()
 
@@ -58,26 +60,27 @@ class ClusterAdapter(private val arrayOfClusters: List<ClusterModel>) :
         viewHolder.bind(copyOfClusters, position)
     }
 
-
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view), AnkoLogger {
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view), AnkoLogger {
 
         fun bind(clusters: List<ClusterModel>, position: Int) {
             this.itemView.findViewById<TextView>(R.id.cluster_name).text =
                 clusters[position].clusterName
 
-            clusters.forEach {
+            repeat(clusters.size) {
                 if (clusters[position].isActiveCluster) {
                     itemView.setBackgroundColor(Color.LTGRAY)
+                    currentActiveCluster = position
                 } else {
                     itemView.setBackgroundColor(Color.WHITE)
                 }
             }
 
             this.itemView.setOnClickListener {
-                info{ "Clicked item ${clusters[position].clusterName} at $position" }
                 itemView.setBackgroundColor(Color.LTGRAY)
                 clusters[position].isActiveCluster = true
-
+                clusters[currentActiveCluster].isActiveCluster = false
+                currentActiveCluster = position
+                notifyDataSetChanged()
             }
         }
     }

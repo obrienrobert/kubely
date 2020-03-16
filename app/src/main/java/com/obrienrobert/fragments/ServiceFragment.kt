@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.adapters.ServiceAdapter
 import com.obrienrobert.client.ActiveClient
-import com.obrienrobert.client.Client
 import com.obrienrobert.client.Requests
 import com.obrienrobert.main.R
 import io.fabric8.kubernetes.api.model.Service

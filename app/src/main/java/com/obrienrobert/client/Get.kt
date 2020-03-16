@@ -28,4 +28,7 @@ interface Get {
 
     // Nodes
     fun getAllNodes(): List<Node>
+
+    // Events
+    fun getAllEventsInNamespace(namespace: String): List<Event>
 }

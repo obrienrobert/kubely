@@ -4,11 +4,9 @@ import com.obrienrobert.models.ClusterStore
 
 object ActiveClient {
 
-    private val activeCluster = ClusterStore.getActiveCluster()
-
-    val client  = Client(
-        activeCluster?.masterURL,
-        activeCluster?.userName,
-        activeCluster?.password
+    var client  = Client(
+        ClusterStore.getActiveCluster()?.masterURL,
+        ClusterStore.getActiveCluster()?.userName,
+        ClusterStore.getActiveCluster()?.password
     ).getClient()
 }

@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import co.zsmb.materialdrawerkt.builders.drawer
 import co.zsmb.materialdrawerkt.draweritems.badgeable.primaryItem
 import co.zsmb.materialdrawerkt.draweritems.sectionHeader
-import com.obrienrobert.client.ActiveClient
 import com.obrienrobert.fragments.*
 import com.obrienrobert.models.ClusterModel
 import com.obrienrobert.models.ClusterStore
@@ -23,15 +22,34 @@ class Main : AppCompatActivity(), AnkoLogger {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Mocking the client for now
-            ClusterStore.listOfClusters.add(
-                ClusterModel(
-                    "https://api.robrien.p6m4.s1.devshift.org:6443",
-                    "Test cluster active",
-                    "kubeadmin",
-                    "Kz5zm-PmRBF-LwDPz-zF4bs",
-                    true
-                )
+        ClusterStore.listOfClusters.add(
+            ClusterModel(
+                "<MASTER_UTL>",
+                "Test cluster active",
+                "kubeadmin",
+                "<PASSWORD>",
+                true
             )
+        )
+
+        ClusterStore.listOfClusters.add(
+            ClusterModel(
+                "<MASTER_UTL>",
+                "Test cluster in-active",
+                "kubeadmin",
+                "<PASSWORD>",
+                false
+            )
+        )
+        ClusterStore.listOfClusters.add(
+            ClusterModel(
+                "<MASTER_UTL>",
+                "Test cluster in-active 2",
+                "kubeadmin",
+                "<PASSWORD>",
+                false
+            )
+        )
 
         createNavDrawer()
     }

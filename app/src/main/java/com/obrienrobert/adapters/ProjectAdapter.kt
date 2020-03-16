@@ -1,15 +1,18 @@
 package com.obrienrobert.adapters
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.client.ActiveNamespace
 import com.obrienrobert.main.R
+import com.obrienrobert.main.Watch
 import io.fabric8.openshift.api.model.Project
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -43,7 +46,7 @@ class ProjectAdapter(private val projectList: List<Project>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.resource_card_view, parent, false) as CardView
+                .inflate(R.layout.project_card_view, parent, false) as CardView
         )
 
     }
@@ -69,6 +72,13 @@ class ProjectAdapter(private val projectList: List<Project>) :
 
             this.itemView.findViewById<TextView>(R.id.info_text).text =
                 projects[position].metadata.creationTimestamp
+
+            val showIcon: ImageView = itemView.findViewById(R.id.show)
+            showIcon.setOnClickListener {
+                info { "ImageView clicked!" }
+                val intent = Intent(itemView.context, Watch::class.java).putExtra("namespace",  projects[position].metadata.name)
+                itemView.context.startActivity(intent)
+            }
+            }
         }
     }
-}

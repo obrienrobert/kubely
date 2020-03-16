@@ -1,5 +1,4 @@
 <resources>
-    <string name="action">Action</string>
     <string name="add_cluster">Add Cluster</string>
     <string name="cluster_api_url">Cluster API URL</string>
     <string name="app_name">Shifty</string>
@@ -15,7 +14,9 @@
     <string name="projects">Projects</string>
     <string name="nodes">Nodes</string>
     <string name="openshift_logo">Openshift Logo</string>
+    <string name="resource_name">Resource name</string>
     <string name="secrets">Secrets</string>
     <string name="services">Services</string>
     <string name="user_name">Username</string>
+    <string name="watch_events">Watch Events</string>
 </resources>

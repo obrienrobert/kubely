@@ -7,13 +7,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.adapters.ProjectAdapter
 import com.obrienrobert.client.ActiveClient
-import com.obrienrobert.client.Client
 import com.obrienrobert.client.Requests
 import com.obrienrobert.main.R
 import io.fabric8.openshift.api.model.Project
 import me.nikhilchaudhari.asynkio.core.async
+import org.jetbrains.anko.AnkoLogger
 
-class ProjectFragment : Fragment() {
+class ProjectFragment : Fragment(), AnkoLogger {
 
     private lateinit var projectList: List<Project>
     private lateinit var optionsMenu: Menu
