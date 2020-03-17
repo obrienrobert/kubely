@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
@@ -59,6 +60,11 @@ class PodAdapter(private val arrayOfPods: List<Pod>) :
         fun bind(pods: List<Pod>, position: Int) {
             this.itemView.findViewById<TextView>(R.id.resource_name).text =
                 pods[position].metadata.name
+
+            this.itemView.findViewById<TextView>(R.id.resource_info).text =
+                pods[position].metadata.namespace
+
+            this.itemView.findViewById<ImageView>(R.id.resource_icon).setImageResource(R.drawable.pod_icon)
 
             this.itemView.setOnClickListener {
                 info{ "Clicked item ${pods[position].metadata.name} at $position" }

@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
@@ -63,6 +64,8 @@ class ServiceAdapter(private val arrayOfServices: List<Service>) :
             this.itemView.setOnClickListener {
                 info{ "Clicked item ${services[position].metadata.name} at $position" }
             }
+
+            this.itemView.findViewById<ImageView>(R.id.resource_icon).setImageResource(R.drawable.service_icon)
         }
     }
 }

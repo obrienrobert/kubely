@@ -18,6 +18,7 @@ import io.fabric8.openshift.api.model.Project
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
+
 class ProjectAdapter(private val projectList: List<Project>) :
     RecyclerView.Adapter<ProjectAdapter.ViewHolder>(), Filterable {
 
@@ -67,24 +68,25 @@ class ProjectAdapter(private val projectList: List<Project>) :
             this.itemView.findViewById<TextView>(R.id.resource_name).text =
                 projects[position].metadata.name
 
+            this.itemView.findViewById<ImageView>(R.id.project_icon).setImageResource(R.drawable.project_icon)
 
             repeat(projects.size) {
                 if (projects[position].metadata.name == ActiveNamespace.currentActiveNamespace) {
-                    itemView.setBackgroundColor(Color.LTGRAY)
+                    itemView.setBackgroundColor(Color.GREEN)
                 } else {
-                    itemView.setBackgroundColor(Color.WHITE)
+                    itemView.setBackgroundColor(Color.BLACK)
                 }
             }
 
             this.itemView.setOnClickListener {
                 ActiveNamespace.currentActiveNamespace = projects[position].metadata.name
                 info { "Clicked item ${projects[position].metadata.name} at $position" }
-                itemView.setBackgroundColor(Color.LTGRAY)
+                itemView.setBackgroundColor(Color.GREEN)
                 info { "Testing: " + ActiveNamespace.currentActiveNamespace }
                 info { "Testing" + {currentActiveNamespace} }
             }
 
-            this.itemView.findViewById<TextView>(R.id.info_text).text =
+            this.itemView.findViewById<TextView>(R.id.resource_info).text =
                 projects[position].metadata.creationTimestamp
 
             val showIcon: ImageView = itemView.findViewById(R.id.show)
@@ -93,6 +95,7 @@ class ProjectAdapter(private val projectList: List<Project>) :
                 val intent = Intent(itemView.context, Watch::class.java).putExtra("namespace",  projects[position].metadata.name)
                 itemView.context.startActivity(intent)
             }
+
             }
         }
     }

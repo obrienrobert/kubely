@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
@@ -64,17 +65,22 @@ class ClusterAdapter(private val arrayOfClusters: List<ClusterModel>) :
             this.itemView.findViewById<TextView>(R.id.cluster_name).text =
                 clusters[position].clusterName
 
+            this.itemView.findViewById<TextView>(R.id.cluster_info).text =
+                clusters[position].dataAdded.toString()
+
+            this.itemView.findViewById<ImageView>(R.id.cluster_icon).setImageResource(R.drawable.cluster_icon)
+
             repeat(clusters.size) {
                 if (clusters[position].isActiveCluster) {
-                    itemView.setBackgroundColor(Color.LTGRAY)
+                    itemView.setBackgroundColor(Color.GREEN)
                     currentActiveCluster = position
                 } else {
-                    itemView.setBackgroundColor(Color.WHITE)
+                    itemView.setBackgroundColor(Color.BLACK)
                 }
             }
 
             this.itemView.setOnClickListener {
-                itemView.setBackgroundColor(Color.LTGRAY)
+                itemView.setBackgroundColor(Color.GREEN)
                 clusters[position].isActiveCluster = true
                 clusters[currentActiveCluster].isActiveCluster = false
                 currentActiveCluster = position
