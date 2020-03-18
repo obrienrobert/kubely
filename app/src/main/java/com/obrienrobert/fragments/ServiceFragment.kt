@@ -11,6 +11,7 @@ import com.obrienrobert.adapters.ServiceAdapter
 import com.obrienrobert.client.ActiveClient
 import com.obrienrobert.client.Requests
 import com.obrienrobert.main.R
+import com.obrienrobert.models.ClusterStore
 import io.fabric8.kubernetes.api.model.Service
 import me.nikhilchaudhari.asynkio.core.async
 
@@ -32,7 +33,9 @@ class ServiceFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         async {
-            serviceList = await { Requests(ActiveClient.newInstance()).getAllServices() }
+            serviceList = await { Requests(ActiveClient.newInstance()).getAllServicesInNamespace(
+                ClusterStore.getActiveCluster()?.activeNamespace!!
+            ) }
 
             viewManager = LinearLayoutManager(context)
             viewAdapter = ServiceAdapter(serviceList)

@@ -8,7 +8,7 @@ interface Get {
     // Pods
     fun getAllPods(): List<Pod>
 
-    fun getAllPodsInNamespace(namespace: String): List<Pod>
+    fun getAllPodsInNamespace(namespace: String?): List<Pod>
 
     fun getPod(namespace: String, pod: String): PodSpec
 
@@ -16,7 +16,7 @@ interface Get {
     // Services
     fun getAllServices(): List<Service>
 
-    fun getAllServicesInNamespace(namespace: String): ServiceList?
+    fun getAllServicesInNamespace(namespace: String): List<Service>
 
     fun getService(namespace: String, service: String): ServiceSpec?
 

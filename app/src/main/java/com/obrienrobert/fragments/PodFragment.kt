@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.adapters.PodAdapter
 import com.obrienrobert.client.ActiveClient
-import com.obrienrobert.client.ActiveNamespace
 import com.obrienrobert.client.Requests
 import com.obrienrobert.main.R
+import com.obrienrobert.models.ClusterStore
 import io.fabric8.kubernetes.api.model.Pod
 import me.nikhilchaudhari.asynkio.core.async
 import org.jetbrains.anko.AnkoLogger
@@ -34,7 +34,7 @@ class PodFragment : Fragment(), AnkoLogger {
         super.onViewCreated(view, savedInstanceState)
 
         async {
-            podList = await { Requests(ActiveClient.newInstance()).getAllPodsInNamespace(ActiveNamespace.currentActiveNamespace) }
+            podList = await { Requests(ActiveClient.newInstance()).getAllPodsInNamespace(ClusterStore.getActiveCluster()?.activeNamespace) }
 
             viewManager = LinearLayoutManager(context)
             viewAdapter = PodAdapter(podList)

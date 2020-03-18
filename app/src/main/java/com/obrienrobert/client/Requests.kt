@@ -11,7 +11,7 @@ class Requests(private var client: OpenShiftClient) : Get {
         return client.pods().list().items
     }
 
-    override fun getAllPodsInNamespace(namespace: String): List<Pod> {
+    override fun getAllPodsInNamespace(namespace: String?): List<Pod> {
         return client.pods().inNamespace(namespace).list().items
     }
 
@@ -35,8 +35,8 @@ class Requests(private var client: OpenShiftClient) : Get {
         return client.services().list().items
     }
 
-    override fun getAllServicesInNamespace(namespace: String): ServiceList? {
-        return client.services().inNamespace(namespace).list()
+    override fun getAllServicesInNamespace(namespace: String): List<Service> {
+        return client.services().inNamespace(namespace).list().items
     }
 
     override fun getService(namespace: String, service: String): ServiceSpec? {

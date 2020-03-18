@@ -19,7 +19,7 @@
             android:id="@+id/imageView"
             android:layout_width="30dp"
             android:layout_height="33dp"
-            android:contentDescription="TODO"
+            android:contentDescription="@string/namespace_events"
             android:padding="4dp" />
 
         <LinearLayout

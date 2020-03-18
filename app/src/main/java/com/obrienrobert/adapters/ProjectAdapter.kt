@@ -11,18 +11,17 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.obrienrobert.client.ActiveNamespace
 import com.obrienrobert.main.R
 import com.obrienrobert.main.Watch
+import com.obrienrobert.models.ClusterStore
 import io.fabric8.openshift.api.model.Project
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
+import java.util.*
 
 
 class ProjectAdapter(private val projectList: List<Project>) :
     RecyclerView.Adapter<ProjectAdapter.ViewHolder>(), Filterable {
-
-    var currentActiveNamespace: Int = 0
 
     private var copyOfProjects: List<Project> = projectList.toList()
     override fun getFilter(): Filter = object : Filter() {
@@ -71,19 +70,19 @@ class ProjectAdapter(private val projectList: List<Project>) :
             this.itemView.findViewById<ImageView>(R.id.project_icon).setImageResource(R.drawable.project_icon)
 
             repeat(projects.size) {
-                if (projects[position].metadata.name == ActiveNamespace.currentActiveNamespace) {
+                if (projects[position].metadata.name == ClusterStore.getActiveCluster()?.activeNamespace) {
                     itemView.setBackgroundColor(Color.GREEN)
+                    //Collections.swap(projects, position, 0)
                 } else {
                     itemView.setBackgroundColor(Color.BLACK)
                 }
             }
 
-            this.itemView.setOnClickListener {
-                ActiveNamespace.currentActiveNamespace = projects[position].metadata.name
-                info { "Clicked item ${projects[position].metadata.name} at $position" }
-                itemView.setBackgroundColor(Color.GREEN)
-                info { "Testing: " + ActiveNamespace.currentActiveNamespace }
-                info { "Testing" + {currentActiveNamespace} }
+            // Default to the first project in the list if empty
+           if(ClusterStore.getActiveCluster()?.activeNamespace.isNullOrEmpty()){
+                if(position == 0){
+                // Collections.swap(projects, position, 0)
+                itemView.setBackgroundColor(Color.GREEN)}
             }
 
             this.itemView.findViewById<TextView>(R.id.resource_info).text =
@@ -94,6 +93,12 @@ class ProjectAdapter(private val projectList: List<Project>) :
                 info { "ImageView clicked!" }
                 val intent = Intent(itemView.context, Watch::class.java).putExtra("namespace",  projects[position].metadata.name)
                 itemView.context.startActivity(intent)
+            }
+
+            this.itemView.setOnClickListener {
+                ClusterStore.setActiveNamespace(projects[position].metadata.name)
+                itemView.setBackgroundColor(Color.GREEN)
+                notifyDataSetChanged()
             }
 
             }

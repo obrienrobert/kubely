@@ -8,5 +8,6 @@ data class ClusterModel(
     var userName: String? = "",
     var password: String? = "",
     var isActiveCluster: Boolean = false,
+    var activeNamespace: String = "",
     var dataAdded: DateTime? = DateTime.now()
 )
