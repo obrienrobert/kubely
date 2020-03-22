@@ -33,9 +33,11 @@ class ServiceFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         async {
-            serviceList = await { Requests(ActiveClient.newInstance()).getAllServicesInNamespace(
-                ClusterStore.getActiveCluster()?.activeNamespace!!
-            ) }
+            serviceList = await {
+                Requests(ActiveClient.newInstance()).getAllServicesInNamespace(
+                    ClusterStore.getActiveCluster()?.activeNamespace!!
+                )
+            }
 
             viewManager = LinearLayoutManager(context)
             viewAdapter = ServiceAdapter(serviceList)

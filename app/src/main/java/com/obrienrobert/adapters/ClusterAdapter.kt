@@ -8,18 +8,19 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.main.R
 import com.obrienrobert.models.ClusterModel
+import com.obrienrobert.models.ClusterStore
 import org.jetbrains.anko.AnkoLogger
 
-class ClusterAdapter(private val arrayOfClusters: List<ClusterModel>) :
+class ClusterAdapter(private val arrayOfClusters: MutableList<ClusterModel>) :
     RecyclerView.Adapter<ClusterAdapter.ViewHolder>(), Filterable, AnkoLogger {
 
     var currentActiveCluster: Int = 0
 
-    private var copyOfClusters: List<ClusterModel> = arrayOfClusters.toList().sortedByDescending { it.isActiveCluster }
+    private var copyOfClusters: List<ClusterModel> =
+        arrayOfClusters.toList().sortedByDescending { it.isActiveCluster }
 
     override fun getFilter(): Filter = object : Filter() {
         override fun performFiltering(value: CharSequence?): FilterResults {
@@ -50,9 +51,13 @@ class ClusterAdapter(private val arrayOfClusters: List<ClusterModel>) :
         )
     }
 
-    override fun getItemCount(): Int {
+    fun removeAt(position: Int) {
+        arrayOfClusters.removeAt(position)
+        notifyItemRemoved(position)
+    }
 
-        return copyOfClusters.size
+    override fun getItemCount(): Int {
+        return ClusterStore.listOfClusters.size
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
@@ -68,7 +73,8 @@ class ClusterAdapter(private val arrayOfClusters: List<ClusterModel>) :
             this.itemView.findViewById<TextView>(R.id.cluster_info).text =
                 clusters[position].dataAdded.toString()
 
-            this.itemView.findViewById<ImageView>(R.id.cluster_icon).setImageResource(R.drawable.cluster_icon)
+            this.itemView.findViewById<ImageView>(R.id.cluster_icon)
+                .setImageResource(R.drawable.cluster_icon)
 
             repeat(clusters.size) {
                 if (clusters[position].isActiveCluster) {

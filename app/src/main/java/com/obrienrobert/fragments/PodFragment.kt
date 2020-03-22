@@ -34,7 +34,8 @@ class PodFragment : Fragment(), AnkoLogger {
         super.onViewCreated(view, savedInstanceState)
 
         async {
-            podList = await { Requests(ActiveClient.newInstance()).getAllPodsInNamespace(ClusterStore.getActiveCluster()?.activeNamespace) }
+            podList =
+                await { Requests(ActiveClient.newInstance()).getAllPodsInNamespace(ClusterStore.getActiveCluster()?.activeNamespace) }
 
             viewManager = LinearLayoutManager(context)
             viewAdapter = PodAdapter(podList)

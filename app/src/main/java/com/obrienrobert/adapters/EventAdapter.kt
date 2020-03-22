@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.main.R
 import io.fabric8.kubernetes.api.model.Event
@@ -67,7 +66,7 @@ class EventAdapter(private val arrayOfEvents: List<Event>) :
                 event[position].reason
 
             this.itemView.setOnClickListener {
-                info{ "Clicked item ${event[position].metadata.name} at $position" }
+                info { "Clicked item ${event[position].metadata.name} at $position" }
             }
         }
     }

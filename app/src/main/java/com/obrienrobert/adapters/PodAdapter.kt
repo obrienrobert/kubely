@@ -7,7 +7,6 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.main.R
 import io.fabric8.kubernetes.api.model.Pod
@@ -64,10 +63,11 @@ class PodAdapter(private val arrayOfPods: List<Pod>) :
             this.itemView.findViewById<TextView>(R.id.resource_info).text =
                 pods[position].metadata.namespace
 
-            this.itemView.findViewById<ImageView>(R.id.resource_icon).setImageResource(R.drawable.pod_icon)
+            this.itemView.findViewById<ImageView>(R.id.resource_icon)
+                .setImageResource(R.drawable.pod_icon)
 
             this.itemView.setOnClickListener {
-                info{ "Clicked item ${pods[position].metadata.name} at $position" }
+                info { "Clicked item ${pods[position].metadata.name} at $position" }
             }
         }
     }

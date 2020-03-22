@@ -9,7 +9,6 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.main.R
 import com.obrienrobert.main.Watch
@@ -17,7 +16,6 @@ import com.obrienrobert.models.ClusterStore
 import io.fabric8.openshift.api.model.Project
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
-import java.util.*
 
 
 class ProjectAdapter(private val projectList: List<Project>) :
@@ -67,7 +65,8 @@ class ProjectAdapter(private val projectList: List<Project>) :
             this.itemView.findViewById<TextView>(R.id.resource_name).text =
                 projects[position].metadata.name
 
-            this.itemView.findViewById<ImageView>(R.id.project_icon).setImageResource(R.drawable.project_icon)
+            this.itemView.findViewById<ImageView>(R.id.project_icon)
+                .setImageResource(R.drawable.project_icon)
 
             repeat(projects.size) {
                 if (projects[position].metadata.name == ClusterStore.getActiveCluster()?.activeNamespace) {
@@ -79,10 +78,11 @@ class ProjectAdapter(private val projectList: List<Project>) :
             }
 
             // Default to the first project in the list if empty
-           if(ClusterStore.getActiveCluster()?.activeNamespace.isNullOrEmpty()){
-                if(position == 0){
-                // Collections.swap(projects, position, 0)
-                itemView.setBackgroundColor(Color.GREEN)}
+            if (ClusterStore.getActiveCluster()?.activeNamespace.isNullOrEmpty()) {
+                if (position == 0) {
+                    // Collections.swap(projects, position, 0)
+                    itemView.setBackgroundColor(Color.GREEN)
+                }
             }
 
             this.itemView.findViewById<TextView>(R.id.resource_info).text =
@@ -91,7 +91,10 @@ class ProjectAdapter(private val projectList: List<Project>) :
             val showIcon: ImageView = itemView.findViewById(R.id.show)
             showIcon.setOnClickListener {
                 info { "ImageView clicked!" }
-                val intent = Intent(itemView.context, Watch::class.java).putExtra("namespace",  projects[position].metadata.name)
+                val intent = Intent(itemView.context, Watch::class.java).putExtra(
+                    "namespace",
+                    projects[position].metadata.name
+                )
                 itemView.context.startActivity(intent)
             }
 
@@ -101,6 +104,6 @@ class ProjectAdapter(private val projectList: List<Project>) :
                 notifyDataSetChanged()
             }
 
-            }
         }
     }
+}

@@ -6,7 +6,7 @@ import io.fabric8.openshift.client.DefaultOpenShiftClient
 import io.fabric8.openshift.client.OpenShiftClient
 import org.jetbrains.anko.AnkoLogger
 
-class Client(masterURL: String?, userName: String?, password: String?): AnkoLogger {
+class Client(masterURL: String?, userName: String?, password: String?) : AnkoLogger {
 
     private val config: Config = ConfigBuilder().withMasterUrl(masterURL)
         .withUsername(userName)

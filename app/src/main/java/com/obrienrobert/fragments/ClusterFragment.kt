@@ -3,15 +3,18 @@ package com.obrienrobert.fragments
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.adapters.ClusterAdapter
 import com.obrienrobert.main.R
 import com.obrienrobert.models.ClusterStore
+import com.obrienrobert.util.SwipeToDeleteCallback
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
-class ClusterFragment : Fragment(), AnkoLogger {
+class ClusterFragment : Fragment(), AnkoLogger, View.OnClickListener {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,12 +52,26 @@ class ClusterFragment : Fragment(), AnkoLogger {
         val viewManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
         val viewAdapter: RecyclerView.Adapter<*> = ClusterAdapter(ClusterStore.listOfClusters)
 
-        view.findViewById<RecyclerView>(R.id.cluster_recycler_view).apply {
+        val recycleView = view.findViewById<RecyclerView>(R.id.cluster_recycler_view).apply {
 
             setHasFixedSize(true)
+            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             layoutManager = viewManager
             adapter = viewAdapter
         }
+
+        val swipeHandler = object : SwipeToDeleteCallback(this.context!!) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val adapter = recycleView.adapter as ClusterAdapter
+                adapter.removeAt(viewHolder.adapterPosition)
+            }
+        }
+
+        val itemTouchHelper = ItemTouchHelper(swipeHandler)
+        itemTouchHelper.attachToRecyclerView(recycleView)
+    }
+
+    override fun onClick(v: View?) {
     }
 
     private fun navigateTo(fragment: Fragment) {

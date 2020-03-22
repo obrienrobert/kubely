@@ -7,9 +7,10 @@ class ActiveClient {
 
     companion object {
         fun newInstance(): OpenShiftClient {
-                return  Client(ClusterStore.getActiveCluster()?.masterURL,
-            ClusterStore.getActiveCluster()?.userName,
-            ClusterStore.getActiveCluster()?.password
+            return Client(
+                ClusterStore.getActiveCluster()?.masterURL,
+                ClusterStore.getActiveCluster()?.userName,
+                ClusterStore.getActiveCluster()?.password
             ).getClient()
         }
     }

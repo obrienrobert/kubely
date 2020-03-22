@@ -7,7 +7,6 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.main.R
 import io.fabric8.kubernetes.api.model.Service
@@ -62,10 +61,11 @@ class ServiceAdapter(private val arrayOfServices: List<Service>) :
                 services[position].metadata.name
 
             this.itemView.setOnClickListener {
-                info{ "Clicked item ${services[position].metadata.name} at $position" }
+                info { "Clicked item ${services[position].metadata.name} at $position" }
             }
 
-            this.itemView.findViewById<ImageView>(R.id.resource_icon).setImageResource(R.drawable.service_icon)
+            this.itemView.findViewById<ImageView>(R.id.resource_icon)
+                .setImageResource(R.drawable.service_icon)
         }
     }
 }
