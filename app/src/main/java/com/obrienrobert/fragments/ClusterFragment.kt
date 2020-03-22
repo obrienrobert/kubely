@@ -1,5 +1,6 @@
 package com.obrienrobert.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -9,8 +10,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.adapters.ClusterAdapter
 import com.obrienrobert.main.R
+import com.obrienrobert.main.Watch
 import com.obrienrobert.models.ClusterStore
 import com.obrienrobert.util.SwipeToDeleteCallback
+import com.obrienrobert.util.SwipeToEditCallback
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
@@ -60,15 +63,30 @@ class ClusterFragment : Fragment(), AnkoLogger, View.OnClickListener {
             adapter = viewAdapter
         }
 
-        val swipeHandler = object : SwipeToDeleteCallback(this.context!!) {
+        val deleteSwipeHandler = object : SwipeToDeleteCallback(this.context!!) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val adapter = recycleView.adapter as ClusterAdapter
                 adapter.removeAt(viewHolder.adapterPosition)
             }
         }
 
-        val itemTouchHelper = ItemTouchHelper(swipeHandler)
-        itemTouchHelper.attachToRecyclerView(recycleView)
+        val itemTouchDeleteHelper = ItemTouchHelper(deleteSwipeHandler)
+        itemTouchDeleteHelper.attachToRecyclerView(recycleView)
+
+
+        val editSwipeHandler = object : SwipeToEditCallback(this.context!!) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val adapter = recycleView.adapter as ClusterAdapter
+                info { "Testing: " + ClusterStore.listOfClusters[viewHolder.adapterPosition].toString() }
+
+                // TO-DO - Create edit fragment/activity
+                val intent = Intent(context, Watch::class.java)
+                startActivity(intent)
+            }
+        }
+
+        val itemTouchEditHelper = ItemTouchHelper(editSwipeHandler)
+        itemTouchEditHelper.attachToRecyclerView(recycleView)
     }
 
     override fun onClick(v: View?) {
