@@ -46,32 +46,29 @@ class AddClusterFragment : Fragment(), AnkoLogger {
     private fun validateNewCluster() {
         val addClusterForm = form {
             input(R.id.cluster_url) {
-                isNotEmpty() //isUrl(); //contains("http")
+                isNotEmpty()
+                isUrl()
+                contains("http")
             }
             input(R.id.cluster_name) {
                 isNotEmpty()
-                /*
-                         length().greaterThan(6)
-                         length().lessThan(16)*/
+                length().greaterThan(6)
+                length().lessThan(16)
             }
             input(R.id.username) {
                 isNotEmpty()
-                /*
-                         length().greaterThan(6)
-                         length().lessThan(16)*/
+                length().greaterThan(6)
+                length().lessThan(16)
             }
             input(R.id.password) {
                 isNotEmpty()
-
-                /*
                 length().greaterThan(6)
-                length().lessThan(20)*/
+                length().lessThan(20)
             }
 
         }.validate()
 
         if (addClusterForm.success()) {
-
             val result: FormResult = addClusterForm
             val clusterURL: FieldValue<*>? = result["cluster_url"]
             val clusterName: FieldValue<*>? = result["cluster_name"]

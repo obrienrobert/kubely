@@ -12,7 +12,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import me.nikhilchaudhari.asynkio.core.async
 import org.jetbrains.anko.AnkoLogger
 
-
 class Watch : AppCompatActivity(), AnkoLogger {
 
     private lateinit var eventList: List<Event>

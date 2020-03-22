@@ -43,7 +43,7 @@ class PVAdapter(private val arrayOfPVs: List<String>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.resource_card_view, parent, false) as CardView
+                .inflate(R.layout.resource_card_view, parent, false)
         )
     }
 

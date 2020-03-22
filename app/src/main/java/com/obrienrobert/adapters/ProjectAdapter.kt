@@ -48,7 +48,7 @@ class ProjectAdapter(private val projectList: List<Project>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.project_card_view, parent, false) as CardView
+                .inflate(R.layout.project_card_view, parent, false)
         )
 
     }

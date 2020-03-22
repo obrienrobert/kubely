@@ -42,7 +42,7 @@ class EventAdapter(private val arrayOfEvents: List<Event>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.event_card_view, parent, false) as CardView
+                .inflate(R.layout.event_card_view, parent, false)
         )
     }
 
