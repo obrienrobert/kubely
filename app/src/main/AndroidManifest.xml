@@ -15,8 +15,7 @@
         <activity android:name=".Watch" />
         <activity android:name=".AddCluster" />
         <activity
-            android:name=".Main"
-            android:windowSoftInputMode="stateVisible|adjustNothing">
+            android:name=".Main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
