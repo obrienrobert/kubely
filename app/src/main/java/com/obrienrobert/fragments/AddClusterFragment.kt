@@ -12,15 +12,9 @@ import com.obrienrobert.models.ClusterModel
 import com.obrienrobert.models.ClusterStore
 import org.jetbrains.anko.AnkoLogger
 
-class AddClusterFragment : Fragment(), AnkoLogger {
+class AddClusterFragment : BaseFragment(), AnkoLogger {
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.add_cluster, container, false)
-    }
+    override fun layoutId() = R.layout.add_cluster
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
@@ -102,7 +96,6 @@ class AddClusterFragment : Fragment(), AnkoLogger {
         view?.findViewById<EditText>(R.id.password)?.text?.clear()
         view?.findViewById<EditText>(R.id.cluster_url)?.text?.clear()
         view?.findViewById<EditText>(R.id.username)?.text?.clear()
-
     }
 
     companion object {

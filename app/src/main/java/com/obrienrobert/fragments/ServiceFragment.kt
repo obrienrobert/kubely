@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.adapters.ServiceAdapter
@@ -15,7 +14,9 @@ import com.obrienrobert.models.ClusterStore
 import io.fabric8.kubernetes.api.model.Service
 import me.nikhilchaudhari.asynkio.core.async
 
-class ServiceFragment : Fragment() {
+class ServiceFragment : BaseFragment() {
+
+    override fun layoutId() = R.layout.service_fragment
 
     private lateinit var viewManager: RecyclerView.LayoutManager
     private lateinit var viewAdapter: RecyclerView.Adapter<*>

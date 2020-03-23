@@ -1,8 +1,10 @@
 package com.obrienrobert.fragments
 
 import android.os.Bundle
-import android.view.*
-import androidx.fragment.app.Fragment
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.adapters.ProjectAdapter
@@ -13,23 +15,12 @@ import io.fabric8.openshift.api.model.Project
 import me.nikhilchaudhari.asynkio.core.async
 import org.jetbrains.anko.AnkoLogger
 
-class ProjectFragment : Fragment(), AnkoLogger {
+class ProjectFragment : BaseFragment(), AnkoLogger {
+
+    override fun layoutId() = R.layout.project_fragment
 
     private lateinit var projectList: List<Project>
     private lateinit var optionsMenu: Menu
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.project_fragment, container, false)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        setHasOptionsMenu(true)
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()

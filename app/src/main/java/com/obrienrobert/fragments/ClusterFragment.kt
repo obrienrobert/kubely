@@ -4,33 +4,21 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.adapters.ClusterAdapter
 import com.obrienrobert.main.R
-import com.obrienrobert.main.Watch
+import com.obrienrobert.main.Events
 import com.obrienrobert.models.ClusterStore
 import com.obrienrobert.util.SwipeToDeleteCallback
 import com.obrienrobert.util.SwipeToEditCallback
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
-class ClusterFragment : Fragment(), AnkoLogger, View.OnClickListener {
+class ClusterFragment : BaseFragment(), AnkoLogger, View.OnClickListener {
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.cluster_fragment, container, false)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        setHasOptionsMenu(true)
-        super.onCreate(savedInstanceState)
-    }
+    override fun layoutId() = R.layout.cluster_fragment
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()
@@ -58,7 +46,6 @@ class ClusterFragment : Fragment(), AnkoLogger, View.OnClickListener {
         val recycleView = view.findViewById<RecyclerView>(R.id.cluster_recycler_view).apply {
 
             setHasFixedSize(true)
-            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             layoutManager = viewManager
             adapter = viewAdapter
         }
@@ -80,7 +67,7 @@ class ClusterFragment : Fragment(), AnkoLogger, View.OnClickListener {
                 info { "Testing: " + ClusterStore.listOfClusters[viewHolder.adapterPosition].toString() }
 
                 // TO-DO - Create edit fragment/activity
-                val intent = Intent(context, Watch::class.java)
+                val intent = Intent(context, Events::class.java)
                 startActivity(intent)
             }
         }

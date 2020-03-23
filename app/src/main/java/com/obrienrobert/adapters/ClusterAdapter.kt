@@ -41,7 +41,6 @@ class ClusterAdapter(private val arrayOfClusters: MutableList<ClusterModel>) :
             copyOfClusters = (results?.values as? List<ClusterModel>).orEmpty()
             notifyDataSetChanged()
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -53,6 +52,8 @@ class ClusterAdapter(private val arrayOfClusters: MutableList<ClusterModel>) :
 
     fun removeAt(position: Int) {
         arrayOfClusters.removeAt(position)
+        copyOfClusters.drop(position)
+        ClusterStore.listOfClusters.drop(position)
         notifyItemRemoved(position)
     }
 

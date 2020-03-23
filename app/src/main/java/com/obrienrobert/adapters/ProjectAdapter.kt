@@ -11,7 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.main.R
-import com.obrienrobert.main.Watch
+import com.obrienrobert.main.Events
 import com.obrienrobert.models.ClusterStore
 import io.fabric8.openshift.api.model.Project
 import org.jetbrains.anko.AnkoLogger
@@ -91,7 +91,7 @@ class ProjectAdapter(private val projectList: List<Project>) :
             val showIcon: ImageView = itemView.findViewById(R.id.show)
             showIcon.setOnClickListener {
                 info { "ImageView clicked!" }
-                val intent = Intent(itemView.context, Watch::class.java).putExtra(
+                val intent = Intent(itemView.context, Events::class.java).putExtra(
                     "namespace",
                     projects[position].metadata.name
                 )
