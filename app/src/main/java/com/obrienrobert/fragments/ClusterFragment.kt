@@ -1,15 +1,18 @@
 package com.obrienrobert.fragments
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.adapters.ClusterAdapter
 import com.obrienrobert.main.R
-import com.obrienrobert.main.Events
+import com.obrienrobert.main.SharedViewModel
 import com.obrienrobert.models.ClusterStore
 import com.obrienrobert.util.SwipeToDeleteCallback
 import com.obrienrobert.util.SwipeToEditCallback
@@ -19,11 +22,16 @@ import org.jetbrains.anko.info
 class ClusterFragment : BaseFragment(), AnkoLogger, View.OnClickListener {
 
     override fun layoutId() = R.layout.cluster_fragment
+    private lateinit var viewModel: SharedViewModel
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()
         inflater.inflate(R.menu.add_cluster_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
+
+        viewModel = activity?.run {
+            ViewModelProviders.of(this).get(SharedViewModel::class.java)
+        } ?: throw Exception("Invalid Activity")
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -63,12 +71,9 @@ class ClusterFragment : BaseFragment(), AnkoLogger, View.OnClickListener {
 
         val editSwipeHandler = object : SwipeToEditCallback(this.context!!) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val adapter = recycleView.adapter as ClusterAdapter
-                info { "Testing: " + ClusterStore.listOfClusters[viewHolder.adapterPosition].toString() }
-
-                // TO-DO - Create edit fragment/activity
-                val intent = Intent(context, Events::class.java)
-                startActivity(intent)
+                viewModel.data.value =
+                    ClusterStore.listOfClusters[viewHolder.adapterPosition].clusterName
+                navigateTo(EditClusterFragment.newInstance())
             }
         }
 

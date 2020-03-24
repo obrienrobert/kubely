@@ -10,8 +10,8 @@ import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.obrienrobert.main.R
 import com.obrienrobert.main.Events
+import com.obrienrobert.main.R
 import com.obrienrobert.models.ClusterStore
 import io.fabric8.openshift.api.model.Project
 import org.jetbrains.anko.AnkoLogger
