@@ -33,6 +33,7 @@ class EditClusterFragment : BaseFragment(), AnkoLogger {
 
         viewModel.data.observe(this, Observer {
             info { viewModel.data.value }
+            populateFormFields(viewModel.data.value)
         })
     }
 
@@ -57,7 +58,6 @@ class EditClusterFragment : BaseFragment(), AnkoLogger {
             input(R.id.cluster_url) {
                 isNotEmpty()
                 isUrl()
-                contains("http")
             }
             input(R.id.cluster_name) {
                 isNotEmpty()
@@ -107,9 +107,17 @@ class EditClusterFragment : BaseFragment(), AnkoLogger {
         }
     }
 
+    private fun populateFormFields(clusterToEdit: ClusterModel?) {
+        view?.findViewById<EditText>(R.id.cluster_url)?.hint = clusterToEdit?.masterURL
+        view?.findViewById<EditText>(R.id.cluster_name)?.hint = clusterToEdit?.clusterName
+        view?.findViewById<EditText>(R.id.username)?.hint = clusterToEdit?.userName
+        view?.findViewById<EditText>(R.id.password)?.hint = clusterToEdit?.password
+    }
+
     private fun clearFormFields() {
         view?.findViewById<EditText>(R.id.password)?.text?.clear()
         view?.findViewById<EditText>(R.id.cluster_url)?.text?.clear()
+        view?.findViewById<EditText>(R.id.cluster_name)?.text?.clear()
         view?.findViewById<EditText>(R.id.username)?.text?.clear()
     }
 

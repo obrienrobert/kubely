@@ -21,6 +21,7 @@ class AddClusterFragment : BaseFragment(), AnkoLogger {
     override fun onCreate(savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
         super.onCreate(savedInstanceState)
+        populateFormFields()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -44,7 +45,6 @@ class AddClusterFragment : BaseFragment(), AnkoLogger {
             input(R.id.cluster_url) {
                 isNotEmpty()
                 isUrl()
-                contains("http")
             }
             input(R.id.cluster_name) {
                 isNotEmpty()
@@ -94,10 +94,18 @@ class AddClusterFragment : BaseFragment(), AnkoLogger {
         }
     }
 
+     private fun populateFormFields() {
+        view?.findViewById<EditText>(R.id.cluster_url)?.setHint(R.string.cluster_api_url)
+        view?.findViewById<EditText>(R.id.cluster_name)?.setHint(R.string.cluster_name)
+        view?.findViewById<EditText>(R.id.username)?.setHint(R.string.user_name)
+        view?.findViewById<EditText>(R.id.password)?.setHint(R.string.password)
+    }
+
     private fun clearFormFields() {
-        view?.findViewById<EditText>(R.id.password)?.text?.clear()
         view?.findViewById<EditText>(R.id.cluster_url)?.text?.clear()
+        view?.findViewById<EditText>(R.id.cluster_name)?.text?.clear()
         view?.findViewById<EditText>(R.id.username)?.text?.clear()
+        view?.findViewById<EditText>(R.id.password)?.text?.clear()
     }
 
     companion object {

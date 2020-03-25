@@ -72,7 +72,7 @@ class ClusterFragment : BaseFragment(), AnkoLogger, View.OnClickListener {
         val editSwipeHandler = object : SwipeToEditCallback(this.context!!) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 viewModel.data.value =
-                    ClusterStore.listOfClusters[viewHolder.adapterPosition].clusterName
+                    ClusterStore.listOfClusters[viewHolder.adapterPosition]
                 navigateTo(EditClusterFragment.newInstance())
             }
         }
