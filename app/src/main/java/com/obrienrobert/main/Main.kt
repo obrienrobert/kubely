@@ -10,6 +10,7 @@ import co.zsmb.materialdrawerkt.builders.drawer
 import co.zsmb.materialdrawerkt.draweritems.badgeable.primaryItem
 import co.zsmb.materialdrawerkt.draweritems.sectionHeader
 import com.obrienrobert.fragments.*
+import com.obrienrobert.models.ClusterModel
 import com.obrienrobert.models.ClusterStore
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.AnkoLogger
@@ -20,6 +21,36 @@ class Main : AppCompatActivity(), AnkoLogger {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        ClusterStore.listOfClusters.add(
+            ClusterModel(
+                "<MASTER_URL>",
+                "Test cluster",
+                "kubeadmin",
+                "<PASSWORD>",
+                true
+            )
+        )
+
+        ClusterStore.listOfClusters.add(
+            ClusterModel(
+                "<MASTER_URL>",
+                "Test cluster in-active",
+                "kubeadmin",
+                "<PASSWORD>",
+                false
+            )
+        )
+        ClusterStore.listOfClusters.add(
+            ClusterModel(
+                "<MASTER_URL>",
+                "Test cluster in-active",
+                "kubeadmin",
+                "<PASSWORD>",
+                false
+            )
+        )
+
         createNavDrawer()
     }
 

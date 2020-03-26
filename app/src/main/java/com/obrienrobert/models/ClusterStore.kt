@@ -8,7 +8,11 @@ object ClusterStore {
     }
 
     fun setActiveNamespace(namespace: String) {
-        val activeCluster = listOfClusters.find { it.isActiveCluster }
-        activeCluster?.activeNamespace = namespace
+        listOfClusters.find { it.isActiveCluster }?.activeNamespace = namespace
+    }
+
+    fun updateCluster(clusterToEdit: String?, updatedCluster: ClusterModel) {
+        listOfClusters[listOfClusters.indexOf(listOfClusters.find { it.clusterName == clusterToEdit })] =
+            updatedCluster
     }
 }

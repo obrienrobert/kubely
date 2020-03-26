@@ -16,11 +16,10 @@ import com.obrienrobert.main.SharedViewModel
 import com.obrienrobert.models.ClusterModel
 import com.obrienrobert.models.ClusterStore
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 
 class EditClusterFragment : BaseFragment(), AnkoLogger {
 
-    override fun layoutId() = R.layout.add_cluster
+    override fun layoutId() = R.layout.edit_cluster
     private lateinit var viewModel: SharedViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,20 +31,19 @@ class EditClusterFragment : BaseFragment(), AnkoLogger {
         } ?: throw Exception("Invalid Activity")
 
         viewModel.data.observe(this, Observer {
-            info { viewModel.data.value }
             populateFormFields(viewModel.data.value)
         })
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()
-        inflater.inflate(R.menu.add_cluster_menu, menu)
+        inflater.inflate(R.menu.edit_cluster_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.add_cluster_menu_item -> {
+            R.id.edit_cluster_menu_item -> {
                 validateNewCluster()
                 return false
             }
@@ -57,22 +55,22 @@ class EditClusterFragment : BaseFragment(), AnkoLogger {
         val addClusterForm = form {
             input(R.id.cluster_url) {
                 isNotEmpty()
-                isUrl()
+                //isUrl()
             }
             input(R.id.cluster_name) {
                 isNotEmpty()
-                length().greaterThan(6)
-                length().lessThan(16)
+                //length().greaterThan(6)
+                //length().lessThan(16)
             }
             input(R.id.username) {
                 isNotEmpty()
-                length().greaterThan(6)
-                length().lessThan(16)
+                //length().greaterThan(6)
+                //length().lessThan(16)
             }
             input(R.id.password) {
                 isNotEmpty()
-                length().greaterThan(6)
-                length().lessThan(20)
+                //length().greaterThan(6)
+                //length().lessThan(20)
             }
 
         }.validate()
@@ -84,8 +82,8 @@ class EditClusterFragment : BaseFragment(), AnkoLogger {
             val username: FieldValue<*>? = result["username"]
             val password: FieldValue<*>? = result["password"]
 
-            ClusterStore.listOfClusters.add(
-                ClusterModel(
+            ClusterStore.updateCluster(
+                viewModel.data.value?.clusterName, ClusterModel(
                     clusterURL?.asString(),
                     clusterName?.asString(),
                     username?.asString(),

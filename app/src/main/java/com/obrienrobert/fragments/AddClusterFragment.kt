@@ -1,6 +1,5 @@
 package com.obrienrobert.fragments
 
-import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -17,12 +16,6 @@ import org.jetbrains.anko.AnkoLogger
 class AddClusterFragment : BaseFragment(), AnkoLogger {
 
     override fun layoutId() = R.layout.add_cluster
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        setHasOptionsMenu(true)
-        super.onCreate(savedInstanceState)
-        populateFormFields()
-    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()
@@ -92,13 +85,6 @@ class AddClusterFragment : BaseFragment(), AnkoLogger {
                 .addToBackStack(null)
                 .commit()
         }
-    }
-
-     private fun populateFormFields() {
-        view?.findViewById<EditText>(R.id.cluster_url)?.setHint(R.string.cluster_api_url)
-        view?.findViewById<EditText>(R.id.cluster_name)?.setHint(R.string.cluster_name)
-        view?.findViewById<EditText>(R.id.username)?.setHint(R.string.user_name)
-        view?.findViewById<EditText>(R.id.password)?.setHint(R.string.password)
     }
 
     private fun clearFormFields() {
