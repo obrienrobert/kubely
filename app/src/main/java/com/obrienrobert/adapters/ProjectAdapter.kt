@@ -80,7 +80,6 @@ class ProjectAdapter(private val projectList: List<Project>) :
             // Default to the first project in the list if empty
             if (ClusterStore.getActiveCluster()?.activeNamespace.isNullOrEmpty()) {
                 if (position == 0) {
-                    // Collections.swap(projects, position, 0)
                     itemView.setBackgroundColor(Color.GREEN)
                 }
             }

@@ -2,6 +2,7 @@ package com.obrienrobert.fragments
 
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.adapters.PodAdapter
@@ -20,18 +21,31 @@ class PodFragment : BaseFragment(), AnkoLogger {
     private lateinit var viewManager: RecyclerView.LayoutManager
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var podList: List<Pod>
+    private lateinit var noData: TextView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         async {
             podList =
-                await { Requests(ActiveClient.newInstance()).getAllPodsInNamespace(ClusterStore.getActiveCluster()?.activeNamespace) }
+                await { Requests(ActiveClient.newInstance()).getAllPodsInNamespace(ClusterStore.getActiveCluster()?.activeNamespace)
+                }
+
+            val recyclerView = view.findViewById<RecyclerView>(R.id.pod_recycler_view)
+            noData = view.findViewById(R.id.no_data) as TextView
+
+            if (podList.isEmpty()) {
+                recyclerView.visibility = View.GONE
+                noData.visibility = View.VISIBLE
+            } else {
+                recyclerView.visibility = View.VISIBLE
+                noData.visibility = View.GONE
+            }
 
             viewManager = LinearLayoutManager(context)
             viewAdapter = PodAdapter(podList)
 
-            view.findViewById<RecyclerView>(R.id.pod_recycler_view).apply {
+           recyclerView.apply {
 
                 setHasFixedSize(true)
                 layoutManager = viewManager

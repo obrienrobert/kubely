@@ -23,7 +23,7 @@ class ServiceFragment : BaseFragment() {
     private lateinit var viewManager: RecyclerView.LayoutManager
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var serviceList: List<Service>
-    private lateinit var emptyView: TextView
+    private lateinit var noData: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,27 +38,25 @@ class ServiceFragment : BaseFragment() {
 
         async {
             serviceList = await {
-                Requests(ActiveClient.newInstance()).getAllServicesInNamespace(
-                    ClusterStore.getActiveCluster()?.activeNamespace!!
+                Requests(ActiveClient.newInstance()).getAllServicesInNamespace(ClusterStore.getActiveCluster()?.activeNamespace!!
                 )
             }
 
-
-            val rc = view.findViewById<RecyclerView>(R.id.service_recycler_view)
-            emptyView = view.findViewById(R.id.empty_view) as TextView
+            val recyclerView = view.findViewById<RecyclerView>(R.id.service_recycler_view)
+            noData = view.findViewById(R.id.no_data) as TextView
 
             if (serviceList.isEmpty()) {
-                rc.visibility = View.GONE
-                emptyView.visibility = View.VISIBLE
+                recyclerView.visibility = View.GONE
+                noData.visibility = View.VISIBLE
             } else {
-                rc.visibility = View.VISIBLE
-                emptyView.visibility = View.GONE
+                recyclerView.visibility = View.VISIBLE
+                noData.visibility = View.GONE
             }
 
             viewManager = LinearLayoutManager(context)
             viewAdapter = ServiceAdapter(serviceList)
 
-            rc.apply {
+            recyclerView.apply {
                 setHasFixedSize(true)
                 layoutManager = viewManager
                 adapter = viewAdapter
