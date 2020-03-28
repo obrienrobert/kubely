@@ -30,7 +30,7 @@ class NodeFragment : BaseFragment() {
             val recyclerView = view.findViewById<RecyclerView>(R.id.node_recycler_view)
             noData = view.findViewById(R.id.no_data) as TextView
 
-            if (nodeList.isEmpty()) {
+            if (nodeList.isNullOrEmpty()) {
                 recyclerView.visibility = View.GONE
                 noData.visibility = View.VISIBLE
             } else {

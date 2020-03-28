@@ -10,6 +10,7 @@ import co.zsmb.materialdrawerkt.builders.drawer
 import co.zsmb.materialdrawerkt.draweritems.badgeable.primaryItem
 import co.zsmb.materialdrawerkt.draweritems.sectionHeader
 import com.obrienrobert.fragments.*
+import com.obrienrobert.models.ClusterModel
 import com.obrienrobert.models.ClusterStore
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.AnkoLogger
@@ -20,6 +21,36 @@ class Main : AppCompatActivity(), AnkoLogger {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        ClusterStore.listOfClusters.add(
+            ClusterModel(
+                "<MASTER_URL>",
+                "Test cluster",
+                "kubeadmin",
+                "<PASSWORD>",
+                true
+            )
+        )
+
+        ClusterStore.listOfClusters.add(
+            ClusterModel(
+                "<MASTER_URL>",
+                "Test cluster in-active",
+                "kubeadmin",
+                "<PASSWORD>",
+                false
+            )
+        )
+        ClusterStore.listOfClusters.add(
+            ClusterModel(
+                "<MASTER_URL>",
+                "Test cluster in-active",
+                "kubeadmin",
+                "<PASSWORD>",
+                false
+            )
+        )
+
         createNavDrawer()
     }
 
@@ -67,6 +98,15 @@ class Main : AppCompatActivity(), AnkoLogger {
                     Log.d("DRAWER", "Projects")
                     setActionBarTitle(R.string.projects)
                     navigateTo(ProjectFragment.newInstance())
+                    false
+                }
+            }
+            primaryItem("Events") {
+                icon = R.drawable.events
+                onClick { _ ->
+                    Log.d("DRAWER", "Events")
+                    setActionBarTitle(R.string.namespace_events)
+                    navigateTo(EventFragment.newInstance())
                     false
                 }
             }

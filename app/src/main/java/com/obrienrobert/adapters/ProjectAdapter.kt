@@ -1,6 +1,5 @@
 package com.obrienrobert.adapters
 
-import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -10,12 +9,10 @@ import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.obrienrobert.main.Events
 import com.obrienrobert.main.R
 import com.obrienrobert.models.ClusterStore
 import io.fabric8.openshift.api.model.Project
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 
 
 class ProjectAdapter(private val projectList: List<Project>) :
@@ -48,7 +45,6 @@ class ProjectAdapter(private val projectList: List<Project>) :
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.project_card_view, parent, false)
         )
-
     }
 
     override fun getItemCount(): Int {
@@ -86,16 +82,6 @@ class ProjectAdapter(private val projectList: List<Project>) :
 
             this.itemView.findViewById<TextView>(R.id.resource_info).text =
                 projects[position].metadata.creationTimestamp
-
-            val showIcon: ImageView = itemView.findViewById(R.id.show)
-            showIcon.setOnClickListener {
-                info { "ImageView clicked!" }
-                val intent = Intent(itemView.context, Events::class.java).putExtra(
-                    "namespace",
-                    projects[position].metadata.name
-                )
-                itemView.context.startActivity(intent)
-            }
 
             this.itemView.setOnClickListener {
                 ClusterStore.setActiveNamespace(projects[position].metadata.name)

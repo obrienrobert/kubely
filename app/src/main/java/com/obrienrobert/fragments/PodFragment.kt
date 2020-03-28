@@ -34,7 +34,7 @@ class PodFragment : BaseFragment(), AnkoLogger {
             val recyclerView = view.findViewById<RecyclerView>(R.id.pod_recycler_view)
             noData = view.findViewById(R.id.no_data) as TextView
 
-            if (podList.isEmpty()) {
+            if (podList.isNullOrEmpty()) {
                 recyclerView.visibility = View.GONE
                 noData.visibility = View.VISIBLE
             } else {
@@ -46,7 +46,6 @@ class PodFragment : BaseFragment(), AnkoLogger {
             viewAdapter = PodAdapter(podList)
 
            recyclerView.apply {
-
                 setHasFixedSize(true)
                 layoutManager = viewManager
                 adapter = viewAdapter

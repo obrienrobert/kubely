@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.adapters.ProjectAdapter
@@ -21,6 +22,9 @@ class ProjectFragment : BaseFragment(), AnkoLogger {
 
     private lateinit var projectList: List<Project>
     private lateinit var optionsMenu: Menu
+    private lateinit var viewManager: RecyclerView.LayoutManager
+    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var noData: TextView
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()
@@ -44,11 +48,21 @@ class ProjectFragment : BaseFragment(), AnkoLogger {
         async {
             projectList = await { Requests(ActiveClient.newInstance()).getAllNamespaces() }
 
-            val viewManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
-            val viewAdapter: RecyclerView.Adapter<*> = ProjectAdapter(projectList)
+            val recyclerView = view.findViewById<RecyclerView>(R.id.project_recycler_view)
+            noData = view.findViewById(R.id.no_data) as TextView
 
-            view.findViewById<RecyclerView>(R.id.project_recycler_view).apply {
+            if (projectList.isNullOrEmpty()) {
+                recyclerView.visibility = View.GONE
+                noData.visibility = View.VISIBLE
+            } else {
+                recyclerView.visibility = View.VISIBLE
+                noData.visibility = View.GONE
+            }
 
+            viewManager = LinearLayoutManager(context)
+            viewAdapter = ProjectAdapter(projectList)
+
+            recyclerView.apply {
                 setHasFixedSize(true)
                 layoutManager = viewManager
                 adapter = viewAdapter

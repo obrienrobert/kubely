@@ -55,7 +55,6 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/drag_icon"
                 android:layout_width="24dp"
                 android:layout_height="25dp"
                 android:layout_margin="7dp"
