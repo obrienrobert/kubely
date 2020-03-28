@@ -52,6 +52,15 @@ class Main : AppCompatActivity(), AnkoLogger {
         // Nav draw setup
         drawer {
             sectionHeader("Home")
+            primaryItem("Dashboards") {
+                icon = R.drawable.dashboard
+                onClick { _ ->
+                    Log.d("DRAWER", "Dashboards")
+                    setActionBarTitle(R.string.dashboards)
+                    navigateTo(DashboardFragment.newInstance())
+                    false
+                }
+            }
             primaryItem("Clusters") {
                 icon = R.drawable.openshift
                 onClick { _ ->
