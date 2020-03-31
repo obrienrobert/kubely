@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "981948845030",
+    "firebase_url": "https://shifty-55a3e.firebaseio.com",
+    "project_id": "shifty-55a3e",
+    "storage_bucket": "shifty-55a3e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:981948845030:android:dbb5f3790c644730886427",
+        "android_client_info": {
+          "package_name": "org.obrienrobert.shifty"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "981948845030-mlgcb18l1tpcscje0f7ctmp4v1c69qnq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLJAatvSgfjpRCRBiB9LkF7hu40zAnig0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "981948845030-mlgcb18l1tpcscje0f7ctmp4v1c69qnq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
