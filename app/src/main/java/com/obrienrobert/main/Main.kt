@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import co.zsmb.materialdrawerkt.builders.drawer
 import co.zsmb.materialdrawerkt.draweritems.badgeable.primaryItem
 import co.zsmb.materialdrawerkt.draweritems.sectionHeader
+import com.google.firebase.auth.FirebaseAuth
 import com.obrienrobert.fragments.*
 import com.obrienrobert.models.ClusterModel
 import com.obrienrobert.models.ClusterStore
@@ -19,12 +20,16 @@ import org.jetbrains.anko.info
 
 class Main : AppCompatActivity(), AnkoLogger {
 
+    lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        auth = FirebaseAuth.getInstance()
+
         ClusterStore.listOfClusters.add(
             ClusterModel(
-                "<MASTER_URL>",
+                "<API_URL>",
                 "Test cluster",
                 "kubeadmin",
                 "<PASSWORD>",
@@ -34,7 +39,7 @@ class Main : AppCompatActivity(), AnkoLogger {
 
         ClusterStore.listOfClusters.add(
             ClusterModel(
-                "<MASTER_URL>",
+                "<API_URL>",
                 "Test cluster in-active",
                 "kubeadmin",
                 "<PASSWORD>",
@@ -43,7 +48,7 @@ class Main : AppCompatActivity(), AnkoLogger {
         )
         ClusterStore.listOfClusters.add(
             ClusterModel(
-                "<MASTER_URL>",
+                "<API_URL>",
                 "Test cluster in-active",
                 "kubeadmin",
                 "<PASSWORD>",
