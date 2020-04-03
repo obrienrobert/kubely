@@ -20,12 +20,13 @@ import org.jetbrains.anko.info
 
 class Main : AppCompatActivity(), AnkoLogger {
 
-    lateinit var auth: FirebaseAuth
+    lateinit var app: Shifty
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        app = application as Shiftystat
 
-        auth = FirebaseAuth.getInstance()
+        app.auth = FirebaseAuth.getInstance()
 
         ClusterStore.listOfClusters.add(
             ClusterModel(
