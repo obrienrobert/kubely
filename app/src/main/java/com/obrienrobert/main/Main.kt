@@ -24,7 +24,7 @@ class Main : AppCompatActivity(), AnkoLogger {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        app = application as Shiftystat
+        app = application as Shifty
 
         app.auth = FirebaseAuth.getInstance()
 

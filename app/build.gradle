@@ -28,6 +28,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
     packagingOptions {
         exclude 'META-INF/*'
         exclude 'resource-*'
@@ -73,9 +77,15 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:19.2.1'
 
     implementation 'com.google.firebase:firebase-storage:19.1.1'
+
     implementation 'com.google.android.gms:play-services-auth:18.0.0'
 
     implementation 'com.google.firebase:firebase-auth:19.3.0'
+
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    implementation 'jp.wasabeef:picasso-transformations:2.2.1'
+
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
