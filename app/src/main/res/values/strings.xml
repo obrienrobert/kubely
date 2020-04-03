@@ -20,4 +20,21 @@
     <string name="secrets">Secrets</string>
     <string name="services">Services</string>
     <string name="user_name">Username</string>
+
+    <string name="sign_out">Sign Out</string>
+    <string name="emailpassword_status_fmt">Email User: %1$s (verified: %2$b)</string>
+    <string name="auth_failed">Authentication failed</string>
+    <string name="signed_out">Signed Out</string>
+    <string name="firebase_status_fmt">Firebase User: %s</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="sign_in">Sign In</string>
+    <string name="create_account">Create Account</string>
+    <string name="send_link">Send Link</string>
+    <string name="verify_email">Verify Email</string>
+    <string name="desc_firebase_lockup">Firebase logo and name</string>
+    <string name="emailpassword_title_text">Please Login Below</string>
+    <string name="messageLoading">Please wait while we Connect to the Server..</string>
+    <string name="select_profile_image">Select Profile Image</string>
+
 </resources>
