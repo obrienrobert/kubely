@@ -3,39 +3,37 @@
     android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/md_white_1000"
-    android:orientation="vertical"
-    android:weightSum="4">
+    android:background="@color/md_black_1000"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_height="539dp"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <ImageView
             android:id="@+id/icon"
             style="@style/ThemeOverlay.FirebaseIcon"
-            android:layout_width="286dp"
-            android:layout_height="325dp"
+            android:layout_width="196dp"
+            android:layout_height="228dp"
             android:contentDescription="@string/desc_firebase_lockup"
             android:src="@drawable/openshift" />
 
         <TextView
-            android:id="@+id/titleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/title_bottom_margin"
             android:text="@string/emailpassword_title_text"
-            android:textColor="@color/md_black_1000"
+            android:textColor="@color/md_white_1000"
+            android:textSize="20sp"
             android:theme="@style/ThemeOverlay.MyTitleText" />
 
         <TextView
             android:id="@+id/status"
             style="@style/ThemeOverlay.MyTextDetail"
             android:text="@string/signed_out"
-            android:textColor="@color/md_black_1000" />
+            android:textColor="@color/md_white_1000" />
 
         <TextView
             android:id="@+id/detail"
@@ -44,16 +42,14 @@
 
     </LinearLayout>
 
-
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="193dp"
         android:background="@color/md_white_1000"
         android:gravity="center_vertical">
 
         <LinearLayout
-            android:id="@+id/emailPasswordFields"
+            android:id="@+id/email_password_fields"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -61,33 +57,35 @@
             android:paddingRight="16dp">
 
             <EditText
-                android:id="@+id/fieldEmail"
+                android:id="@+id/field_email"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:autofillHints=""
                 android:hint="@string/hint_email"
                 android:inputType="textEmailAddress" />
 
             <EditText
-                android:id="@+id/fieldPassword"
+                android:id="@+id/field_password"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:autofillHints=""
                 android:hint="@string/hint_password"
                 android:inputType="textPassword" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/emailPasswordButtons"
+            android:id="@+id/email_password_buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/emailPasswordFields"
+            android:layout_below="@+id/email_password_fields"
             android:orientation="horizontal"
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
             <Button
-                android:id="@+id/emailSignInButton"
+                android:id="@+id/email_sign_in_button"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -96,7 +94,7 @@
                 android:theme="@style/ThemeOverlay.MyDarkButton" />
 
             <Button
-                android:id="@+id/emailCreateAccountButton"
+                android:id="@+id/email_create_account_button"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -106,10 +104,9 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/googleSignInButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/emailPasswordButtons"
+            android:layout_below="@+id/email_password_buttons"
             android:orientation="horizontal"
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
@@ -123,7 +120,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/signedInButtons"
+            android:id="@+id/sign_in_buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -134,7 +131,7 @@
             android:weightSum="2.0">
 
             <Button
-                android:id="@+id/signOutButton"
+                android:id="@+id/sign_out_button"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -143,7 +140,7 @@
                 android:theme="@style/ThemeOverlay.MyDarkButton" />
 
             <Button
-                android:id="@+id/verifyEmailButton"
+                android:id="@+id/verify_email_button"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

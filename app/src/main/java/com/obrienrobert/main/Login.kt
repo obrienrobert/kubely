@@ -28,17 +28,17 @@ import org.jetbrains.anko.startActivity
 class Login : AppCompatActivity(), View.OnClickListener {
 
     lateinit var app: Shifty
-    lateinit var loader : AlertDialog
+    private lateinit var loader : AlertDialog
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         app = application as Shifty
         // Buttons
-        emailSignInButton.setOnClickListener(this)
-        emailCreateAccountButton.setOnClickListener(this)
-        signOutButton.setOnClickListener(this)
-        verifyEmailButton.setOnClickListener(this)
+        email_sign_in_button.setOnClickListener(this)
+        email_create_account_button.setOnClickListener(this)
+        sign_out_button.setOnClickListener(this)
+        verify_email_button.setOnClickListener(this)
         sign_in_button.setOnClickListener(this)
 
         app.auth = FirebaseAuth.getInstance()
@@ -136,7 +136,7 @@ class Login : AppCompatActivity(), View.OnClickListener {
 
     private fun sendEmailVerification() {
         // Disable button
-        verifyEmailButton.isEnabled = false
+        verify_email_button.isEnabled = false
 
         // Send verification email
         // [START send_email_verification]
@@ -145,7 +145,7 @@ class Login : AppCompatActivity(), View.OnClickListener {
             ?.addOnCompleteListener(this) { task ->
                 // [START_EXCLUDE]
                 // Re-enable button
-                verifyEmailButton.isEnabled = true
+                verify_email_button.isEnabled = true
 
                 if (task.isSuccessful) {
                     Toast.makeText(baseContext,
@@ -165,20 +165,20 @@ class Login : AppCompatActivity(), View.OnClickListener {
     private fun validateForm(): Boolean {
         var valid = true
 
-        val email = fieldEmail.text.toString()
+        val email = field_email.text.toString()
         if (TextUtils.isEmpty(email)) {
-            fieldEmail.error = "Required."
+            field_email.error = "Required."
             valid = false
         } else {
-            fieldEmail.error = null
+            field_email.error = null
         }
 
-        val password = fieldPassword.text.toString()
+        val password = field_password.text.toString()
         if (TextUtils.isEmpty(password)) {
-            fieldPassword.error = "Required."
+            field_password.error = "Required."
             valid = false
         } else {
-            fieldPassword.error = null
+            field_password.error = null
         }
 
         return valid
@@ -191,11 +191,11 @@ class Login : AppCompatActivity(), View.OnClickListener {
                 user.email, user.isEmailVerified)
             detail.text = getString(R.string.firebase_status_fmt, user.uid)
 
-            emailPasswordButtons.visibility = View.GONE
-            emailPasswordFields.visibility = View.GONE
-            signedInButtons.visibility = View.VISIBLE
+            email_password_buttons.visibility = View.GONE
+            email_password_fields.visibility = View.GONE
+            sign_in_buttons.visibility = View.VISIBLE
 
-            verifyEmailButton.isEnabled = !user.isEmailVerified
+            verify_email_button.isEnabled = !user.isEmailVerified
             app.database = FirebaseDatabase.getInstance().reference
             app.storage = FirebaseStorage.getInstance().reference
 
@@ -204,19 +204,18 @@ class Login : AppCompatActivity(), View.OnClickListener {
             status.setText(R.string.signed_out)
             detail.text = null
 
-            emailPasswordButtons.visibility = View.VISIBLE
-            emailPasswordFields.visibility = View.VISIBLE
-            signedInButtons.visibility = View.GONE
+            email_password_buttons.visibility = View.VISIBLE
+            email_password_fields.visibility = View.VISIBLE
+            sign_in_buttons.visibility = View.GONE
         }
     }
 
     override fun onClick(v: View) {
-        val i = v.id
-        when (i) {
-            R.id.emailCreateAccountButton -> createAccount(fieldEmail.text.toString(), fieldPassword.text.toString())
-            R.id.emailSignInButton -> signIn(fieldEmail.text.toString(), fieldPassword.text.toString())
-            R.id.signOutButton -> signOut()
-            R.id.verifyEmailButton -> sendEmailVerification()
+        when (v.id) {
+            R.id.email_create_account_button -> createAccount(field_email.text.toString(), field_password.text.toString())
+            R.id.email_sign_in_button -> signIn(field_email.text.toString(), field_password.text.toString())
+            R.id.sign_out_button -> signOut()
+            R.id.verify_email_button -> sendEmailVerification()
             R.id.sign_in_button -> googleSignIn()
         }
     }

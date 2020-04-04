@@ -11,10 +11,13 @@ import co.zsmb.materialdrawerkt.builders.drawer
 import co.zsmb.materialdrawerkt.draweritems.badgeable.primaryItem
 import co.zsmb.materialdrawerkt.draweritems.profile.profile
 import co.zsmb.materialdrawerkt.draweritems.sectionHeader
+import co.zsmb.materialdrawerkt.imageloader.drawerImageLoader
 import com.google.firebase.auth.FirebaseAuth
+import com.mikepenz.materialdrawer.util.DrawerUIUtils
 import com.obrienrobert.fragments.*
 import com.obrienrobert.models.ClusterModel
 import com.obrienrobert.models.ClusterStore
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
@@ -27,9 +30,25 @@ class Main : AppCompatActivity(), AnkoLogger {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        app = application as Shifty
 
+        app = application as Shifty
         app.auth = FirebaseAuth.getInstance()
+
+        drawerImageLoader {
+            placeholder { ctx, tag ->
+                DrawerUIUtils.getPlaceHolder(ctx)
+            }
+            set { imageView, uri, placeholder, tag ->
+                Picasso.get()
+                    .load(uri)
+                    .placeholder(placeholder)
+                    .into(imageView)
+            }
+            cancel { imageView ->
+                Picasso.get()
+                    .cancelRequest(imageView)
+            }
+        }
 
         ClusterStore.listOfClusters.add(
             ClusterModel(
@@ -89,14 +108,22 @@ class Main : AppCompatActivity(), AnkoLogger {
             false -> navigateTo(ClusterFragment.newInstance())
         }
 
+        // If the user is not a Google user, no username will exist. Otherwise, load the Google image.
+        var userName = ""
+        if(!app.auth.currentUser?.displayName.isNullOrEmpty()){
+            userName = app.auth.currentUser?.displayName!!
+        }
+
         // Nav draw setup
         drawer {
             accountHeader {
-                profile("Robert", "robrien@gmail.com") {
-                    icon = R.drawable.pod_icon
+                profile(userName, app.auth.currentUser?.email) {
+                    if(app.auth.currentUser?.photoUrl.toString().isNotEmpty()){
+                        iconUrl = app.auth.currentUser!!.photoUrl.toString().replace("s96-c", "s400-c")
+                    }
                 }
             }
-            sectionHeader("Home")
+            sectionHeader("Home").divider = false
             primaryItem("Clusters") {
                 icon = R.drawable.openshift
                 onClick { _ ->
