@@ -1,38 +1,32 @@
 package com.obrienrobert.util
 
+/*import kotlinx.android.synthetic.main.home.*
+import kotlinx.android.synthetic.main.nav_header_home.view.**/
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.AdaptiveIconDrawable
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
-import android.provider.MediaStore
 import android.util.Log
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
-import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.net.toUri
 import androidx.fragment.app.FragmentActivity
-import com.google.android.gms.tasks.*
+import com.google.android.gms.tasks.OnFailureListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.storage.StorageException
-import com.obrienrobert.main.Shifty
-import com.squareup.picasso.Callback
-import com.squareup.picasso.Picasso
 import com.obrienrobert.main.R
+import com.obrienrobert.main.Shifty
 import com.obrienrobert.models.UserPhotoModel
+import com.squareup.picasso.Picasso
 import jp.wasabeef.picasso.transformations.CropCircleTransformation
-/*import kotlinx.android.synthetic.main.home.*
-import kotlinx.android.synthetic.main.nav_header_home.view.**/
-import org.jetbrains.anko.info
 import java.io.ByteArrayOutputStream
 import java.io.IOException
-import java.lang.Exception
-import java.util.HashMap
+import java.util.*
 
 fun createLoader(activity: FragmentActivity) : AlertDialog {
     val loaderBuilder = AlertDialog.Builder(activity)

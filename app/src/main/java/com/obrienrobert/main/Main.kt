@@ -6,8 +6,10 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import co.zsmb.materialdrawerkt.builders.accountHeader
 import co.zsmb.materialdrawerkt.builders.drawer
 import co.zsmb.materialdrawerkt.draweritems.badgeable.primaryItem
+import co.zsmb.materialdrawerkt.draweritems.profile.profile
 import co.zsmb.materialdrawerkt.draweritems.sectionHeader
 import com.google.firebase.auth.FirebaseAuth
 import com.obrienrobert.fragments.*
@@ -16,6 +18,7 @@ import com.obrienrobert.models.ClusterStore
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
+import org.jetbrains.anko.startActivity
 
 
 class Main : AppCompatActivity(), AnkoLogger {
@@ -88,6 +91,11 @@ class Main : AppCompatActivity(), AnkoLogger {
 
         // Nav draw setup
         drawer {
+            accountHeader {
+                profile("Robert", "robrien@gmail.com") {
+                    icon = R.drawable.pod_icon
+                }
+            }
             sectionHeader("Home")
             primaryItem("Clusters") {
                 icon = R.drawable.openshift
@@ -205,6 +213,20 @@ class Main : AppCompatActivity(), AnkoLogger {
                     Log.d("DRAWER", "Nodes")
                     setActionBarTitle(R.string.nodes)
                     navigateTo(NodeFragment.newInstance())
+                    false
+                }
+            }
+            sectionHeader("Access Control")
+            primaryItem("Sign Out") {
+                icon = R.drawable.signout
+                onClick { _ ->
+                    Log.d("DRAWER", "Sign Out")
+                    app.auth.signOut()
+                    app.googleSignInClient.signOut()
+                    startActivity<Login>()
+                    // As the app is still active on logout, I am currently clearing the mock clusters manually.
+                    ClusterStore.listOfClusters.clear()
+                    finish()
                     false
                 }
             }
