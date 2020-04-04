@@ -12,7 +12,6 @@ import com.obrienrobert.adapters.ProjectAdapter
 import com.obrienrobert.client.ActiveClient
 import com.obrienrobert.client.Requests
 import com.obrienrobert.main.R
-import com.trading212.stickyheader.StickyHeaderDecoration
 import io.fabric8.openshift.api.model.Project
 import me.nikhilchaudhari.asynkio.core.async
 import org.jetbrains.anko.AnkoLogger
