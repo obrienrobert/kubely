@@ -45,6 +45,7 @@ class NodeFragment : BaseFragment() {
                 setHasFixedSize(true)
                 layoutManager = viewManager
                 adapter = viewAdapter
+                scheduleLayoutAnimation()
             }
         }
     }

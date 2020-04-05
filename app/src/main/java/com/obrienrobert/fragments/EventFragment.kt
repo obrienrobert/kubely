@@ -49,6 +49,7 @@ class EventFragment : BaseFragment(), AnkoLogger {
                 setHasFixedSize(true)
                 layoutManager = viewManager
                 adapter = viewAdapter
+                scheduleLayoutAnimation()
             }
         }
     }
