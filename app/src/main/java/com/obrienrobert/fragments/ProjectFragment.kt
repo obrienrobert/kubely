@@ -51,12 +51,15 @@ class ProjectFragment : BaseFragment(), AnkoLogger {
             val recyclerView = view.findViewById<RecyclerView>(R.id.project_recycler_view)
             noData = view.findViewById(R.id.no_data) as TextView
 
-            if (projectList.isNullOrEmpty()) {
-                recyclerView.visibility = View.GONE
-                noData.visibility = View.VISIBLE
-            } else {
-                recyclerView.visibility = View.VISIBLE
-                noData.visibility = View.GONE
+            when {
+                projectList.isNullOrEmpty() -> {
+                    recyclerView.visibility = View.GONE
+                    noData.visibility = View.VISIBLE
+                }
+                else -> {
+                    recyclerView.visibility = View.VISIBLE
+                    noData.visibility = View.GONE
+                }
             }
 
             viewManager = LinearLayoutManager(context)

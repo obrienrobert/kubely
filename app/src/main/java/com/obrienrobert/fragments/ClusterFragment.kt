@@ -51,6 +51,9 @@ class ClusterFragment : BaseFragment(), AnkoLogger, View.OnClickListener {
         val viewManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
         val viewAdapter: RecyclerView.Adapter<*> = ClusterAdapter(ClusterStore.listOfClusters)
 
+        info { "Test: " + ClusterStore.getActiveCluster()?.masterURL }
+        info { "Test: " + ClusterStore.getActiveCluster()?.activeNamespace }
+
         val recycleView = view.findViewById<RecyclerView>(R.id.cluster_recycler_view).apply {
 
             setHasFixedSize(true)

@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/title_bottom_margin"
-            android:text="@string/emailpassword_title_text"
+            android:text="@string/email_password_title_text"
             android:textColor="@color/md_white_1000"
             android:textSize="20sp"
             android:theme="@style/ThemeOverlay.MyTitleText" />

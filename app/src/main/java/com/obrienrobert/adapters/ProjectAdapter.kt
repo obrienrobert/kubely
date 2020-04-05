@@ -88,7 +88,6 @@ class ProjectAdapter(private val projectList: List<Project>) :
                 itemView.setBackgroundColor(Color.GREEN)
                 notifyDataSetChanged()
             }
-
         }
     }
 }

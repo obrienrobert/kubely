@@ -58,7 +58,7 @@
                 android:layout_width="24dp"
                 android:layout_height="25dp"
                 android:layout_margin="7dp"
-                android:contentDescription="@string/cluster_name"
+                android:contentDescription="@string/default_context_description"
                 android:src="@drawable/ic_drag" />
         </LinearLayout>
 

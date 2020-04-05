@@ -5,6 +5,7 @@
     <string name="cron_jobs">Cron Jobs</string>
     <string name="clusters">Clusters</string>
     <string name="cluster_name">Cluster Name</string>
+    <string name="default_context_description">Default Content Description</string>
     <string name="deployments">Deployments</string>
     <string name="password">Password</string>
     <string name="routes">Routes</string>
@@ -14,6 +15,7 @@
     <string name="projects">Projects</string>
     <string name="namespace_events">Namespace Events</string>
     <string name="no_data">No Data to Display</string>
+    <string name="no_project_selected">No Project Selected</string>
     <string name="nodes">Nodes</string>
     <string name="openshift_logo">Openshift Logo</string>
     <string name="resource_name">Resource name</string>
@@ -22,7 +24,7 @@
     <string name="user_name">Username</string>
 
     <string name="sign_out">Sign Out</string>
-    <string name="emailpassword_status_fmt">Email User: %1$s (verified: %2$b)</string>
+    <string name="email_password_status_fmt">Email User: %1$s (verified: %2$b)</string>
     <string name="auth_failed">Authentication failed</string>
     <string name="signed_out">Signed Out</string>
     <string name="firebase_status_fmt">Firebase User: %s</string>
@@ -32,7 +34,7 @@
     <string name="create_account">Create Account</string>
     <string name="verify_email">Verify Email</string>
     <string name="desc_firebase_lockup">Firebase logo and name</string>
-    <string name="emailpassword_title_text">Please Login Below</string>
+    <string name="email_password_title_text">Please Login Below</string>
     <string name="messageLoading">Please wait while we Connect to the Server..</string>
 
 </resources>

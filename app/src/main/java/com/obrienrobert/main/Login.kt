@@ -187,7 +187,7 @@ class Login : AppCompatActivity(), View.OnClickListener {
     private fun updateUI(user: FirebaseUser?) {
         hideLoader(loader)
         if (user != null) {
-            status.text = getString(R.string.emailpassword_status_fmt,
+            status.text = getString(R.string.email_password_status_fmt,
                 user.email, user.isEmailVerified)
             detail.text = getString(R.string.firebase_status_fmt, user.uid)
 

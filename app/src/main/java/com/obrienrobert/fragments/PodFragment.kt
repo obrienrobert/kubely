@@ -34,12 +34,21 @@ class PodFragment : BaseFragment(), AnkoLogger {
             val recyclerView = view.findViewById<RecyclerView>(R.id.pod_recycler_view)
             noData = view.findViewById(R.id.no_data) as TextView
 
-            if (podList.isNullOrEmpty()) {
-                recyclerView.visibility = View.GONE
-                noData.visibility = View.VISIBLE
-            } else {
-                recyclerView.visibility = View.VISIBLE
-                noData.visibility = View.GONE
+            when {
+                podList.isNullOrEmpty() -> {
+                    recyclerView.visibility = View.GONE
+                    noData.visibility = View.VISIBLE
+                    noData.setText(R.string.no_data)
+                }
+                ClusterStore.getActiveCluster()?.activeNamespace.isNullOrEmpty() -> {
+                    recyclerView.visibility = View.GONE
+                    noData.visibility = View.VISIBLE
+                    noData.setText(R.string.no_project_selected)
+                }
+                else -> {
+                    recyclerView.visibility = View.VISIBLE
+                    noData.visibility = View.GONE
+                }
             }
 
             viewManager = LinearLayoutManager(context)

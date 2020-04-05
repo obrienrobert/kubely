@@ -1,6 +1,8 @@
 package com.obrienrobert.fragments
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +21,7 @@ class EventFragment : BaseFragment(), AnkoLogger {
     override fun layoutId() = R.layout.event_fragment
     private lateinit var viewManager: RecyclerView.LayoutManager
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var optionsMenu: Menu
     private lateinit var eventList: List<Event>
     private lateinit var noData: TextView
 
@@ -34,12 +37,21 @@ class EventFragment : BaseFragment(), AnkoLogger {
             val recyclerView = view.findViewById<RecyclerView>(R.id.watch_recycler_view)
             noData = view.findViewById(R.id.no_data) as TextView
 
-            if (eventList.isNullOrEmpty()) {
-                recyclerView.visibility = View.GONE
-                noData.visibility = View.VISIBLE
-            } else {
-                recyclerView.visibility = View.VISIBLE
-                noData.visibility = View.GONE
+            when {
+                eventList.isNullOrEmpty() -> {
+                    recyclerView.visibility = View.GONE
+                    noData.visibility = View.VISIBLE
+                    noData.setText(R.string.no_data)
+                }
+                ClusterStore.getActiveCluster()?.activeNamespace.isNullOrEmpty() -> {
+                    recyclerView.visibility = View.GONE
+                    noData.visibility = View.VISIBLE
+                    noData.setText(R.string.no_project_selected)
+                }
+                else -> {
+                    recyclerView.visibility = View.VISIBLE
+                    noData.visibility = View.GONE
+                }
             }
 
             viewManager = LinearLayoutManager(context)
@@ -52,6 +64,12 @@ class EventFragment : BaseFragment(), AnkoLogger {
                 scheduleLayoutAnimation()
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        optionsMenu = menu
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     companion object {
