@@ -29,6 +29,10 @@ class Requests(private var client: OpenShiftClient) : Get {
         return client.namespaces().withName(namespace).get()
     }
 
+    override fun createNamespace(namespace: String?) {
+       client.namespaces().createNew().withNewMetadata().withName(namespace).endMetadata().done()
+    }
+
 
     // Services
     override fun getAllServices(): List<Service> {

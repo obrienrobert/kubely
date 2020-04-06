@@ -1,6 +1,8 @@
 <resources>
     <string name="add_cluster">Add Cluster</string>
+    <string name="add_project">Add Project</string>
     <string name="cluster_api_url">Cluster API URL</string>
+    <string name="new_project_name">New Project Name</string>
     <string name="app_name">Shifty</string>
     <string name="cron_jobs">Cron Jobs</string>
     <string name="clusters">Clusters</string>
