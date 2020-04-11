@@ -71,9 +71,6 @@ class ClusterAdapter(private val arrayOfClusters: MutableList<ClusterModel>) :
             this.itemView.findViewById<TextView>(R.id.cluster_name).text =
                 clusters[position].clusterName
 
-            this.itemView.findViewById<TextView>(R.id.cluster_info).text =
-                clusters[position].dataAdded.toString()
-
             this.itemView.findViewById<ImageView>(R.id.cluster_icon)
                 .setImageResource(R.drawable.cluster_icon)
 

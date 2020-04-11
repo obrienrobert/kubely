@@ -15,7 +15,6 @@ import co.zsmb.materialdrawerkt.imageloader.drawerImageLoader
 import com.google.firebase.auth.FirebaseAuth
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
 import com.obrienrobert.fragments.*
-import com.obrienrobert.models.ClusterModel
 import com.obrienrobert.models.ClusterStore
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
@@ -49,35 +48,6 @@ class Main : AppCompatActivity(), AnkoLogger {
                     .cancelRequest(imageView)
             }
         }
-
-        ClusterStore.listOfClusters.add(
-            ClusterModel(
-                "<API_URL>",
-                "Test cluster",
-                "kubeadmin",
-                "<PASSWORD>",
-                true
-            )
-        )
-
-        ClusterStore.listOfClusters.add(
-            ClusterModel(
-                "<API_URL>",
-                "Test cluster in-active",
-                "kubeadmin",
-                "<PASSWORD>",
-                false
-            )
-        )
-        ClusterStore.listOfClusters.add(
-            ClusterModel(
-                "<API_URL>",
-                "Test cluster in-active",
-                "kubeadmin",
-                "<PASSWORD>",
-                false
-            )
-        )
 
         createNavDrawer()
     }

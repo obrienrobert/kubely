@@ -57,8 +57,6 @@ class Login : AppCompatActivity(), View.OnClickListener {
 
         sign_in_button.setSize(SignInButton.SIZE_WIDE)
         sign_in_button.setColorScheme(0)
-
-
     }
 
     public override fun onStart() {

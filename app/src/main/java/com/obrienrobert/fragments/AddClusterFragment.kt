@@ -10,8 +10,11 @@ import com.afollestad.vvalidator.form
 import com.afollestad.vvalidator.form.FormResult
 import com.obrienrobert.main.R
 import com.obrienrobert.models.ClusterModel
-import com.obrienrobert.models.ClusterStore
+import com.obrienrobert.util.hideLoader
+import com.obrienrobert.util.showLoader
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
+import java.util.*
 
 class AddClusterFragment : BaseFragment(), AnkoLogger {
 
@@ -36,23 +39,23 @@ class AddClusterFragment : BaseFragment(), AnkoLogger {
     private fun validateNewCluster() {
         val addClusterForm = form {
             input(R.id.cluster_url) {
-                isNotEmpty()
-                isUrl()
+                //isNotEmpty()
+                //isUrl()
             }
             input(R.id.cluster_name) {
-                isNotEmpty()
-                length().greaterThan(6)
-                length().lessThan(16)
+                //isNotEmpty()
+                //length().greaterThan(6)
+                //length().lessThan(16)
             }
             input(R.id.username) {
-                isNotEmpty()
-                length().greaterThan(6)
-                length().lessThan(16)
+                //isNotEmpty()
+                //length().greaterThan(6)
+                //length().lessThan(16)
             }
             input(R.id.password) {
-                isNotEmpty()
-                length().greaterThan(6)
-                length().lessThan(20)
+                //isNotEmpty()
+                //length().greaterThan(6)
+                //length().lessThan(20)
             }
 
         }.validate()
@@ -64,17 +67,32 @@ class AddClusterFragment : BaseFragment(), AnkoLogger {
             val username: FieldValue<*>? = result["username"]
             val password: FieldValue<*>? = result["password"]
 
-            ClusterStore.listOfClusters.add(
-                ClusterModel(
+            info("Firebase DB Reference : $app.database")
+            showLoader(loader, "Adding cluster")
+
+            val uid = app.auth.currentUser!!.uid
+            val key = app.database.child("user-clusters").push().key
+
+            if (key == null) {
+                info("Firebase Error : Key Empty")
+                return
+            }
+                val newCluster = ClusterModel(
+                    key,
                     clusterURL?.asString(),
                     clusterName?.asString(),
                     username?.asString(),
                     password?.asString()
-                )
-            )
+                ).toMap()
 
-            navigateTo(ClusterFragment.newInstance())
-            clearFormFields()
+            val childUpdates = HashMap<String, Any>()
+            childUpdates["/user-clusters/$uid/$key"] = newCluster
+
+            app.database.updateChildren(childUpdates)
+            hideLoader(loader)
+
+           navigateTo(ClusterFragment.newInstance())
+           clearFormFields()
         }
     }
 
