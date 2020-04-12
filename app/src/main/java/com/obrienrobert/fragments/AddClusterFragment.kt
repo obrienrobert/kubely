@@ -67,7 +67,6 @@ class AddClusterFragment : BaseFragment(), AnkoLogger {
             val username: FieldValue<*>? = result["username"]
             val password: FieldValue<*>? = result["password"]
 
-            info("Firebase DB Reference : $app.database")
             showLoader(loader, "Adding cluster")
 
             val uid = app.auth.currentUser!!.uid

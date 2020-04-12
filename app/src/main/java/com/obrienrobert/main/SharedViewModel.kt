@@ -6,5 +6,5 @@ import com.obrienrobert.models.ClusterModel
 
 class SharedViewModel : ViewModel() {
 
-    val data = MutableLiveData<ClusterModel>()
+    val data = MutableLiveData<String>()
 }

@@ -1,21 +1,27 @@
 package com.obrienrobert.fragments
 
+import android.graphics.Color
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
+import android.view.*
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.firebase.ui.database.FirebaseRecyclerAdapter
+import com.firebase.ui.database.FirebaseRecyclerOptions
+import com.google.firebase.database.Query
+import com.mikepenz.fastadapter.dsl.genericFastAdapter
 import com.obrienrobert.adapters.ClusterAdapter
 import com.obrienrobert.main.R
 import com.obrienrobert.main.SharedViewModel
+import com.obrienrobert.models.ClusterModel
 import com.obrienrobert.models.ClusterStore
 import com.obrienrobert.util.SwipeToDeleteCallback
 import com.obrienrobert.util.SwipeToEditCallback
+import kotlinx.android.synthetic.main.cluster_card_view.view.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
@@ -23,6 +29,7 @@ class ClusterFragment : BaseFragment(), AnkoLogger, View.OnClickListener {
 
     override fun layoutId() = R.layout.cluster_fragment
     private lateinit var viewModel: SharedViewModel
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()
@@ -47,37 +54,54 @@ class ClusterFragment : BaseFragment(), AnkoLogger, View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        recyclerView = view.findViewById(R.id.cluster_recycler_view)
+
+        //loader = createLoader(activity!!)
+        //showLoader(loader, "Retrieving clusters")
+
+        val query: Query = app.database.child("user-clusters").child(app.auth.currentUser!!.uid)
+        val options: FirebaseRecyclerOptions<ClusterModel?> = FirebaseRecyclerOptions.Builder<ClusterModel>().setQuery(query, ClusterModel::class.java).build()
+
+        val adapter: FirebaseRecyclerAdapter<*, *> =
+            object : FirebaseRecyclerAdapter<ClusterModel?, ViewHolder?>(options) {
+                override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+                    return ViewHolder(
+                        LayoutInflater.from(parent.context)
+                        .inflate(R.layout.cluster_card_view, parent, false))
+                }
+
+                override fun onBindViewHolder(holder: ViewHolder, position: Int, model: ClusterModel) {
+                    holder.bind(model)
+                }
+            }
+
+
         val viewManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
-        val viewAdapter: RecyclerView.Adapter<*> = ClusterAdapter(ClusterStore.listOfClusters)
+        recyclerView.layoutManager = viewManager
+        recyclerView.setHasFixedSize(true)
+        recyclerView.adapter = adapter
 
-        val recycleView = view.findViewById<RecyclerView>(R.id.cluster_recycler_view).apply {
-
-            setHasFixedSize(true)
-            layoutManager = viewManager
-            adapter = viewAdapter
-        }
+        adapter.startListening()
 
         val deleteSwipeHandler = object : SwipeToDeleteCallback(this.context!!) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val adapter = recycleView.adapter as ClusterAdapter
-                adapter.removeAt(viewHolder.adapterPosition)
+                app.database.child("user-clusters").child(app.auth.currentUser!!.uid).child(viewHolder.itemView.firebase_uid.text.toString()).removeValue()
             }
         }
 
         val itemTouchDeleteHelper = ItemTouchHelper(deleteSwipeHandler)
-        itemTouchDeleteHelper.attachToRecyclerView(recycleView)
+        itemTouchDeleteHelper.attachToRecyclerView(recyclerView)
 
 
         val editSwipeHandler = object : SwipeToEditCallback(this.context!!) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                viewModel.data.value =
-                    ClusterStore.listOfClusters[viewHolder.adapterPosition]
+                viewModel.data.value = viewHolder.itemView.firebase_uid.text.toString()
                 navigateTo(EditClusterFragment.newInstance())
             }
         }
 
         val itemTouchEditHelper = ItemTouchHelper(editSwipeHandler)
-        itemTouchEditHelper.attachToRecyclerView(recycleView)
+        itemTouchEditHelper.attachToRecyclerView(recyclerView)
     }
 
     override fun onClick(v: View?) {
@@ -95,6 +119,29 @@ class ClusterFragment : BaseFragment(), AnkoLogger, View.OnClickListener {
     companion object {
         fun newInstance(): ClusterFragment {
             return ClusterFragment()
+        }
+    }
+
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view), AnkoLogger {
+
+        fun bind(cluster: ClusterModel) {
+            itemView.cluster_name.text = cluster.clusterName
+
+            // Setting the uid as a text view so that the swi[e gestures work.
+            itemView.firebase_uid.text = cluster.uid
+
+            itemView.findViewById<ImageView>(R.id.cluster_icon).setImageResource(R.drawable.cluster_icon)
+
+            if (cluster.isActiveCluster){
+                itemView.setBackgroundColor(Color.GREEN)
+            }else{
+                itemView.setBackgroundColor(Color.BLACK)
+            }
+
+            this.itemView.setOnClickListener {
+                info { "ClusterFragment: " + cluster.uid }
+            }
+
         }
     }
 }

@@ -5,6 +5,9 @@ import com.google.firebase.database.Exclude
 import com.google.firebase.database.IgnoreExtraProperties
 import kotlinx.android.parcel.Parcelize
 
+
+fun ClusterModel() {} // Needed for Firebase
+
 @IgnoreExtraProperties
 @Parcelize
 data class ClusterModel(

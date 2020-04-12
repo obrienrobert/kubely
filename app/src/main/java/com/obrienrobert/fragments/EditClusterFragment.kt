@@ -11,11 +11,15 @@ import androidx.lifecycle.ViewModelProviders
 import com.afollestad.vvalidator.field.FieldValue
 import com.afollestad.vvalidator.form
 import com.afollestad.vvalidator.form.FormResult
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.obrienrobert.main.R
 import com.obrienrobert.main.SharedViewModel
 import com.obrienrobert.models.ClusterModel
-import com.obrienrobert.models.ClusterStore
+import io.fabric8.kubernetes.api.model.Cluster
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 
 class EditClusterFragment : BaseFragment(), AnkoLogger {
 
@@ -31,7 +35,20 @@ class EditClusterFragment : BaseFragment(), AnkoLogger {
         } ?: throw Exception("Invalid Activity")
 
         viewModel.data.observe(this, Observer {
-            populateFormFields(viewModel.data.value)
+
+            info {   app.database.child("user-clusters").child(app.auth.currentUser!!.uid).child(viewModel.data.value.toString()) }
+
+            app.database.child("user-clusters").child(app.auth.currentUser!!.uid).child(viewModel.data.value.toString()).addListenerForSingleValueEvent(
+                object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        val cluster: ClusterModel? = snapshot.getValue(ClusterModel::class.java)
+                        info { cluster }
+                        populateFormFields(cluster)
+                    }
+                    override fun onCancelled(error: DatabaseError) {
+                        info("Firebase Donation error : ${error.message}")
+                    }
+                })
         })
     }
 
@@ -81,7 +98,7 @@ class EditClusterFragment : BaseFragment(), AnkoLogger {
             val clusterName: FieldValue<*>? = result["cluster_name"]
             val username: FieldValue<*>? = result["username"]
             val password: FieldValue<*>? = result["password"]
-
+/*
             ClusterStore.updateCluster(
                 viewModel.data.value?.clusterName, ClusterModel(
                     clusterURL?.asString(),
@@ -89,7 +106,7 @@ class EditClusterFragment : BaseFragment(), AnkoLogger {
                     username?.asString(),
                     password?.asString()
                 )
-            )
+            )*/
 
             navigateTo(ClusterFragment.newInstance())
             clearFormFields()
