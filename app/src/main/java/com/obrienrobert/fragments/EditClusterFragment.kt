@@ -18,6 +18,7 @@ import com.obrienrobert.main.R
 import com.obrienrobert.main.SharedViewModel
 import com.obrienrobert.models.ClusterModel
 import io.fabric8.kubernetes.api.model.Cluster
+import kotlinx.android.synthetic.main.cluster_card_view.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
@@ -71,21 +72,21 @@ class EditClusterFragment : BaseFragment(), AnkoLogger {
     private fun validateNewCluster() {
         val addClusterForm = form {
             input(R.id.cluster_url) {
-                isNotEmpty()
+                //isNotEmpty()
                 //isUrl()
             }
             input(R.id.cluster_name) {
-                isNotEmpty()
+                //isNotEmpty()
                 //length().greaterThan(6)
                 //length().lessThan(16)
             }
             input(R.id.username) {
-                isNotEmpty()
+                //isNotEmpty()
                 //length().greaterThan(6)
                 //length().lessThan(16)
             }
             input(R.id.password) {
-                isNotEmpty()
+                //isNotEmpty()
                 //length().greaterThan(6)
                 //length().lessThan(20)
             }
@@ -98,15 +99,15 @@ class EditClusterFragment : BaseFragment(), AnkoLogger {
             val clusterName: FieldValue<*>? = result["cluster_name"]
             val username: FieldValue<*>? = result["username"]
             val password: FieldValue<*>? = result["password"]
-/*
-            ClusterStore.updateCluster(
-                viewModel.data.value?.clusterName, ClusterModel(
-                    clusterURL?.asString(),
-                    clusterName?.asString(),
-                    username?.asString(),
-                    password?.asString()
-                )
-            )*/
+
+            val map: HashMap<String, Any?> = hashMapOf(
+               "masterURL" to clusterURL?.asString(),
+               "clusterName" to clusterName?.asString(),
+               "username" to username?.asString(),
+               "password" to password?.asString()
+            )
+
+            app.database.child("user-clusters").child(app.auth.currentUser!!.uid).child(viewModel.data.value.toString()).updateChildren(map)
 
             navigateTo(ClusterFragment.newInstance())
             clearFormFields()

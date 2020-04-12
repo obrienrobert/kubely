@@ -13,11 +13,15 @@ import co.zsmb.materialdrawerkt.draweritems.profile.profile
 import co.zsmb.materialdrawerkt.draweritems.sectionHeader
 import co.zsmb.materialdrawerkt.imageloader.drawerImageLoader
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
 import com.obrienrobert.fragments.*
 import com.obrienrobert.models.ClusterStore
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
+import me.nikhilchaudhari.asynkio.core.async
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.jetbrains.anko.startActivity
@@ -26,6 +30,7 @@ import org.jetbrains.anko.startActivity
 class Main : AppCompatActivity(), AnkoLogger {
 
     lateinit var app: Shifty
+    var childCount: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +53,26 @@ class Main : AppCompatActivity(), AnkoLogger {
                     .cancelRequest(imageView)
             }
         }
+
+        async {
+            await {  app.database.child("user-clusters").child(app.auth.currentUser!!.uid).addValueEventListener(
+                object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        info { "Count 1: " + snapshot.childrenCount }
+#
+                        if (snapshot.childrenCount > 1) {
+                            info { "COUNT" }
+                          navigateTo(AddClusterFragment.newInstance())}
+                        else {navigateTo(ClusterFragment.newInstance())
+                        }
+
+                    }
+                    override fun onCancelled(error: DatabaseError) {
+                        info("Firebase Donation error : ${error.message}")
+                    }
+                }) }
+        }
+
 
         createNavDrawer()
     }
@@ -72,11 +97,6 @@ class Main : AppCompatActivity(), AnkoLogger {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolBarResource)
         setActionBarTitle(R.string.clusters)
-
-        when (ClusterStore.listOfClusters.isEmpty()) {
-            true -> navigateTo(AddClusterFragment.newInstance())
-            false -> navigateTo(ClusterFragment.newInstance())
-        }
 
         // If the user is not a Google user, no username will exist. Otherwise, load the Google image.
         var userName = ""
