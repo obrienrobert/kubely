@@ -12,13 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
-import com.google.firebase.database.Query
-import com.mikepenz.fastadapter.dsl.genericFastAdapter
-import com.obrienrobert.adapters.ClusterAdapter
+import com.google.firebase.FirebaseError
+import com.google.firebase.database.*
 import com.obrienrobert.main.R
 import com.obrienrobert.main.SharedViewModel
 import com.obrienrobert.models.ClusterModel
-import com.obrienrobert.models.ClusterStore
 import com.obrienrobert.util.SwipeToDeleteCallback
 import com.obrienrobert.util.SwipeToEditCallback
 import kotlinx.android.synthetic.main.cluster_card_view.view.*
@@ -30,6 +28,7 @@ class ClusterFragment : BaseFragment(), AnkoLogger, View.OnClickListener {
     override fun layoutId() = R.layout.cluster_fragment
     private lateinit var viewModel: SharedViewModel
     private lateinit var recyclerView: RecyclerView
+    private lateinit var noData: TextView
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()
@@ -55,37 +54,70 @@ class ClusterFragment : BaseFragment(), AnkoLogger, View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         recyclerView = view.findViewById(R.id.cluster_recycler_view)
+        noData = view.findViewById(R.id.no_data) as TextView
 
         //loader = createLoader(activity!!)
         //showLoader(loader, "Retrieving clusters")
 
         val query: Query = app.database.child("user-clusters").child(app.auth.currentUser!!.uid)
-        val options: FirebaseRecyclerOptions<ClusterModel?> = FirebaseRecyclerOptions.Builder<ClusterModel>().setQuery(query, ClusterModel::class.java).build()
+        val options: FirebaseRecyclerOptions<ClusterModel?> =
+            FirebaseRecyclerOptions.Builder<ClusterModel>()
+                .setQuery(query, ClusterModel::class.java).build()
 
         val adapter: FirebaseRecyclerAdapter<*, *> =
             object : FirebaseRecyclerAdapter<ClusterModel?, ViewHolder?>(options) {
                 override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
                     return ViewHolder(
                         LayoutInflater.from(parent.context)
-                        .inflate(R.layout.cluster_card_view, parent, false))
+                            .inflate(R.layout.cluster_card_view, parent, false)
+                    )
                 }
 
-                override fun onBindViewHolder(holder: ViewHolder, position: Int, model: ClusterModel) {
+                override fun onBindViewHolder(
+                    holder: ViewHolder,
+                    position: Int,
+                    model: ClusterModel
+                ) {
                     holder.bind(model)
                 }
             }
 
-
         val viewManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
-        recyclerView.layoutManager = viewManager
-        recyclerView.setHasFixedSize(true)
-        recyclerView.adapter = adapter
+
+        var clustersExist: Boolean
+        app.database.child("user-clusters").child(app.auth.currentUser!!.uid).addValueEventListener(
+            object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    clustersExist = snapshot.exists()
+                    when {
+                        clustersExist -> {
+                            recyclerView.layoutManager = viewManager
+                            recyclerView.setHasFixedSize(true)
+                            recyclerView.adapter = adapter
+                            recyclerView.visibility = View.VISIBLE
+                            noData.visibility = View.GONE
+                        }
+                        else -> {
+                            recyclerView.visibility = View.GONE
+                            noData.visibility = View.VISIBLE
+                            noData.setText(R.string.no_cluster)
+                        }
+                    }
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    info("Firebase Donation error : ${error.message}")
+                }
+            })
 
         adapter.startListening()
 
+
         val deleteSwipeHandler = object : SwipeToDeleteCallback(this.context!!) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                app.database.child("user-clusters").child(app.auth.currentUser!!.uid).child(viewHolder.itemView.firebase_uid.text.toString()).removeValue()
+                app.database.child("user-clusters").child(app.auth.currentUser!!.uid)
+                    .child(viewHolder.itemView.firebase_uid.text.toString()).removeValue()
             }
         }
 
@@ -122,25 +154,50 @@ class ClusterFragment : BaseFragment(), AnkoLogger, View.OnClickListener {
         }
     }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view), AnkoLogger {
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view), AnkoLogger {
+
 
         fun bind(cluster: ClusterModel) {
-            itemView.cluster_name.text = cluster.clusterName
+            itemView.cluster_name.text = cluster.uid
 
-            // Setting the uid as a text view so that the swi[e gestures work.
+            // Setting the uid as a text view so that the swipe gestures work.
             itemView.firebase_uid.text = cluster.uid
 
-            itemView.findViewById<ImageView>(R.id.cluster_icon).setImageResource(R.drawable.cluster_icon)
+            itemView.findViewById<ImageView>(R.id.cluster_icon)
+                .setImageResource(R.drawable.cluster_icon)
 
-            if (cluster.isActiveCluster){
+            if (cluster.isActiveCluster) {
                 itemView.setBackgroundColor(Color.GREEN)
-            }else{
+            } else {
                 itemView.setBackgroundColor(Color.BLACK)
             }
 
             this.itemView.setOnClickListener {
-                info { "ClusterFragment: " + cluster.uid }
+             app.database.child("user-clusters").child(app.auth.currentUser!!.uid).child(cluster.uid.toString()).child("isActiveCluster").setValue(true)
+             itemView.setBackgroundColor(Color.GREEN)
+
+                app.database.child("user-clusters").child(app.auth.currentUser!!.uid)
+                    .addListenerForSingleValueEvent(
+                        object : ValueEventListener {
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                val children = snapshot.children
+                                children.forEach {
+                                    val dataSnapshot = it.getValue(ClusterModel::class.java)
+                                    if(dataSnapshot?.uid!! != cluster.uid){
+                                        info("Test:$dataSnapshot")
+                                        app.database.child("user-clusters").child(app.auth.currentUser!!.uid).child(dataSnapshot.uid as String).child("isActiveCluster").setValue(false)
+                                    }
+                                }
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {
+                                info("Firebase Donation error : ${error.message}")
+                            }
+                        })
+
             }
+
+
 
         }
     }

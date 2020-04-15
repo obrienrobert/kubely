@@ -17,7 +17,6 @@ import com.google.firebase.database.ValueEventListener
 import com.obrienrobert.main.R
 import com.obrienrobert.main.SharedViewModel
 import com.obrienrobert.models.ClusterModel
-import io.fabric8.kubernetes.api.model.Cluster
 import kotlinx.android.synthetic.main.cluster_card_view.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
