@@ -17,7 +17,6 @@ import com.google.firebase.database.ValueEventListener
 import com.obrienrobert.main.R
 import com.obrienrobert.main.SharedViewModel
 import com.obrienrobert.models.ClusterModel
-import kotlinx.android.synthetic.main.cluster_card_view.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
@@ -36,15 +35,20 @@ class EditClusterFragment : BaseFragment(), AnkoLogger {
 
         viewModel.data.observe(this, Observer {
 
-            info {   app.database.child("user-clusters").child(app.auth.currentUser!!.uid).child(viewModel.data.value.toString()) }
+            info {
+                app.database.child("user-clusters").child(app.auth.currentUser!!.uid)
+                    .child(viewModel.data.value.toString())
+            }
 
-            app.database.child("user-clusters").child(app.auth.currentUser!!.uid).child(viewModel.data.value.toString()).addListenerForSingleValueEvent(
+            app.database.child("user-clusters").child(app.auth.currentUser!!.uid)
+                .child(viewModel.data.value.toString()).addListenerForSingleValueEvent(
                 object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         val cluster: ClusterModel? = snapshot.getValue(ClusterModel::class.java)
                         info { cluster }
                         populateFormFields(cluster)
                     }
+
                     override fun onCancelled(error: DatabaseError) {
                         info("Firebase Donation error : ${error.message}")
                     }
@@ -100,13 +104,14 @@ class EditClusterFragment : BaseFragment(), AnkoLogger {
             val password: FieldValue<*>? = result["password"]
 
             val map: HashMap<String, Any?> = hashMapOf(
-               "masterURL" to clusterURL?.asString(),
-               "clusterName" to clusterName?.asString(),
-               "username" to username?.asString(),
-               "password" to password?.asString()
+                "masterURL" to clusterURL?.asString(),
+                "clusterName" to clusterName?.asString(),
+                "username" to username?.asString(),
+                "password" to password?.asString()
             )
 
-            app.database.child("user-clusters").child(app.auth.currentUser!!.uid).child(viewModel.data.value.toString()).updateChildren(map)
+            app.database.child("user-clusters").child(app.auth.currentUser!!.uid)
+                .child(viewModel.data.value.toString()).updateChildren(map)
 
             navigateTo(ClusterFragment.newInstance())
             clearFormFields()

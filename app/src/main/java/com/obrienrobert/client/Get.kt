@@ -26,7 +26,7 @@ interface Get {
 
     fun getSpecificNamespace(namespace: String): Namespace?
 
-    fun createNamespace (namespace: String?)
+    fun createNamespace(namespace: String?)
 
     // Nodes
     fun getAllNodes(): List<Node>

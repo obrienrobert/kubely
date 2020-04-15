@@ -76,13 +76,14 @@ class AddClusterFragment : BaseFragment(), AnkoLogger {
                 info("Firebase Error : Key Empty")
                 return
             }
-                val newCluster = ClusterModel(
-                    key,
-                    clusterURL?.asString(),
-                    clusterName?.asString(),
-                    username?.asString(),
-                    password?.asString()
-                ).toMap()
+            val newCluster = ClusterModel(
+                key,
+                clusterURL?.asString(),
+                clusterName?.asString(),
+                username?.asString(),
+                password?.asString()
+            ).toMap()
+
 
             val childUpdates = HashMap<String, Any>()
             childUpdates["/user-clusters/$uid/$key"] = newCluster
@@ -90,8 +91,8 @@ class AddClusterFragment : BaseFragment(), AnkoLogger {
             app.database.updateChildren(childUpdates)
             hideLoader(loader)
 
-           navigateTo(ClusterFragment.newInstance())
-           clearFormFields()
+            navigateTo(ClusterFragment.newInstance())
+            clearFormFields()
         }
     }
 

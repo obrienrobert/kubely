@@ -38,7 +38,8 @@ class ServiceFragment : BaseFragment() {
 
         async {
             serviceList = await {
-                Requests(ActiveClient.newInstance()).getAllServicesInNamespace(ClusterStore.getActiveCluster()?.activeNamespace!!
+                Requests(ActiveClient.newInstance()).getAllServicesInNamespace(
+                    ClusterStore.getActiveCluster()?.activeNamespace!!
                 )
             }
 

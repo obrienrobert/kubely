@@ -28,7 +28,8 @@ class PodFragment : BaseFragment(), AnkoLogger {
 
         async {
             podList =
-                await { Requests(ActiveClient.newInstance()).getAllPodsInNamespace(ClusterStore.getActiveCluster()?.activeNamespace)
+                await {
+                    Requests(ActiveClient.newInstance()).getAllPodsInNamespace(ClusterStore.getActiveCluster()?.activeNamespace)
                 }
 
             val recyclerView = view.findViewById<RecyclerView>(R.id.pod_recycler_view)
@@ -54,7 +55,7 @@ class PodFragment : BaseFragment(), AnkoLogger {
             viewManager = LinearLayoutManager(context)
             viewAdapter = PodAdapter(podList)
 
-           recyclerView.apply {
+            recyclerView.apply {
                 setHasFixedSize(true)
                 layoutManager = viewManager
                 adapter = viewAdapter

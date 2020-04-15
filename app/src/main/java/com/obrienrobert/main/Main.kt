@@ -34,10 +34,10 @@ class Main : AppCompatActivity(), AnkoLogger {
         app.auth = FirebaseAuth.getInstance()
 
         drawerImageLoader {
-            placeholder { ctx, tag ->
+            placeholder { ctx, _ ->
                 DrawerUIUtils.getPlaceHolder(ctx)
             }
-            set { imageView, uri, placeholder, tag ->
+            set { imageView, uri, placeholder, _ ->
                 Picasso.get()
                     .load(uri)
                     .placeholder(placeholder)
@@ -76,7 +76,7 @@ class Main : AppCompatActivity(), AnkoLogger {
 
         // If the user is not a Google user, no username will exist. Otherwise, load the Google image.
         var userName = ""
-        if(!app.auth.currentUser?.displayName.isNullOrEmpty()){
+        if (!app.auth.currentUser?.displayName.isNullOrEmpty()) {
             userName = app.auth.currentUser?.displayName!!
         }
 
@@ -84,8 +84,9 @@ class Main : AppCompatActivity(), AnkoLogger {
         drawer {
             accountHeader {
                 profile(userName, app.auth.currentUser?.email) {
-                    if(app.auth.currentUser?.photoUrl.toString().isNotEmpty()){
-                        iconUrl = app.auth.currentUser!!.photoUrl.toString().replace("s96-c", "s400-c")
+                    if (app.auth.currentUser?.photoUrl.toString().isNotEmpty()) {
+                        iconUrl =
+                            app.auth.currentUser!!.photoUrl.toString().replace("s96-c", "s400-c")
                     }
                 }
             }

@@ -12,11 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
-import com.google.firebase.FirebaseError
-import com.google.firebase.database.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.Query
+import com.google.firebase.database.ValueEventListener
 import com.obrienrobert.main.R
 import com.obrienrobert.main.SharedViewModel
 import com.obrienrobert.models.ClusterModel
+import com.obrienrobert.models.ClusterStore
 import com.obrienrobert.util.SwipeToDeleteCallback
 import com.obrienrobert.util.SwipeToEditCallback
 import kotlinx.android.synthetic.main.cluster_card_view.view.*
@@ -55,9 +58,6 @@ class ClusterFragment : BaseFragment(), AnkoLogger, View.OnClickListener {
 
         recyclerView = view.findViewById(R.id.cluster_recycler_view)
         noData = view.findViewById(R.id.no_data) as TextView
-
-        //loader = createLoader(activity!!)
-        //showLoader(loader, "Retrieving clusters")
 
         val query: Query = app.database.child("user-clusters").child(app.auth.currentUser!!.uid)
         val options: FirebaseRecyclerOptions<ClusterModel?> =
@@ -160,7 +160,7 @@ class ClusterFragment : BaseFragment(), AnkoLogger, View.OnClickListener {
         fun bind(cluster: ClusterModel) {
             itemView.cluster_name.text = cluster.uid
 
-            // Setting the uid as a text view so that the swipe gestures work.
+            // Setting the uid as a text view so that the swipe gestures work
             itemView.firebase_uid.text = cluster.uid
 
             itemView.findViewById<ImageView>(R.id.cluster_icon)
@@ -173,8 +173,13 @@ class ClusterFragment : BaseFragment(), AnkoLogger, View.OnClickListener {
             }
 
             this.itemView.setOnClickListener {
-             app.database.child("user-clusters").child(app.auth.currentUser!!.uid).child(cluster.uid.toString()).child("isActiveCluster").setValue(true)
-             itemView.setBackgroundColor(Color.GREEN)
+                app.database.child("user-clusters").child(app.auth.currentUser!!.uid)
+                    .child(cluster.uid.toString()).child("isActiveCluster").setValue(true)
+                itemView.setBackgroundColor(Color.GREEN)
+
+                ClusterStore.apiURL = cluster.masterURL.toString()
+                ClusterStore.username = cluster.userName.toString()
+                ClusterStore.password = cluster.password.toString()
 
                 app.database.child("user-clusters").child(app.auth.currentUser!!.uid)
                     .addListenerForSingleValueEvent(
@@ -183,9 +188,11 @@ class ClusterFragment : BaseFragment(), AnkoLogger, View.OnClickListener {
                                 val children = snapshot.children
                                 children.forEach {
                                     val dataSnapshot = it.getValue(ClusterModel::class.java)
-                                    if(dataSnapshot?.uid!! != cluster.uid){
-                                        info("Test:$dataSnapshot")
-                                        app.database.child("user-clusters").child(app.auth.currentUser!!.uid).child(dataSnapshot.uid as String).child("isActiveCluster").setValue(false)
+                                    if (dataSnapshot?.uid!! != cluster.uid) {
+                                        app.database.child("user-clusters")
+                                            .child(app.auth.currentUser!!.uid)
+                                            .child(dataSnapshot.uid as String)
+                                            .child("isActiveCluster").setValue(false)
                                     }
                                 }
                             }
@@ -196,7 +203,6 @@ class ClusterFragment : BaseFragment(), AnkoLogger, View.OnClickListener {
                         })
 
             }
-
 
 
         }

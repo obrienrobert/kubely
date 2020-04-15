@@ -3,7 +3,6 @@ package com.obrienrobert.models
 import android.os.Parcelable
 import com.google.firebase.database.Exclude
 import com.google.firebase.database.IgnoreExtraProperties
-import com.google.firebase.database.PropertyName
 import kotlinx.android.parcel.Parcelize
 
 

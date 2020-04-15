@@ -16,7 +16,7 @@ abstract class BaseFragment : Fragment() {
     protected abstract fun layoutId(): Int
 
     lateinit var app: Shifty
-    lateinit var loader : AlertDialog
+    lateinit var loader: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)

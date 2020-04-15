@@ -53,9 +53,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:text="@string/cluster_name"
-                android:visibility="gone"
                 android:textSize="15sp"
-                android:textStyle="italic" />
+                android:textStyle="italic"
+                android:visibility="gone" />
 
         </LinearLayout>
 

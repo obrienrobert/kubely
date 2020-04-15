@@ -30,7 +30,7 @@ class Requests(private var client: OpenShiftClient) : Get {
     }
 
     override fun createNamespace(namespace: String?) {
-       client.namespaces().createNew().withNewMetadata().withName(namespace).endMetadata().done()
+        client.namespaces().createNew().withNewMetadata().withName(namespace).endMetadata().done()
     }
 
 

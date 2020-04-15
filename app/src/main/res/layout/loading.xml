@@ -3,6 +3,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="20dp">
+
     <ProgressBar
         android:layout_width="0dp"
         android:layout_height="wrap_content"

@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentActivity
 import com.obrienrobert.main.R
 
 
-fun createLoader(activity: FragmentActivity) : AlertDialog {
+fun createLoader(activity: FragmentActivity): AlertDialog {
     val loaderBuilder = AlertDialog.Builder(activity)
         .setCancelable(true) // 'false' if you want user to wait
         .setView(R.layout.loading)
