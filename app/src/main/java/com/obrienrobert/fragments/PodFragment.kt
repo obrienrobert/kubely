@@ -29,7 +29,7 @@ class PodFragment : BaseFragment(), AnkoLogger {
         async {
             podList =
                 await {
-                    Requests(ActiveClient.newInstance()).getAllPodsInNamespace(ClusterStore.getActiveCluster()?.activeNamespace)
+                    Requests(ActiveClient.newInstance()).getAllPodsInNamespace(ClusterStore.currentActiveNamespace)
                 }
 
             val recyclerView = view.findViewById<RecyclerView>(R.id.pod_recycler_view)
@@ -41,7 +41,7 @@ class PodFragment : BaseFragment(), AnkoLogger {
                     noData.visibility = View.VISIBLE
                     noData.setText(R.string.no_data)
                 }
-                ClusterStore.getActiveCluster()?.activeNamespace.isNullOrEmpty() -> {
+                ClusterStore.currentActiveNamespace.isEmpty() -> {
                     recyclerView.visibility = View.GONE
                     noData.visibility = View.VISIBLE
                     noData.setText(R.string.no_project_selected)

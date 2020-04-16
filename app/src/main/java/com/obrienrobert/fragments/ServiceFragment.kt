@@ -39,7 +39,7 @@ class ServiceFragment : BaseFragment() {
         async {
             serviceList = await {
                 Requests(ActiveClient.newInstance()).getAllServicesInNamespace(
-                    ClusterStore.getActiveCluster()?.activeNamespace!!
+                    ClusterStore.currentActiveNamespace
                 )
             }
 
@@ -52,7 +52,7 @@ class ServiceFragment : BaseFragment() {
                     noData.visibility = View.VISIBLE
                     noData.setText(R.string.no_data)
                 }
-                ClusterStore.getActiveCluster()?.activeNamespace.isNullOrEmpty() -> {
+                ClusterStore.currentActiveNamespace.isEmpty() -> {
                     recyclerView.visibility = View.GONE
                     noData.visibility = View.VISIBLE
                     noData.setText(R.string.no_project_selected)

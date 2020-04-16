@@ -30,7 +30,7 @@ class EventFragment : BaseFragment(), AnkoLogger {
 
         async {
             eventList = await {
-                Requests(ActiveClient.newInstance()).getAllEventsInNamespace(ClusterStore.getActiveCluster()?.activeNamespace!!)
+                Requests(ActiveClient.newInstance()).getAllEventsInNamespace(ClusterStore.currentActiveNamespace)
                     .sortedByDescending { it.lastTimestamp }
             }
 
@@ -43,7 +43,7 @@ class EventFragment : BaseFragment(), AnkoLogger {
                     noData.visibility = View.VISIBLE
                     noData.setText(R.string.no_data)
                 }
-                ClusterStore.getActiveCluster()?.activeNamespace.isNullOrEmpty() -> {
+                ClusterStore.currentActiveNamespace.isEmpty() -> {
                     recyclerView.visibility = View.GONE
                     noData.visibility = View.VISIBLE
                     noData.setText(R.string.no_project_selected)

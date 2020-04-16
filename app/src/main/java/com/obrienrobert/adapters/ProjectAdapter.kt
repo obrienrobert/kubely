@@ -10,13 +10,17 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.main.R
+import com.obrienrobert.main.Shifty
 import com.obrienrobert.models.ClusterStore
 import io.fabric8.openshift.api.model.Project
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 
 
-class ProjectAdapter(private val projectList: List<Project>) :
+class ProjectAdapter(private val projectList: List<Project>, context: Shifty) :
     RecyclerView.Adapter<ProjectAdapter.ViewHolder>(), Filterable {
+
+    var app: Shifty = context
 
     private var copyOfProjects: List<Project> = projectList.toList()
     override fun getFilter(): Filter = object : Filter() {
@@ -64,22 +68,20 @@ class ProjectAdapter(private val projectList: List<Project>) :
             this.itemView.findViewById<ImageView>(R.id.project_icon)
                 .setImageResource(R.drawable.project_icon)
 
-            repeat(projects.size) {
-                if (projects[position].metadata.name == ClusterStore.getActiveCluster()?.activeNamespace) {
-                    itemView.setBackgroundColor(Color.GREEN)
-                    //Collections.swap(projects, position, 0)
-                } else {
-                    itemView.setBackgroundColor(Color.BLACK)
-                }
-            }
-
             this.itemView.findViewById<TextView>(R.id.resource_info).text =
                 projects[position].metadata.creationTimestamp
 
             this.itemView.setOnClickListener {
-                ClusterStore.setActiveNamespace(projects[position].metadata.name)
+                info { "Test: " + projects[position].metadata.name}
+                info { "Test Projects: $projects" }
+
+                ClusterStore.currentActiveNamespace = projects[position].metadata.name
                 itemView.setBackgroundColor(Color.GREEN)
-                notifyDataSetChanged()
+
+                app.database.child("user-clusters")
+                    .child(app.auth.currentUser!!.uid)
+                    .child(ClusterStore.clusterUid)
+                    .child("activeNamespace").setValue(projects[position].metadata.name)
             }
         }
     }

@@ -13,6 +13,7 @@ import com.obrienrobert.adapters.ProjectAdapter
 import com.obrienrobert.client.ActiveClient
 import com.obrienrobert.client.Requests
 import com.obrienrobert.main.R
+import com.obrienrobert.main.Shifty
 import io.fabric8.openshift.api.model.Project
 import me.nikhilchaudhari.asynkio.core.async
 import org.jetbrains.anko.AnkoLogger
@@ -65,8 +66,7 @@ class ProjectFragment : BaseFragment(), AnkoLogger {
             }
 
             viewManager = LinearLayoutManager(context)
-            viewAdapter = ProjectAdapter(projectList)
-
+            viewAdapter = ProjectAdapter(projectList, activity?.application as Shifty)
 
             recyclerView.apply {
                 setHasFixedSize(true)
