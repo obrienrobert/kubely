@@ -64,10 +64,6 @@ class EventAdapter(private val arrayOfEvents: List<Event>) :
 
             this.itemView.findViewById<TextView>(R.id.reason).text =
                 event[position].reason
-
-            this.itemView.setOnClickListener {
-                info { "Clicked item ${event[position].metadata.name} at $position" }
-            }
         }
     }
 }

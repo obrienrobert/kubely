@@ -83,6 +83,7 @@ class ClusterFragment : BaseFragment(), AnkoLogger, View.OnClickListener {
             }
 
         val viewManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
+        recyclerView.layoutManager = viewManager
 
         var clustersExist: Boolean
         app.database.child("user-clusters").child(app.auth.currentUser!!.uid).addValueEventListener(
@@ -106,7 +107,7 @@ class ClusterFragment : BaseFragment(), AnkoLogger, View.OnClickListener {
                                 }
                             }
 
-                            recyclerView.layoutManager = viewManager
+
                             recyclerView.setHasFixedSize(true)
                             recyclerView.adapter = adapter
                             recyclerView.visibility = View.VISIBLE
