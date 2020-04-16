@@ -14,11 +14,10 @@ import com.obrienrobert.main.Shifty
 import com.obrienrobert.models.ClusterStore
 import io.fabric8.openshift.api.model.Project
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 
 
 class ProjectAdapter(private val projectList: List<Project>, context: Shifty) :
-    RecyclerView.Adapter<ProjectAdapter.ViewHolder>(), Filterable {
+    RecyclerView.Adapter<ProjectAdapter.ViewHolder>(), Filterable, AnkoLogger {
 
     var app: Shifty = context
 
@@ -71,12 +70,16 @@ class ProjectAdapter(private val projectList: List<Project>, context: Shifty) :
             this.itemView.findViewById<TextView>(R.id.resource_info).text =
                 projects[position].metadata.creationTimestamp
 
-            this.itemView.setOnClickListener {
-                info { "Test: " + projects[position].metadata.name}
-                info { "Test Projects: $projects" }
+            if (projects[position].metadata.name == ClusterStore.currentActiveNamespace) {
+                itemView.setBackgroundColor(Color.GREEN)
+            } else {
+                itemView.setBackgroundColor(Color.BLACK)
+            }
 
+            this.itemView.setOnClickListener {
                 ClusterStore.currentActiveNamespace = projects[position].metadata.name
                 itemView.setBackgroundColor(Color.GREEN)
+                notifyDataSetChanged()
 
                 app.database.child("user-clusters")
                     .child(app.auth.currentUser!!.uid)

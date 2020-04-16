@@ -95,16 +95,14 @@ class ClusterFragment : BaseFragment(), AnkoLogger, View.OnClickListener {
                             val children = snapshot.children
                             children.forEach {
                                 val dataSnapshot = it.getValue(ClusterModel::class.java)
-                                if(dataSnapshot?.isActiveCluster!!){
-
+                                if (dataSnapshot?.isActiveCluster!!) {
                                     // Load the current active cluster when the app starts
                                     ClusterStore.clusterUid = dataSnapshot.uid as String
                                     ClusterStore.apiURL = dataSnapshot.masterURL as String
                                     ClusterStore.username = dataSnapshot.userName as String
                                     ClusterStore.password = dataSnapshot.password as String
-                                    ClusterStore.currentActiveNamespace = dataSnapshot.activeNamespace
-
-                                    info { "Test: $dataSnapshot" }
+                                    ClusterStore.currentActiveNamespace =
+                                        dataSnapshot.activeNamespace
                                 }
                             }
 
@@ -195,7 +193,8 @@ class ClusterFragment : BaseFragment(), AnkoLogger, View.OnClickListener {
                 itemView.setBackgroundColor(Color.GREEN)
 
                 // Sets the cluster credentials
-                ClusterStore.clusterUid = cluster.uid.toString() // We need the UID in order to set the active namespace for the correct cluster
+                ClusterStore.clusterUid =
+                    cluster.uid.toString() // We need the UID in order to set the active namespace for the correct cluster
                 ClusterStore.apiURL = cluster.masterURL.toString()
                 ClusterStore.username = cluster.userName.toString()
                 ClusterStore.password = cluster.password.toString()

@@ -42,17 +42,17 @@ class EditClusterFragment : BaseFragment(), AnkoLogger {
 
             app.database.child("user-clusters").child(app.auth.currentUser!!.uid)
                 .child(viewModel.data.value.toString()).addListenerForSingleValueEvent(
-                object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        val cluster: ClusterModel? = snapshot.getValue(ClusterModel::class.java)
-                        info { cluster }
-                        populateFormFields(cluster)
-                    }
+                    object : ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            val cluster: ClusterModel? = snapshot.getValue(ClusterModel::class.java)
+                            info { cluster }
+                            populateFormFields(cluster)
+                        }
 
-                    override fun onCancelled(error: DatabaseError) {
-                        info("Firebase Donation error : ${error.message}")
-                    }
-                })
+                        override fun onCancelled(error: DatabaseError) {
+                            info("Firebase Donation error : ${error.message}")
+                        }
+                    })
         })
     }
 
