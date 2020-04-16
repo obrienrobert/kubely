@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.main.R
 import io.fabric8.kubernetes.api.model.Node
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 
 class NodeAdapter(private val arrayOfNodes: List<Node>) :
     RecyclerView.Adapter<NodeAdapter.ViewHolder>(), Filterable {
@@ -61,9 +60,8 @@ class NodeAdapter(private val arrayOfNodes: List<Node>) :
             this.itemView.findViewById<TextView>(R.id.resource_name).text =
                 nodes[position].metadata.name
 
-            this.itemView.setOnClickListener {
-                info { "Clicked item ${nodes[position].metadata.name} at $position" }
-            }
+            this.itemView.findViewById<TextView>(R.id.resource_info).text =
+                nodes[position].metadata.namespace
 
             this.itemView.findViewById<ImageView>(R.id.resource_icon)
                 .setImageResource(R.drawable.node_icon)

@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.main.R
 import io.fabric8.kubernetes.api.model.Pod
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 
 class PodAdapter(private val arrayOfPods: List<Pod>) :
     RecyclerView.Adapter<PodAdapter.ViewHolder>(), Filterable {
@@ -65,10 +64,6 @@ class PodAdapter(private val arrayOfPods: List<Pod>) :
 
             this.itemView.findViewById<ImageView>(R.id.resource_icon)
                 .setImageResource(R.drawable.pod_icon)
-
-            this.itemView.setOnClickListener {
-                info { "Clicked item ${pods[position].metadata.name} at $position" }
-            }
         }
     }
 }

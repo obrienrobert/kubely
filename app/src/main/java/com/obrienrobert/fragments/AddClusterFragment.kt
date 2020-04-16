@@ -84,7 +84,6 @@ class AddClusterFragment : BaseFragment(), AnkoLogger {
                 password?.asString()
             ).toMap()
 
-
             val childUpdates = HashMap<String, Any>()
             childUpdates["/user-clusters/$uid/$key"] = newCluster
 

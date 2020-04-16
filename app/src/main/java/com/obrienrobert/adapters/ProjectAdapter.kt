@@ -61,6 +61,7 @@ class ProjectAdapter(private val projectList: List<Project>, context: Shifty) :
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view), AnkoLogger {
 
         fun bind(projects: List<Project>, position: Int) {
+
             this.itemView.findViewById<TextView>(R.id.resource_name).text =
                 projects[position].metadata.name
 

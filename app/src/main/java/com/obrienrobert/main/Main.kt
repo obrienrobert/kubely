@@ -1,7 +1,6 @@
 package com.obrienrobert.main
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -13,13 +12,11 @@ import co.zsmb.materialdrawerkt.draweritems.profile.profile
 import co.zsmb.materialdrawerkt.draweritems.sectionHeader
 import co.zsmb.materialdrawerkt.imageloader.drawerImageLoader
 import com.google.firebase.auth.FirebaseAuth
-
 import com.mikepenz.materialdrawer.util.DrawerUIUtils
 import com.obrienrobert.fragments.*
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 import org.jetbrains.anko.startActivity
 
 
@@ -62,7 +59,6 @@ class Main : AppCompatActivity(), AnkoLogger {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.main_menu_item -> {
-                info { "Add button clicked Main!" }
                 return true
             }
         }
@@ -94,7 +90,6 @@ class Main : AppCompatActivity(), AnkoLogger {
             primaryItem("Clusters") {
                 icon = R.drawable.openshift
                 onClick { _ ->
-                    Log.d("DRAWER", "Clusters")
                     setActionBarTitle(R.string.clusters)
                     navigateTo(ClusterFragment.newInstance())
                     false
@@ -103,7 +98,6 @@ class Main : AppCompatActivity(), AnkoLogger {
             primaryItem("Projects") {
                 icon = R.drawable.project
                 onClick { _ ->
-                    Log.d("DRAWER", "Projects")
                     setActionBarTitle(R.string.projects)
                     navigateTo(ProjectFragment.newInstance())
                     false
@@ -112,7 +106,6 @@ class Main : AppCompatActivity(), AnkoLogger {
             primaryItem("Events") {
                 icon = R.drawable.events
                 onClick { _ ->
-                    Log.d("DRAWER", "Events")
                     setActionBarTitle(R.string.namespace_events)
                     navigateTo(EventFragment.newInstance())
                     false
@@ -122,7 +115,6 @@ class Main : AppCompatActivity(), AnkoLogger {
             primaryItem("Pods") {
                 icon = R.drawable.pod
                 onClick { _ ->
-                    Log.d("DRAWER", "Pods")
                     setActionBarTitle(R.string.pods)
                     navigateTo(PodFragment.newInstance())
                     false
@@ -132,7 +124,6 @@ class Main : AppCompatActivity(), AnkoLogger {
             primaryItem("Deployments") {
                 icon = R.drawable.deployment
                 onClick { _ ->
-                    Log.d("DRAWER", "Deployments")
                     setActionBarTitle(R.string.deployments)
                     navigateTo(DeploymentFragment.newInstance())
                     false
@@ -142,7 +133,6 @@ class Main : AppCompatActivity(), AnkoLogger {
             primaryItem("Secrets") {
                 icon = R.drawable.secret
                 onClick { _ ->
-                    Log.d("DRAWER", "Secrets")
                     setActionBarTitle(R.string.secrets)
                     navigateTo(SecretFragment.newInstance())
                     false
@@ -152,7 +142,6 @@ class Main : AppCompatActivity(), AnkoLogger {
             primaryItem("Cron Jobs") {
                 icon = R.drawable.cron_job
                 onClick { _ ->
-                    Log.d("DRAWER", "Cron Jobs")
                     setActionBarTitle(R.string.cron_jobs)
                     navigateTo(CronJobFragment.newInstance())
                     false
@@ -163,7 +152,6 @@ class Main : AppCompatActivity(), AnkoLogger {
             primaryItem("Services") {
                 icon = R.drawable.service
                 onClick { _ ->
-                    Log.d("DRAWER", "Services")
                     setActionBarTitle(R.string.services)
                     navigateTo(ServiceFragment.newInstance())
                     false
@@ -173,7 +161,6 @@ class Main : AppCompatActivity(), AnkoLogger {
             primaryItem("Routes") {
                 icon = R.drawable.route
                 onClick { _ ->
-                    Log.d("DRAWER", "Routes")
                     setActionBarTitle(R.string.routes)
                     navigateTo(RouteFragment.newInstance())
                     false
@@ -184,7 +171,6 @@ class Main : AppCompatActivity(), AnkoLogger {
             primaryItem("Persistent Volumes") {
                 icon = R.drawable.pv
                 onClick { _ ->
-                    Log.d("DRAWER", "Persistent Volumes")
                     setActionBarTitle(R.string.persistent_volumes)
                     navigateTo(PVFragment.newInstance())
                     false
@@ -194,7 +180,6 @@ class Main : AppCompatActivity(), AnkoLogger {
             primaryItem("Persistent Volume Claims") {
                 icon = R.drawable.pvc
                 onClick { _ ->
-                    Log.d("DRAWER", "Persistent Volume Claims")
                     setActionBarTitle(R.string.persistent_volume_claims)
                     navigateTo(PVCFragment.newInstance())
                     false
@@ -204,7 +189,6 @@ class Main : AppCompatActivity(), AnkoLogger {
             primaryItem("Nodes") {
                 icon = R.drawable.node
                 onClick { _ ->
-                    Log.d("DRAWER", "Nodes")
                     setActionBarTitle(R.string.nodes)
                     navigateTo(NodeFragment.newInstance())
                     false
@@ -214,7 +198,6 @@ class Main : AppCompatActivity(), AnkoLogger {
             primaryItem("Sign Out") {
                 icon = R.drawable.signout
                 onClick { _ ->
-                    Log.d("DRAWER", "Sign Out")
                     app.auth.signOut()
                     app.googleSignInClient.signOut()
                     startActivity<Login>()

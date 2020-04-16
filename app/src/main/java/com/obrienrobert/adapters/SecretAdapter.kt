@@ -10,7 +10,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.main.R
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 
 class SecretAdapter(private val arrayOfSecrets: List<String>) :
     RecyclerView.Adapter<SecretAdapter.ViewHolder>(), Filterable {
@@ -58,9 +57,6 @@ class SecretAdapter(private val arrayOfSecrets: List<String>) :
 
         fun bind(value: String, position: Int) {
             this.itemView.findViewById<TextView>(R.id.resource_name).text = value
-            this.itemView.setOnClickListener {
-                info { "Clicked item $value at $position" }
-            }
 
             this.itemView.findViewById<ImageView>(R.id.resource_icon)
                 .setImageResource(R.drawable.secret_icon)

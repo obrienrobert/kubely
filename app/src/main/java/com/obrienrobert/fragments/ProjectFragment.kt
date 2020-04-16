@@ -14,15 +14,17 @@ import com.obrienrobert.client.ActiveClient
 import com.obrienrobert.client.Requests
 import com.obrienrobert.main.R
 import com.obrienrobert.main.Shifty
+import com.obrienrobert.models.ClusterStore
 import io.fabric8.openshift.api.model.Project
 import me.nikhilchaudhari.asynkio.core.async
 import org.jetbrains.anko.AnkoLogger
+import java.util.*
 
 class ProjectFragment : BaseFragment(), AnkoLogger {
 
     override fun layoutId() = R.layout.project_fragment
 
-    private lateinit var projectList: List<Project>
+    private lateinit var projectList: MutableList<Project>
     private lateinit var optionsMenu: Menu
     private lateinit var viewManager: RecyclerView.LayoutManager
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
@@ -64,6 +66,14 @@ class ProjectFragment : BaseFragment(), AnkoLogger {
                     noData.visibility = View.GONE
                 }
             }
+
+            var indexOfCurrentNamespace = 0
+            projectList.forEachIndexed { index, element ->
+                if (element.metadata.name == ClusterStore.currentActiveNamespace) {
+                    indexOfCurrentNamespace = index
+                }
+            }
+            Collections.swap(projectList, 0, indexOfCurrentNamespace)
 
             viewManager = LinearLayoutManager(context)
             viewAdapter = ProjectAdapter(projectList, activity?.application as Shifty)

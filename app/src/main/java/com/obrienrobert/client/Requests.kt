@@ -21,7 +21,7 @@ class Requests(private var client: OpenShiftClient) : Get {
 
 
     // Namespaces
-    override fun getAllNamespaces(): List<Project> {
+    override fun getAllNamespaces(): MutableList<Project> {
         return client.projects().list().items
     }
 

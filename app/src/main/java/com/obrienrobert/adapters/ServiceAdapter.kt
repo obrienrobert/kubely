@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.main.R
 import io.fabric8.kubernetes.api.model.Service
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 
 class ServiceAdapter(private val arrayOfServices: List<Service>) :
     RecyclerView.Adapter<ServiceAdapter.ViewHolder>(), Filterable {
@@ -60,9 +59,8 @@ class ServiceAdapter(private val arrayOfServices: List<Service>) :
             this.itemView.findViewById<TextView>(R.id.resource_name).text =
                 services[position].metadata.name
 
-            this.itemView.setOnClickListener {
-                info { "Clicked item ${services[position].metadata.name} at $position" }
-            }
+            this.itemView.findViewById<TextView>(R.id.resource_info).text =
+                services[position].metadata.namespace
 
             this.itemView.findViewById<ImageView>(R.id.resource_icon)
                 .setImageResource(R.drawable.service_icon)

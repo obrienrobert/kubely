@@ -173,7 +173,9 @@ class ClusterFragment : BaseFragment(), AnkoLogger, View.OnClickListener {
 
 
         fun bind(cluster: ClusterModel) {
-            itemView.cluster_name.text = cluster.uid
+            itemView.cluster_name.text = cluster.clusterName
+
+            itemView.cluster_info.text = cluster.masterURL
 
             // Setting the uid as a text view so that the swipe gestures work
             itemView.firebase_uid.text = cluster.uid
