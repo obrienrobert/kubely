@@ -5,12 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.main.R
 import io.fabric8.kubernetes.api.model.Event
+import kotlinx.android.synthetic.main.event_card_view.view.*
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 
 class EventAdapter(private val arrayOfEvents: List<Event>) :
     RecyclerView.Adapter<EventAdapter.ViewHolder>(), Filterable {
@@ -56,14 +55,11 @@ class EventAdapter(private val arrayOfEvents: List<Event>) :
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view), AnkoLogger {
 
         fun bind(event: List<Event>, position: Int) {
-            this.itemView.findViewById<TextView>(R.id.timestamp).text =
-                event[position].lastTimestamp
+            itemView.timestamp.text = event[position].lastTimestamp
 
-            this.itemView.findViewById<TextView>(R.id.message).text =
-                event[position].message
+            itemView.message.text = event[position].message
 
-            this.itemView.findViewById<TextView>(R.id.reason).text =
-                event[position].reason
+            itemView.reason.text = event[position].reason
         }
     }
 }

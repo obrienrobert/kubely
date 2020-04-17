@@ -5,11 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.main.R
 import io.fabric8.kubernetes.api.model.Node
+import kotlinx.android.synthetic.main.resource_card_view.view.*
 import org.jetbrains.anko.AnkoLogger
 
 class NodeAdapter(private val arrayOfNodes: List<Node>) :
@@ -57,14 +56,11 @@ class NodeAdapter(private val arrayOfNodes: List<Node>) :
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view), AnkoLogger {
 
         fun bind(nodes: List<Node>, position: Int) {
-            this.itemView.findViewById<TextView>(R.id.resource_name).text =
-                nodes[position].metadata.name
+            itemView.resource_name.text = nodes[position].metadata.name
 
-            this.itemView.findViewById<TextView>(R.id.resource_info).text =
-                nodes[position].metadata.namespace
+            itemView.resource_info.text = nodes[position].metadata.namespace
 
-            this.itemView.findViewById<ImageView>(R.id.resource_icon)
-                .setImageResource(R.drawable.node_icon)
+            itemView.resource_icon.setImageResource(R.drawable.node_icon)
         }
     }
 }

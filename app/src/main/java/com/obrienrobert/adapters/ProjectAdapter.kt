@@ -6,13 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.main.R
 import com.obrienrobert.main.Shifty
 import com.obrienrobert.models.ClusterStore
 import io.fabric8.openshift.api.model.Project
+import kotlinx.android.synthetic.main.project_card_view.view.*
 import org.jetbrains.anko.AnkoLogger
 
 
@@ -62,14 +61,11 @@ class ProjectAdapter(private val projectList: List<Project>, context: Shifty) :
 
         fun bind(projects: List<Project>, position: Int) {
 
-            this.itemView.findViewById<TextView>(R.id.resource_name).text =
-                projects[position].metadata.name
+            itemView.resource_name.text = projects[position].metadata.name
 
-            this.itemView.findViewById<ImageView>(R.id.project_icon)
-                .setImageResource(R.drawable.project_icon)
+            itemView.project_icon.setImageResource(R.drawable.project_icon)
 
-            this.itemView.findViewById<TextView>(R.id.resource_info).text =
-                projects[position].metadata.creationTimestamp
+            itemView.resource_info.text = projects[position].metadata.creationTimestamp
 
             if (projects[position].metadata.name == ClusterStore.currentActiveNamespace) {
                 itemView.setBackgroundColor(Color.GREEN)
@@ -77,7 +73,7 @@ class ProjectAdapter(private val projectList: List<Project>, context: Shifty) :
                 itemView.setBackgroundColor(Color.BLACK)
             }
 
-            this.itemView.setOnClickListener {
+            itemView.setOnClickListener {
                 ClusterStore.currentActiveNamespace = projects[position].metadata.name
                 itemView.setBackgroundColor(Color.GREEN)
                 notifyDataSetChanged()

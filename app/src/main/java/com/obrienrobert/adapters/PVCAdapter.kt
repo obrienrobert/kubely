@@ -5,10 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.main.R
+import kotlinx.android.synthetic.main.resource_card_view.view.*
 import org.jetbrains.anko.AnkoLogger
 
 class PVCAdapter(private val arrayOfPVCs: List<String>) :
@@ -56,10 +55,9 @@ class PVCAdapter(private val arrayOfPVCs: List<String>) :
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view), AnkoLogger {
 
         fun bind(value: String, position: Int) {
-            this.itemView.findViewById<TextView>(R.id.resource_name).text = value
+            itemView.resource_name.text = value
 
-            this.itemView.findViewById<ImageView>(R.id.resource_icon)
-                .setImageResource(R.drawable.pvc_icon)
+            itemView.resource_icon.setImageResource(R.drawable.pvc_icon)
         }
     }
 }

@@ -3,7 +3,6 @@ package com.obrienrobert.fragments
 import android.graphics.Color
 import android.os.Bundle
 import android.view.*
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -181,8 +180,7 @@ class ClusterFragment : BaseFragment(), AnkoLogger, View.OnClickListener {
             // Setting the uid as a text view so that the swipe gestures work
             itemView.firebase_uid.text = cluster.uid
 
-            itemView.findViewById<ImageView>(R.id.cluster_icon)
-                .setImageResource(R.drawable.cluster_icon)
+            itemView.cluster_icon.setImageResource(R.drawable.cluster_icon)
 
             if (cluster.isActiveCluster) {
                 itemView.setBackgroundColor(Color.GREEN)
@@ -190,7 +188,7 @@ class ClusterFragment : BaseFragment(), AnkoLogger, View.OnClickListener {
                 itemView.setBackgroundColor(Color.BLACK)
             }
 
-            this.itemView.setOnClickListener {
+            itemView.setOnClickListener {
                 app.database.child("user-clusters").child(app.auth.currentUser!!.uid)
                     .child(cluster.uid.toString()).child("isActiveCluster").setValue(true)
                 itemView.setBackgroundColor(Color.GREEN)

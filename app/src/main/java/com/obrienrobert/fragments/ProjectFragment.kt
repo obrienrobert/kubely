@@ -15,11 +15,9 @@ import com.obrienrobert.client.Requests
 import com.obrienrobert.main.R
 import com.obrienrobert.main.Shifty
 import com.obrienrobert.models.ClusterStore
-import io.fabric8.kubernetes.client.dsl.LogWatch
 import io.fabric8.openshift.api.model.Project
 import me.nikhilchaudhari.asynkio.core.async
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 import java.util.*
 
 class ProjectFragment : BaseFragment(), AnkoLogger {

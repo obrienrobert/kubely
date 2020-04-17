@@ -5,11 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.main.R
 import io.fabric8.kubernetes.api.model.Pod
+import kotlinx.android.synthetic.main.resource_card_view.view.*
 import org.jetbrains.anko.AnkoLogger
 
 class PodAdapter(private val arrayOfPods: List<Pod>) :
@@ -56,14 +55,11 @@ class PodAdapter(private val arrayOfPods: List<Pod>) :
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view), AnkoLogger {
 
         fun bind(pods: List<Pod>, position: Int) {
-            this.itemView.findViewById<TextView>(R.id.resource_name).text =
-                pods[position].metadata.name
+            itemView.resource_name.text = pods[position].metadata.name
 
-            this.itemView.findViewById<TextView>(R.id.resource_info).text =
-                pods[position].metadata.namespace
+            itemView.resource_info.text = pods[position].metadata.namespace
 
-            this.itemView.findViewById<ImageView>(R.id.resource_icon)
-                .setImageResource(R.drawable.pod_icon)
+            itemView.resource_icon.setImageResource(R.drawable.pod_icon)
         }
     }
 }
