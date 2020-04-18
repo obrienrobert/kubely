@@ -20,6 +20,6 @@ Version `4.7.1` of the [fabric8io/kubernetes-client](https://github.com/fabric8i
 
 - [AsynKio](https://github.com/CuriousNikhil/AsynKio) - Asynchronous networking
 - [fabric8io/kubernetes-client](https://github.com/fabric8io/kubernetes-client) - Openshift client
-- [Firebase](https://firebase.google.com/?gclid=EAIaIQobChMIg5vixJ7w6AIVF-DtCh3NqgcxEAAYASAAEgIqAvD_BwE) - Backend storage
+- [Firebase](https://firebase.google.com/) - Backend storage
 - [MaterialDrawerKt](https://github.com/zsmb13/MaterialDrawerKt) - Navigation drawer
 

@@ -2,9 +2,10 @@ package com.obrienrobert.client
 
 import io.fabric8.kubernetes.api.model.*
 import io.fabric8.openshift.api.model.Project
+import io.fabric8.openshift.api.model.ProjectRequest
 import io.fabric8.openshift.client.OpenShiftClient
 
-class Requests(private var client: OpenShiftClient) : Get {
+class Requests(private var client: OpenShiftClient) : Get, Put, Delete {
 
     // Pods
     override fun getAllPods(): List<Pod> {
@@ -29,9 +30,17 @@ class Requests(private var client: OpenShiftClient) : Get {
         return client.namespaces().withName(namespace).get()
     }
 
-    override fun createNamespace(namespace: String?) {
-        client.namespaces().createNew().withNewMetadata().withName(namespace).endMetadata().done()
+    // Create
+    override fun createNamespace(namespace: String?): ProjectRequest {
+        return client.projectrequests().createNew().withNewMetadata().withName(namespace).endMetadata().done()
     }
+
+    // Delete
+    override fun deleteNamespace(namespace: String?): Boolean {
+        return client.projects().withName(namespace).delete()
+    }
+
+
 
 
     // Services

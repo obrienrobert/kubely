@@ -11,8 +11,10 @@ import com.afollestad.vvalidator.form.FormResult
 import com.obrienrobert.client.ActiveClient
 import com.obrienrobert.client.Requests
 import com.obrienrobert.main.R
+import io.fabric8.openshift.api.model.ProjectRequest
 import me.nikhilchaudhari.asynkio.core.async
 import org.jetbrains.anko.AnkoLogger
+
 
 class AddProjectFragment : BaseFragment(), AnkoLogger {
 
@@ -48,7 +50,14 @@ class AddProjectFragment : BaseFragment(), AnkoLogger {
             val newProject = projectName?.asString()
 
             async {
-                await { Requests(ActiveClient.newInstance()).createNamespace(newProject) }
+                var request: ProjectRequest? = null
+                try {
+                    request = await { Requests(ActiveClient.newInstance()).createNamespace(newProject) }
+                }finally {
+                    if (request != null) {
+                        Requests(ActiveClient.newInstance()).deleteNamespace(newProject)
+                    }
+                }
             }
 
             navigateTo(ProjectFragment.newInstance())

@@ -1,6 +1,7 @@
 package com.obrienrobert.fragments
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,12 +24,23 @@ class DeploymentFragment : BaseFragment() {
         val viewManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
         val viewAdapter: RecyclerView.Adapter<*> = DeploymentAdapter(arrayList)
 
+
         view.findViewById<RecyclerView>(R.id.deployment_recycler_view).apply {
 
             setHasFixedSize(true)
             layoutManager = viewManager
             adapter = viewAdapter
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.add_cluster_menu_item -> {
+               // navigateTo(AddClusterFragment.newInstance())
+                return false
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {
