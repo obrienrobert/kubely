@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.*
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -24,6 +25,7 @@ import com.obrienrobert.util.SwipeToEditCallback
 import kotlinx.android.synthetic.main.cluster_card_view.view.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
+
 
 class ClusterFragment : BaseFragment(), AnkoLogger, View.OnClickListener {
 
@@ -169,8 +171,12 @@ class ClusterFragment : BaseFragment(), AnkoLogger, View.OnClickListener {
         }
     }
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view), AnkoLogger {
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity?)!!.supportActionBar!!.setTitle(R.string.clusters)
+    }
 
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view), AnkoLogger {
 
         fun bind(cluster: ClusterModel) {
             itemView.cluster_name.text = cluster.clusterName
@@ -189,6 +195,7 @@ class ClusterFragment : BaseFragment(), AnkoLogger, View.OnClickListener {
             }
 
             itemView.setOnClickListener {
+
                 app.database.child("user-clusters").child(app.auth.currentUser!!.uid)
                     .child(cluster.uid.toString()).child("isActiveCluster").setValue(true)
                 itemView.setBackgroundColor(Color.GREEN)

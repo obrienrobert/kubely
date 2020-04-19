@@ -32,15 +32,14 @@ class Requests(private var client: OpenShiftClient) : Get, Put, Delete {
 
     // Create
     override fun createNamespace(namespace: String?): ProjectRequest {
-        return client.projectrequests().createNew().withNewMetadata().withName(namespace).endMetadata().done()
+        return client.projectrequests().createNew().withNewMetadata().withName(namespace)
+            .endMetadata().done()
     }
 
     // Delete
     override fun deleteNamespace(namespace: String?): Boolean {
         return client.projects().withName(namespace).delete()
     }
-
-
 
 
     // Services

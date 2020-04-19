@@ -2,6 +2,7 @@ package com.obrienrobert.fragments
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.adapters.SecretAdapter
@@ -30,6 +31,12 @@ class SecretFragment : BaseFragment() {
             adapter = viewAdapter
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity?)!!.supportActionBar!!.setTitle(R.string.secrets)
+    }
+
 
     companion object {
         fun newInstance(): SecretFragment {

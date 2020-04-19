@@ -3,6 +3,7 @@ package com.obrienrobert.fragments
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.adapters.DeploymentAdapter
@@ -36,11 +37,16 @@ class DeploymentFragment : BaseFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.add_cluster_menu_item -> {
-               // navigateTo(AddClusterFragment.newInstance())
+                // navigateTo(AddClusterFragment.newInstance())
                 return false
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity?)!!.supportActionBar!!.setTitle(R.string.deployments)
     }
 
     companion object {

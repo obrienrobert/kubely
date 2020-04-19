@@ -6,6 +6,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -76,7 +77,10 @@ class ProjectFragment : BaseFragment(), AnkoLogger {
             Collections.swap(projectList, 0, indexOfCurrentNamespace)
 
             viewManager = LinearLayoutManager(context)
-            viewAdapter = ProjectAdapter(projectList, activity?.application as Shifty)
+            viewAdapter = ProjectAdapter(
+                projectList, activity?.application as Shifty
+
+            )
 
             recyclerView.apply {
                 setHasFixedSize(true)
@@ -96,6 +100,12 @@ class ProjectFragment : BaseFragment(), AnkoLogger {
                 .commit()
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity?)!!.supportActionBar!!.setTitle(R.string.projects)
+    }
+
 
     companion object {
         fun newInstance(): ProjectFragment {

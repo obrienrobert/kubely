@@ -3,6 +3,7 @@ package com.obrienrobert.fragments
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.adapters.NodeAdapter
@@ -49,6 +50,12 @@ class NodeFragment : BaseFragment() {
             }
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity?)!!.supportActionBar!!.setTitle(R.string.nodes)
+    }
+
 
     companion object {
         fun newInstance(): NodeFragment {

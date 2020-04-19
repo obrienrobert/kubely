@@ -4,6 +4,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.afollestad.vvalidator.field.FieldValue
 import com.afollestad.vvalidator.form
@@ -52,8 +53,9 @@ class AddProjectFragment : BaseFragment(), AnkoLogger {
             async {
                 var request: ProjectRequest? = null
                 try {
-                    request = await { Requests(ActiveClient.newInstance()).createNamespace(newProject) }
-                }finally {
+                    request =
+                        await { Requests(ActiveClient.newInstance()).createNamespace(newProject) }
+                } finally {
                     if (request != null) {
                         Requests(ActiveClient.newInstance()).deleteNamespace(newProject)
                     }
@@ -76,6 +78,11 @@ class AddProjectFragment : BaseFragment(), AnkoLogger {
 
     private fun clearFormFields() {
         view?.findViewById<EditText>(R.id.project_name)?.text?.clear()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity?)!!.supportActionBar!!.setTitle(R.string.add_project)
     }
 
     companion object {

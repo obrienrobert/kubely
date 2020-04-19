@@ -2,6 +2,7 @@
     <string name="add_cluster">Add Cluster</string>
     <string name="no_cluster">No Clusters Available</string>
     <string name="add_project">Add Project</string>
+    <string name="add_resource">Add Resource</string>
     <string name="cluster_api_url">Cluster API URL</string>
     <string name="new_project_name">New Project Name</string>
     <string name="app_name">Shifty</string>
@@ -10,6 +11,8 @@
     <string name="cluster_name">Cluster Name</string>
     <string name="default_context_description">Default Content Description</string>
     <string name="deployments">Deployments</string>
+    <string name="edit_cluster">Edit Cluster</string>
+    <string name="node_kubelet_version"><b><i>Kubelet Version:&#160;</i></b></string>
     <string name="password">Password</string>
     <string name="routes">Routes</string>
     <string name="pods">Pods</string>
@@ -20,6 +23,7 @@
     <string name="no_data">No Data to Display</string>
     <string name="no_project_selected">No Project Selected</string>
     <string name="nodes">Nodes</string>
+    <string name="node_provider_id"><b><i>Provider ID:&#160;</i></b></string>
     <string name="openshift_logo">Openshift Logo</string>
     <string name="resource_name">Resource name</string>
     <string name="secrets">Secrets</string>

@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -139,6 +140,11 @@ class EditClusterFragment : BaseFragment(), AnkoLogger {
         view?.findViewById<EditText>(R.id.cluster_url)?.text?.clear()
         view?.findViewById<EditText>(R.id.cluster_name)?.text?.clear()
         view?.findViewById<EditText>(R.id.username)?.text?.clear()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity?)!!.supportActionBar!!.setTitle(R.string.edit_cluster)
     }
 
     companion object {

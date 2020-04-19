@@ -15,7 +15,10 @@ import kotlinx.android.synthetic.main.project_card_view.view.*
 import org.jetbrains.anko.AnkoLogger
 
 
-class ProjectAdapter(private val projectList: List<Project>, context: Shifty) :
+class ProjectAdapter(
+    private val projectList: List<Project>,
+    context: Shifty
+) :
     RecyclerView.Adapter<ProjectAdapter.ViewHolder>(), Filterable, AnkoLogger {
 
     var app: Shifty = context
@@ -65,7 +68,7 @@ class ProjectAdapter(private val projectList: List<Project>, context: Shifty) :
 
             itemView.project_icon.setImageResource(R.drawable.project_icon)
 
-            itemView.resource_info.text = projects[position].metadata.creationTimestamp
+            itemView.resource_info.text = projects[position].status.phase
 
             if (projects[position].metadata.name == ClusterStore.currentActiveNamespace) {
                 itemView.setBackgroundColor(Color.GREEN)

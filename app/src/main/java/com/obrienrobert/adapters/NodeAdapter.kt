@@ -8,7 +8,7 @@ import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.main.R
 import io.fabric8.kubernetes.api.model.Node
-import kotlinx.android.synthetic.main.resource_card_view.view.*
+import kotlinx.android.synthetic.main.node_card_view.view.*
 import org.jetbrains.anko.AnkoLogger
 
 class NodeAdapter(private val arrayOfNodes: List<Node>) :
@@ -41,7 +41,7 @@ class NodeAdapter(private val arrayOfNodes: List<Node>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.resource_card_view, parent, false)
+                .inflate(R.layout.node_card_view, parent, false)
         )
     }
 
@@ -56,11 +56,13 @@ class NodeAdapter(private val arrayOfNodes: List<Node>) :
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view), AnkoLogger {
 
         fun bind(nodes: List<Node>, position: Int) {
-            itemView.resource_name.text = nodes[position].metadata.name
+            itemView.node_name.text = nodes[position].metadata.name
 
-            itemView.resource_info.text = nodes[position].metadata.namespace
+            itemView.node_provider.append(nodes[position].spec.providerID)
 
-            itemView.resource_icon.setImageResource(R.drawable.node_icon)
+            itemView.node_info.append(nodes[position].status.nodeInfo.kubeletVersion)
+
+            itemView.node_icon.setImageResource(R.drawable.node_icon)
         }
     }
 }
