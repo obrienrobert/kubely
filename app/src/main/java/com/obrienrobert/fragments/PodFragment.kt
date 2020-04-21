@@ -7,7 +7,6 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.adapters.PodAdapter
@@ -18,7 +17,6 @@ import com.obrienrobert.models.ClusterStore
 import io.fabric8.kubernetes.api.model.Pod
 import me.nikhilchaudhari.asynkio.core.async
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 
 
 class PodFragment : BaseFragment(), AnkoLogger {
@@ -81,26 +79,10 @@ class PodFragment : BaseFragment(), AnkoLogger {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.add_resource_menu_item -> {
-
-                val intent = Intent()
-                    .setType("*/*")
-                    .setAction(Intent.ACTION_GET_CONTENT)
-
-                startActivityForResult(Intent.createChooser(intent, "Select a file"), 111)
-
                 return true
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == 111 && resultCode == AppCompatActivity.RESULT_OK) {
-            val selectedFile = data?.data
-            info { "Test: $selectedFile" }
-        }
     }
 
     companion object {

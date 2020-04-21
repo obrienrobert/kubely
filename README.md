@@ -16,10 +16,15 @@ Version `4.7.1` of the [fabric8io/kubernetes-client](https://github.com/fabric8i
 
 ## Features
 
+- Login/Authentication with Firebase Authentication
+- CRUD functionality - list, create, delete and update user defined cluster models
+- Swipe to delete/edit
+- View and create API resources
+
 ## Built With
 
 - [AsynKio](https://github.com/CuriousNikhil/AsynKio) - Asynchronous networking
 - [fabric8io/kubernetes-client](https://github.com/fabric8io/kubernetes-client) - Openshift client
-- [Firebase](https://firebase.google.com/) - Backend storage
+- [Firebase](https://firebase.google.com/) - Backend storage and UI
 - [MaterialDrawerKt](https://github.com/zsmb13/MaterialDrawerKt) - Navigation drawer
 
