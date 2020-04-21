@@ -12,7 +12,6 @@ import co.zsmb.materialdrawerkt.draweritems.profile.profile
 import co.zsmb.materialdrawerkt.draweritems.sectionHeader
 import co.zsmb.materialdrawerkt.imageloader.drawerImageLoader
 import com.google.firebase.auth.FirebaseAuth
-import com.mikepenz.materialdrawer.util.DrawerUIUtils
 import com.obrienrobert.fragments.*
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
@@ -27,18 +26,13 @@ class Main : AppCompatActivity(), AnkoLogger {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         app = application as Shifty
         app.auth = FirebaseAuth.getInstance()
 
         drawerImageLoader {
-            placeholder { ctx, _ ->
-                DrawerUIUtils.getPlaceHolder(ctx)
-            }
-            set { imageView, uri, placeholder, _ ->
+            set { imageView, uri, _, _ ->
                 Picasso.get()
                     .load(uri)
-                    .placeholder(placeholder)
                     .into(imageView)
             }
             cancel { imageView ->
@@ -69,7 +63,7 @@ class Main : AppCompatActivity(), AnkoLogger {
     private fun createNavDrawer() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolBarResource)
-        setActionBarTitle(R.string.clusters)
+        supportActionBar?.title = R.string.clusters.toString()
 
         // If the user is not a Google user, no username will exist. Otherwise, load the Google image.
         var userName = ""
@@ -77,13 +71,15 @@ class Main : AppCompatActivity(), AnkoLogger {
             userName = app.auth.currentUser?.displayName!!
         }
 
+
         // Nav draw setup
         drawer {
             accountHeader {
                 profile(userName, app.auth.currentUser?.email) {
                     if (app.auth.currentUser?.photoUrl.toString().isNotEmpty()) {
-                        iconUrl =
-                            app.auth.currentUser!!.photoUrl.toString().replace("s96-c", "s400-c")
+                        iconUrl = app.auth.currentUser!!.photoUrl.toString().replace("s96-c", "s400-c")
+                    }else{
+                        icon = R.drawable.profile
                     }
                 }
             }
@@ -91,7 +87,6 @@ class Main : AppCompatActivity(), AnkoLogger {
             primaryItem("Clusters") {
                 icon = R.drawable.openshift
                 onClick { _ ->
-                    setActionBarTitle(R.string.clusters)
                     navigateTo(ClusterFragment.newInstance())
                     false
                 }
@@ -99,7 +94,6 @@ class Main : AppCompatActivity(), AnkoLogger {
             primaryItem("Projects") {
                 icon = R.drawable.project
                 onClick { _ ->
-                    setActionBarTitle(R.string.projects)
                     navigateTo(ProjectFragment.newInstance())
                     false
                 }
@@ -107,7 +101,6 @@ class Main : AppCompatActivity(), AnkoLogger {
             primaryItem("Events") {
                 icon = R.drawable.events
                 onClick { _ ->
-                    setActionBarTitle(R.string.namespace_events)
                     navigateTo(EventFragment.newInstance())
                     false
                 }
@@ -116,7 +109,6 @@ class Main : AppCompatActivity(), AnkoLogger {
             primaryItem("Pods") {
                 icon = R.drawable.pod
                 onClick { _ ->
-                    setActionBarTitle(R.string.pods)
                     navigateTo(PodFragment.newInstance())
                     false
                 }
@@ -125,7 +117,6 @@ class Main : AppCompatActivity(), AnkoLogger {
             primaryItem("Deployments") {
                 icon = R.drawable.deployment
                 onClick { _ ->
-                    setActionBarTitle(R.string.deployments)
                     navigateTo(DeploymentFragment.newInstance())
                     false
                 }
@@ -134,7 +125,6 @@ class Main : AppCompatActivity(), AnkoLogger {
             primaryItem("Secrets") {
                 icon = R.drawable.secret
                 onClick { _ ->
-                    setActionBarTitle(R.string.secrets)
                     navigateTo(SecretFragment.newInstance())
                     false
                 }
@@ -143,7 +133,6 @@ class Main : AppCompatActivity(), AnkoLogger {
             primaryItem("Cron Jobs") {
                 icon = R.drawable.cron_job
                 onClick { _ ->
-                    setActionBarTitle(R.string.cron_jobs)
                     navigateTo(CronJobFragment.newInstance())
                     false
                 }
@@ -153,7 +142,6 @@ class Main : AppCompatActivity(), AnkoLogger {
             primaryItem("Services") {
                 icon = R.drawable.service
                 onClick { _ ->
-                    setActionBarTitle(R.string.services)
                     navigateTo(ServiceFragment.newInstance())
                     false
                 }
@@ -162,7 +150,6 @@ class Main : AppCompatActivity(), AnkoLogger {
             primaryItem("Routes") {
                 icon = R.drawable.route
                 onClick { _ ->
-                    setActionBarTitle(R.string.routes)
                     navigateTo(RouteFragment.newInstance())
                     false
                 }
@@ -172,7 +159,6 @@ class Main : AppCompatActivity(), AnkoLogger {
             primaryItem("Persistent Volumes") {
                 icon = R.drawable.pv
                 onClick { _ ->
-                    setActionBarTitle(R.string.persistent_volumes)
                     navigateTo(PVFragment.newInstance())
                     false
                 }
@@ -181,7 +167,6 @@ class Main : AppCompatActivity(), AnkoLogger {
             primaryItem("Persistent Volume Claims") {
                 icon = R.drawable.pvc
                 onClick { _ ->
-                    setActionBarTitle(R.string.persistent_volume_claims)
                     navigateTo(PVCFragment.newInstance())
                     false
                 }
@@ -190,12 +175,18 @@ class Main : AppCompatActivity(), AnkoLogger {
             primaryItem("Nodes") {
                 icon = R.drawable.node
                 onClick { _ ->
-                    setActionBarTitle(R.string.nodes)
                     navigateTo(NodeFragment.newInstance())
                     false
                 }
             }
             sectionHeader("Access Control")
+            primaryItem("Profile") {
+                icon = R.drawable.profile
+                onClick { _ ->
+                    navigateTo(ProfileFragment.newInstance())
+                    false
+                }
+            }
             primaryItem("Sign Out") {
                 icon = R.drawable.signout
                 onClick { _ ->
@@ -210,16 +201,11 @@ class Main : AppCompatActivity(), AnkoLogger {
     }
 
     private fun navigateTo(fragment: Fragment) {
-
         supportFragmentManager.apply {
             beginTransaction()
                 .replace(R.id.homeFragment, fragment)
                 .addToBackStack(null)
                 .commit()
         }
-    }
-
-    private fun setActionBarTitle(title: Int) {
-        supportActionBar?.setTitle(title)
     }
 }

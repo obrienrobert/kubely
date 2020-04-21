@@ -1,12 +1,12 @@
 package com.obrienrobert.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.adapters.PodAdapter
@@ -31,6 +31,7 @@ class PodFragment : BaseFragment(), AnkoLogger {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity?)!!.supportActionBar!!.setTitle(R.string.pods)
 
         async {
             podList =
@@ -83,6 +84,11 @@ class PodFragment : BaseFragment(), AnkoLogger {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity?)!!.supportActionBar!!.setTitle(R.string.pods)
     }
 
     companion object {

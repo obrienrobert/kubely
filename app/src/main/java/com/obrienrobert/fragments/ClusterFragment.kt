@@ -195,7 +195,6 @@ class ClusterFragment : BaseFragment(), AnkoLogger, View.OnClickListener {
             }
 
             itemView.setOnClickListener {
-
                 app.database.child("user-clusters").child(app.auth.currentUser!!.uid)
                     .child(cluster.uid.toString()).child("isActiveCluster").setValue(true)
                 itemView.setBackgroundColor(Color.GREEN)
