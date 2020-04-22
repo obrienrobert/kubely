@@ -9,13 +9,13 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class UserPhotoModel(
     var uid: String? = "",
-    var profilepic: String = ""
+    var profilePicture: String = ""
 ) : Parcelable {
     @Exclude
     fun toMap(): Map<String, Any?> {
         return mapOf(
             "uid" to uid,
-            "profilepic" to profilepic
+            "profilePicture" to profilePicture
         )
     }
 }

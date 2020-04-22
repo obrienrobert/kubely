@@ -155,7 +155,7 @@ fun checkExistingPhoto(app: Shifty, activity: Activity) {
             override fun onDataChange(snapshot: DataSnapshot) {
                 snapshot.children.forEach {
                     val usermodel = it.getValue(UserPhotoModel::class.java)
-                    app.userImage = usermodel!!.profilepic.toUri()
+                    app.userImage = usermodel!!.profilePicture.toUri()
                 }
                 validatePhoto(app, activity)
             }

@@ -14,7 +14,6 @@ import co.zsmb.materialdrawerkt.draweritems.sectionHeader
 import co.zsmb.materialdrawerkt.imageloader.drawerImageLoader
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
-import com.mikepenz.materialdrawer.Drawer
 import com.obrienrobert.fragments.*
 import com.obrienrobert.util.readImageUri
 import com.obrienrobert.util.uploadImageView
@@ -31,7 +30,6 @@ import org.jetbrains.anko.startActivity
 class Main : AppCompatActivity(), AnkoLogger {
 
     lateinit var app: Shifty
-    lateinit var result: Drawer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +39,10 @@ class Main : AppCompatActivity(), AnkoLogger {
 
         drawerImageLoader {
             set { imageView, uri, _, _ ->
-                Glide.with(applicationContext).load(uri).into(imageView)
+                Glide.with(applicationContext)
+                    .load(uri)
+                    .placeholder(R.drawable.profile)
+                    .into(imageView)
             }
             cancel { imageView ->
                 Glide.with(applicationContext).clear(imageView)
@@ -72,6 +73,9 @@ class Main : AppCompatActivity(), AnkoLogger {
         setSupportActionBar(toolBarResource)
         supportActionBar?.title = R.string.clusters.toString()
 
+        val uid = app.auth.currentUser!!.uid
+        val imageRef = app.storage.child("photos").child("${uid}.jpg").metadata
+
         // If the user is not a Google user, no username will exist. Otherwise, load the Google image.
         var userName = ""
         if (!app.auth.currentUser?.displayName.isNullOrEmpty()) {
@@ -79,18 +83,24 @@ class Main : AppCompatActivity(), AnkoLogger {
         }
 
         // Nav draw setup
-        result = drawer {
-            accountHeader {
+        app.result = drawer {
+            app.headerResult = accountHeader {
                 profile(userName, app.auth.currentUser?.email) {
                     if (!app.auth.currentUser?.displayName.isNullOrEmpty()) {
                         iconUrl =
                             app.auth.currentUser!!.photoUrl.toString().replace("s96-c", "s400-c")
-                    }else{
-                        icon = R.drawable.profile
+                    } else {
+                        imageRef.addOnSuccessListener { it ->
+                            val result = it.reference?.downloadUrl
+                            result?.addOnSuccessListener {
+                                val imageLink = it.toString()
+                                iconUrl = imageLink
+                            }
+                        }
                     }
                 }
-                background = R.color.md_black_1000
-                textColorRes = R.color.md_white_1000
+                 background = R.color.md_black_1000
+                 textColorRes = R.color.md_white_1000
             }
             sectionHeader("Home").divider = false
             primaryItem("Clusters") {
@@ -206,7 +216,6 @@ class Main : AppCompatActivity(), AnkoLogger {
                     false
                 }
             }
-
         }
     }
 
@@ -237,12 +246,6 @@ class Main : AppCompatActivity(), AnkoLogger {
                         })
                 }
             }
-        }
-    }
-
-    companion object {
-        fun newInstance(): Main {
-            return Main()
         }
     }
 }
