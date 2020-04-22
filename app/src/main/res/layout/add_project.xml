@@ -5,7 +5,6 @@
     android:layout_height="match_parent">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/project_text_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
         android:layout_width="355dp"
         android:layout_height="80dp"

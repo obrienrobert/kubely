@@ -1,5 +1,6 @@
 package com.obrienrobert.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -11,10 +12,18 @@ import co.zsmb.materialdrawerkt.draweritems.badgeable.primaryItem
 import co.zsmb.materialdrawerkt.draweritems.profile.profile
 import co.zsmb.materialdrawerkt.draweritems.sectionHeader
 import co.zsmb.materialdrawerkt.imageloader.drawerImageLoader
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
+import com.mikepenz.materialdrawer.Drawer
 import com.obrienrobert.fragments.*
+import com.obrienrobert.util.readImageUri
+import com.obrienrobert.util.uploadImageView
+import com.obrienrobert.util.writeImageRef
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import jp.wasabeef.picasso.transformations.CropCircleTransformation
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.profile.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.startActivity
 
@@ -22,6 +31,7 @@ import org.jetbrains.anko.startActivity
 class Main : AppCompatActivity(), AnkoLogger {
 
     lateinit var app: Shifty
+    lateinit var result: Drawer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,13 +41,10 @@ class Main : AppCompatActivity(), AnkoLogger {
 
         drawerImageLoader {
             set { imageView, uri, _, _ ->
-                Picasso.get()
-                    .load(uri)
-                    .into(imageView)
+                Glide.with(applicationContext).load(uri).into(imageView)
             }
             cancel { imageView ->
-                Picasso.get()
-                    .cancelRequest(imageView)
+                Glide.with(applicationContext).clear(imageView)
             }
         }
 
@@ -71,17 +78,19 @@ class Main : AppCompatActivity(), AnkoLogger {
             userName = app.auth.currentUser?.displayName!!
         }
 
-
         // Nav draw setup
-        drawer {
+        result = drawer {
             accountHeader {
                 profile(userName, app.auth.currentUser?.email) {
-                    if (app.auth.currentUser?.photoUrl.toString().isNotEmpty()) {
-                        iconUrl = app.auth.currentUser!!.photoUrl.toString().replace("s96-c", "s400-c")
+                    if (!app.auth.currentUser?.displayName.isNullOrEmpty()) {
+                        iconUrl =
+                            app.auth.currentUser!!.photoUrl.toString().replace("s96-c", "s400-c")
                     }else{
                         icon = R.drawable.profile
                     }
                 }
+                background = R.color.md_black_1000
+                textColorRes = R.color.md_white_1000
             }
             sectionHeader("Home").divider = false
             primaryItem("Clusters") {
@@ -197,6 +206,7 @@ class Main : AppCompatActivity(), AnkoLogger {
                     false
                 }
             }
+
         }
     }
 
@@ -206,6 +216,33 @@ class Main : AppCompatActivity(), AnkoLogger {
                 .replace(R.id.homeFragment, fragment)
                 .addToBackStack(null)
                 .commit()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            1 -> {
+                if (data != null) {
+                    writeImageRef(app, readImageUri(resultCode, data).toString())
+                    Picasso.get().load(readImageUri(resultCode, data).toString())
+                        .resize(180, 180)
+                        .transform(CropCircleTransformation())
+                        .into(profile_image, object : Callback {
+                            override fun onSuccess() {
+                                uploadImageView(app, profile_image)
+                            }
+
+                            override fun onError(e: Exception) {}
+                        })
+                }
+            }
+        }
+    }
+
+    companion object {
+        fun newInstance(): Main {
+            return Main()
         }
     }
 }
