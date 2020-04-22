@@ -99,8 +99,8 @@ class Main : AppCompatActivity(), AnkoLogger {
                         }
                     }
                 }
-                 background = R.color.md_black_1000
-                 textColorRes = R.color.md_white_1000
+                background = R.color.md_black_1000
+                textColorRes = R.color.md_white_1000
             }
             sectionHeader("Home").divider = false
             primaryItem("Clusters") {

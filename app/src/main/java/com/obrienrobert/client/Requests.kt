@@ -5,7 +5,7 @@ import io.fabric8.openshift.api.model.Project
 import io.fabric8.openshift.api.model.ProjectRequest
 import io.fabric8.openshift.client.OpenShiftClient
 
-class Requests(private var client: OpenShiftClient) : Get, Put, Delete {
+class Requests(private var client: OpenShiftClient) : Get, Post, Delete {
 
     // Pods
     override fun getAllPods(): List<Pod> {
@@ -30,17 +30,14 @@ class Requests(private var client: OpenShiftClient) : Get, Put, Delete {
         return client.namespaces().withName(namespace).get()
     }
 
-    // Create
     override fun createNamespace(namespace: String?): ProjectRequest {
         return client.projectrequests().createNew().withNewMetadata().withName(namespace)
             .endMetadata().done()
     }
 
-    // Delete
-    override fun deleteNamespace(namespace: String?): Boolean {
-        return client.projects().withName(namespace).delete()
+    override fun deleteSpecificNamespace(namespace: String) {
+        client.projects().withName(namespace).delete()
     }
-
 
     // Services
     override fun getAllServices(): List<Service> {

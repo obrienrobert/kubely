@@ -8,18 +8,23 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.afollestad.materialdialogs.MaterialDialog
 import com.obrienrobert.adapters.ProjectAdapter
 import com.obrienrobert.client.ActiveClient
 import com.obrienrobert.client.Requests
 import com.obrienrobert.main.R
 import com.obrienrobert.main.Shifty
 import com.obrienrobert.models.ClusterStore
+import com.obrienrobert.util.SwipeToDeleteCallback
 import io.fabric8.openshift.api.model.Project
+import kotlinx.android.synthetic.main.project_card_view.view.*
 import me.nikhilchaudhari.asynkio.core.async
 import org.jetbrains.anko.AnkoLogger
 import java.util.*
+
 
 class ProjectFragment : BaseFragment(), AnkoLogger {
 
@@ -27,6 +32,7 @@ class ProjectFragment : BaseFragment(), AnkoLogger {
 
     private lateinit var projectList: MutableList<Project>
     private lateinit var optionsMenu: Menu
+    private lateinit var recyclerView: RecyclerView
     private lateinit var viewManager: RecyclerView.LayoutManager
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var noData: TextView
@@ -51,10 +57,11 @@ class ProjectFragment : BaseFragment(), AnkoLogger {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        recyclerView = view.findViewById(R.id.project_recycler_view)
+
         async {
             projectList = await { Requests(ActiveClient.newInstance()).getAllNamespaces() }
 
-            val recyclerView = view.findViewById<RecyclerView>(R.id.project_recycler_view)
             noData = view.findViewById(R.id.no_data) as TextView
 
             when {
@@ -90,6 +97,37 @@ class ProjectFragment : BaseFragment(), AnkoLogger {
             }
 
         }
+
+        val deleteSwipeHandler = object : SwipeToDeleteCallback(context!!) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+
+                MaterialDialog(context!!).show {
+                    title(text = "Delete Project")
+                    message(text = "Are you sure you want to delete the project " + viewHolder.itemView.resource_name.text.toString() + "?")
+                    positiveButton(R.string.yes)
+                    negativeButton(R.string.no)
+                    icon(R.drawable.warning)
+
+                    positiveButton(R.string.yes) {
+                        async {
+                            await {
+                                Requests(ActiveClient.newInstance()).deleteSpecificNamespace(
+                                    viewHolder.itemView.resource_name.text.toString()
+                                )
+                            }
+                        }
+                        navigateTo(ClusterFragment.newInstance())
+                    }
+                    negativeButton(R.string.no) {
+                        dismiss()
+                        viewAdapter.notifyDataSetChanged()
+                    }
+                }
+            }
+        }
+
+        val itemTouchDeleteHelper = ItemTouchHelper(deleteSwipeHandler)
+        itemTouchDeleteHelper.attachToRecyclerView(recyclerView)
     }
 
     private fun navigateTo(fragment: Fragment) {

@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.afollestad.materialdialogs.MaterialDialog
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.DataSnapshot
@@ -124,7 +125,7 @@ class ClusterFragment : BaseFragment(), AnkoLogger, View.OnClickListener {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    info("Firebase Donation error : ${error.message}")
+                    info("Firebase error : ${error.message}")
                 }
             })
 
@@ -133,10 +134,28 @@ class ClusterFragment : BaseFragment(), AnkoLogger, View.OnClickListener {
 
         val deleteSwipeHandler = object : SwipeToDeleteCallback(this.context!!) {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                app.database.child("user-clusters").child(app.auth.currentUser!!.uid)
-                    .child(viewHolder.itemView.firebase_uid.text.toString()).removeValue()
+
+                MaterialDialog(context!!).show {
+                    title(text = "Delete Cluster")
+                    message(text = "Are you sure you want to delete the cluster " + viewHolder.itemView.cluster_name.text.toString() + "?")
+                    positiveButton(R.string.yes)
+                    negativeButton(R.string.no)
+                    icon(R.drawable.warning)
+
+                    positiveButton(R.string.yes) {
+                        app.database.child("user-clusters").child(app.auth.currentUser!!.uid)
+                            .child(viewHolder.itemView.firebase_uid.text.toString()).removeValue()
+                        navigateTo(newInstance())
+                    }
+                    negativeButton(R.string.no) {
+                        dismiss()
+                        adapter.notifyDataSetChanged()
+                    }
+                }
             }
+
         }
+
 
         val itemTouchDeleteHelper = ItemTouchHelper(deleteSwipeHandler)
         itemTouchDeleteHelper.attachToRecyclerView(recyclerView)
@@ -223,7 +242,7 @@ class ClusterFragment : BaseFragment(), AnkoLogger, View.OnClickListener {
                             }
 
                             override fun onCancelled(error: DatabaseError) {
-                                info("Firebase Donation error : ${error.message}")
+                                info("Firebase error : ${error.message}")
                             }
                         })
 

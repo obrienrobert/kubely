@@ -1,4 +1,6 @@
 <resources>
+
+    <!--Application-->
     <string name="add_cluster">Add Cluster</string>
     <string name="no_cluster">No Clusters Available</string>
     <string name="add_project">Add Project</string>
@@ -32,6 +34,11 @@
     <string name="services">Services</string>
     <string name="user_name">Username</string>
 
+    <!-- Dialog box-->
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+
+    <!--Authentication-->
     <string name="sign_out">Sign Out</string>
     <string name="email_password_status_fmt">Email User: %1$s (verified: %2$b)</string>
     <string name="auth_failed">Authentication failed</string>

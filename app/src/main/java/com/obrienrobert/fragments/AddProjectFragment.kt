@@ -41,7 +41,7 @@ class AddProjectFragment : BaseFragment(), AnkoLogger {
         val addProjectForm = form {
             input(R.id.project_name) {
                 isNotEmpty()
-                length().greaterThan(4)
+                length().greaterThan(3)
             }
         }.validate()
 
@@ -57,7 +57,6 @@ class AddProjectFragment : BaseFragment(), AnkoLogger {
                         await { Requests(ActiveClient.newInstance()).createNamespace(newProject) }
                 } finally {
                     if (request != null) {
-                        Requests(ActiveClient.newInstance()).deleteNamespace(newProject)
                     }
                 }
             }
