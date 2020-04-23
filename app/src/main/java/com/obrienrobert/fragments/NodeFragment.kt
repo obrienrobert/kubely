@@ -1,6 +1,8 @@
 package com.obrienrobert.fragments
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -49,6 +51,11 @@ class NodeFragment : BaseFragment() {
                 scheduleLayoutAnimation()
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        // No menu action allow from here, so we just clear the action bar
+        menu.clear()
     }
 
     override fun onResume() {
