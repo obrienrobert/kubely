@@ -57,6 +57,7 @@ class AddProjectFragment : BaseFragment(), AnkoLogger {
                         await { Requests(ActiveClient.newInstance()).createNamespace(newProject) }
                 } finally {
                     if (request != null) {
+                        Requests(ActiveClient.newInstance()).deleteSpecificNamespace(newProject)
                     }
                 }
             }

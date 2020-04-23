@@ -35,7 +35,7 @@ class Requests(private var client: OpenShiftClient) : Get, Post, Delete {
             .endMetadata().done()
     }
 
-    override fun deleteSpecificNamespace(namespace: String) {
+    override fun deleteSpecificNamespace(namespace: String?) {
         client.projects().withName(namespace).delete()
     }
 

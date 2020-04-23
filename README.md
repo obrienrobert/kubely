@@ -2,7 +2,7 @@
 
 An (unofficial) Android based Openshift client.
 
-***Note: This application is a prototype developed for a college project. Please do not use this application with anything other than a test cluster***
+***Note: This application is a simple prototype developed for a college project. Please do not use this application with anything other than a test cluster***
 
 ## Getting Started
 
@@ -18,7 +18,7 @@ Version `4.7.1` of the [fabric8io/kubernetes-client](https://github.com/fabric8i
 
 - Login/Authentication with Firebase Authentication
 - CRUD functionality - list, create, delete and update user defined cluster models
-- Swipe to delete/edit
+- Swipe to delete/edit clusters
 - View and create API resources
 
 ## Built With
@@ -26,5 +26,6 @@ Version `4.7.1` of the [fabric8io/kubernetes-client](https://github.com/fabric8i
 - [AsynKio](https://github.com/CuriousNikhil/AsynKio) - Asynchronous networking
 - [fabric8io/kubernetes-client](https://github.com/fabric8io/kubernetes-client) - Openshift client
 - [Firebase](https://firebase.google.com/) - Backend storage and UI
+- [Glide](https://github.com/bumptech/glide) - Image loading
 - [MaterialDrawerKt](https://github.com/zsmb13/MaterialDrawerKt) - Navigation drawer
 

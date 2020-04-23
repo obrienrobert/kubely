@@ -1,18 +1,14 @@
 package com.obrienrobert.fragments
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
-import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.firebase.auth.FirebaseAuth
 import com.obrienrobert.main.Main
 import com.obrienrobert.main.R
-import com.obrienrobert.main.SharedViewModel
 import com.obrienrobert.util.checkExistingPhoto
 import com.obrienrobert.util.showImagePicker
 import com.squareup.picasso.Picasso
