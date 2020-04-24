@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.adapters.CronJobAdapter
+import kotlinx.android.synthetic.main.cronjob_fragment.view.*
 import com.obrienrobert.main.R
 
 class CronJobFragment : BaseFragment() {
@@ -24,8 +25,7 @@ class CronJobFragment : BaseFragment() {
         val viewManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
         val viewAdapter: RecyclerView.Adapter<*> = CronJobAdapter(arrayList)
 
-        view.findViewById<RecyclerView>(R.id.cronjob_recycler_view).apply {
-
+        view.cronjob_recycler_view.apply {
             setHasFixedSize(true)
             layoutManager = viewManager
             adapter = viewAdapter

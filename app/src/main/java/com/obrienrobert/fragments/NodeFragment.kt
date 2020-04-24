@@ -13,6 +13,7 @@ import com.obrienrobert.client.ActiveClient
 import com.obrienrobert.client.Requests
 import com.obrienrobert.main.R
 import io.fabric8.kubernetes.api.model.Node
+import kotlinx.android.synthetic.main.node_fragment.view.*
 import me.nikhilchaudhari.asynkio.core.async
 
 class NodeFragment : BaseFragment() {
@@ -30,8 +31,8 @@ class NodeFragment : BaseFragment() {
         async {
             nodeList = await { Requests(ActiveClient.newInstance()).getAllNodes() }
 
-            val recyclerView = view.findViewById<RecyclerView>(R.id.node_recycler_view)
-            noData = view.findViewById(R.id.no_data) as TextView
+            val recyclerView = view.node_recycler_view
+            noData = view.no_data as TextView
 
             if (nodeList.isNullOrEmpty()) {
                 recyclerView.visibility = View.GONE

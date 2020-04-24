@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.adapters.PVCAdapter
 import com.obrienrobert.main.R
+import kotlinx.android.synthetic.main.pvc_fragment.view.*
 
 class PVCFragment : BaseFragment() {
 
@@ -24,7 +25,7 @@ class PVCFragment : BaseFragment() {
         val viewManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
         val viewAdapter: RecyclerView.Adapter<*> = PVCAdapter(arrayList)
 
-        view.findViewById<RecyclerView>(R.id.pvc_recycler_view).apply {
+        view.pvc_recycler_view.apply {
 
             setHasFixedSize(true)
             layoutManager = viewManager

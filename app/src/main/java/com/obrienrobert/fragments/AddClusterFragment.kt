@@ -3,7 +3,6 @@ package com.obrienrobert.fragments
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.afollestad.vvalidator.field.FieldValue
@@ -11,6 +10,7 @@ import com.afollestad.vvalidator.form
 import com.afollestad.vvalidator.form.FormResult
 import com.obrienrobert.main.R
 import com.obrienrobert.models.ClusterModel
+import kotlinx.android.synthetic.main.add_cluster.view.*
 import com.obrienrobert.util.hideLoader
 import com.obrienrobert.util.showLoader
 import org.jetbrains.anko.AnkoLogger
@@ -46,17 +46,17 @@ class AddClusterFragment : BaseFragment(), AnkoLogger {
             input(R.id.cluster_name) {
                 isNotEmpty()
                 length().greaterThan(3)
-                length().lessThan(16)
+                length().lessThan(20)
             }
             input(R.id.username) {
                 isNotEmpty()
-                length().greaterThan(4)
-                length().lessThan(16)
+                length().greaterThan(3)
+                length().lessThan(25)
             }
             input(R.id.password) {
                 isNotEmpty()
-                length().greaterThan(6)
-                length().lessThan(20)
+                length().greaterThan(4)
+                length().lessThan(40)
             }
 
         }.validate()
@@ -106,10 +106,10 @@ class AddClusterFragment : BaseFragment(), AnkoLogger {
     }
 
     private fun clearFormFields() {
-        view?.findViewById<EditText>(R.id.cluster_url)?.text?.clear()
-        view?.findViewById<EditText>(R.id.cluster_name)?.text?.clear()
-        view?.findViewById<EditText>(R.id.username)?.text?.clear()
-        view?.findViewById<EditText>(R.id.password)?.text?.clear()
+        view?.cluster_url?.text?.clear()
+        view?.cluster_name?.text?.clear()
+        view?.username?.text?.clear()
+        view?.password?.text?.clear()
     }
 
     override fun onResume() {

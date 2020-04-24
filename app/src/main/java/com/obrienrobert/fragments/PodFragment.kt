@@ -16,6 +16,7 @@ import com.obrienrobert.main.R
 import com.obrienrobert.models.ClusterStore
 import io.fabric8.kubernetes.api.model.Pod
 import me.nikhilchaudhari.asynkio.core.async
+import kotlinx.android.synthetic.main.pod_fragment.view.*
 import org.jetbrains.anko.AnkoLogger
 
 
@@ -39,8 +40,8 @@ class PodFragment : BaseFragment(), AnkoLogger {
                     Requests(ActiveClient.newInstance()).getAllPodsInNamespace(ClusterStore.currentActiveNamespace)
                 }
 
-            val recyclerView = view.findViewById<RecyclerView>(R.id.pod_recycler_view)
-            noData = view.findViewById(R.id.no_data) as TextView
+            val recyclerView = view.pod_recycler_view
+            noData = view.no_data as TextView
 
             when {
                 podList.isNullOrEmpty() -> {

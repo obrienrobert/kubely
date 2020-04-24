@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -18,6 +17,7 @@ import com.google.firebase.database.ValueEventListener
 import com.obrienrobert.main.R
 import com.obrienrobert.main.SharedViewModel
 import com.obrienrobert.models.ClusterModel
+import kotlinx.android.synthetic.main.edit_cluster.view.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
@@ -36,17 +36,11 @@ class EditClusterFragment : BaseFragment(), AnkoLogger {
 
         viewModel.data.observe(this, Observer {
 
-            info {
-                app.database.child("user-clusters").child(app.auth.currentUser!!.uid)
-                    .child(viewModel.data.value.toString())
-            }
-
             app.database.child("user-clusters").child(app.auth.currentUser!!.uid)
                 .child(viewModel.data.value.toString()).addListenerForSingleValueEvent(
                     object : ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
                             val cluster: ClusterModel? = snapshot.getValue(ClusterModel::class.java)
-                            info { cluster }
                             populateFormFields(cluster)
                         }
 
@@ -81,18 +75,18 @@ class EditClusterFragment : BaseFragment(), AnkoLogger {
             }
             input(R.id.cluster_name) {
                 isNotEmpty()
-                length().greaterThan(6)
-                length().lessThan(16)
+                length().greaterThan(3)
+                length().lessThan(20)
             }
             input(R.id.username) {
                 isNotEmpty()
-                length().greaterThan(6)
-                length().lessThan(16)
+                length().greaterThan(3)
+                length().lessThan(25)
             }
             input(R.id.password) {
                 isNotEmpty()
-                length().greaterThan(6)
-                length().lessThan(20)
+                length().greaterThan(4)
+                length().lessThan(40)
             }
 
         }.validate()
@@ -129,17 +123,17 @@ class EditClusterFragment : BaseFragment(), AnkoLogger {
     }
 
     private fun populateFormFields(clusterToEdit: ClusterModel?) {
-        view?.findViewById<EditText>(R.id.cluster_url)?.hint = clusterToEdit?.masterURL
-        view?.findViewById<EditText>(R.id.cluster_name)?.hint = clusterToEdit?.clusterName
-        view?.findViewById<EditText>(R.id.username)?.hint = clusterToEdit?.userName
-        view?.findViewById<EditText>(R.id.password)?.hint = clusterToEdit?.password
+        view?.cluster_url?.setText(clusterToEdit?.masterURL)
+        view?.cluster_name?.setText(clusterToEdit?.clusterName)
+        view?.username?.setText(clusterToEdit?.userName)
+        view?.password?.setText(clusterToEdit?.password)
     }
 
     private fun clearFormFields() {
-        view?.findViewById<EditText>(R.id.password)?.text?.clear()
-        view?.findViewById<EditText>(R.id.cluster_url)?.text?.clear()
-        view?.findViewById<EditText>(R.id.cluster_name)?.text?.clear()
-        view?.findViewById<EditText>(R.id.username)?.text?.clear()
+        view?.cluster_url?.text?.clear()
+        view?.cluster_name?.text?.clear()
+        view?.username?.text?.clear()
+        view?.password?.text?.clear()
     }
 
     override fun onResume() {

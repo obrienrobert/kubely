@@ -10,7 +10,7 @@
     <string name="app_name">Shifty</string>
     <string name="cron_jobs">Cron Jobs</string>
     <string name="clusters">Clusters</string>
-    <string name="cluster_name">Cluster Name</string>
+    <string name="cluster_url"><b><i>Cluster URL:&#160;</i></b></string>
     <string name="default_context_description">Default Content Description</string>
     <string name="deployments">Deployments</string>
     <string name="edit_cluster">Edit Cluster</string>

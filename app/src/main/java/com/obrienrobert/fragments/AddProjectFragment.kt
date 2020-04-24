@@ -3,7 +3,6 @@ package com.obrienrobert.fragments
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.afollestad.vvalidator.field.FieldValue
@@ -13,6 +12,7 @@ import com.obrienrobert.client.ActiveClient
 import com.obrienrobert.client.Requests
 import com.obrienrobert.main.R
 import io.fabric8.openshift.api.model.ProjectRequest
+import kotlinx.android.synthetic.main.add_project.view.*
 import me.nikhilchaudhari.asynkio.core.async
 import org.jetbrains.anko.AnkoLogger
 
@@ -77,7 +77,7 @@ class AddProjectFragment : BaseFragment(), AnkoLogger {
     }
 
     private fun clearFormFields() {
-        view?.findViewById<EditText>(R.id.project_name)?.text?.clear()
+        view?.project_name?.text?.clear()
     }
 
     override fun onResume() {

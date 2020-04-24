@@ -14,6 +14,7 @@ import com.obrienrobert.client.Requests
 import com.obrienrobert.main.R
 import com.obrienrobert.models.ClusterStore
 import io.fabric8.kubernetes.api.model.Event
+import kotlinx.android.synthetic.main.event_fragment.view.*
 import me.nikhilchaudhari.asynkio.core.async
 import org.jetbrains.anko.AnkoLogger
 
@@ -35,8 +36,8 @@ class EventFragment : BaseFragment(), AnkoLogger {
                     .sortedByDescending { it.lastTimestamp }
             }
 
-            val recyclerView = view.findViewById<RecyclerView>(R.id.watch_recycler_view)
-            noData = view.findViewById(R.id.no_data) as TextView
+            val recyclerView = view.watch_recycler_view
+            noData = view.no_data as TextView
 
             when {
                 eventList.isNullOrEmpty() -> {

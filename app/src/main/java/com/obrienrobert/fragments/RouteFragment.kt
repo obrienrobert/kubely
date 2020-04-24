@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.adapters.RouteAdapter
 import com.obrienrobert.main.R
+import kotlinx.android.synthetic.main.route_fragment.view.*
 
 class RouteFragment : BaseFragment() {
 
@@ -24,7 +25,7 @@ class RouteFragment : BaseFragment() {
         val viewManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
         val viewAdapter: RecyclerView.Adapter<*> = RouteAdapter(arrayList)
 
-        view.findViewById<RecyclerView>(R.id.route_recycler_view).apply {
+        view.route_recycler_view.apply {
 
             setHasFixedSize(true)
             layoutManager = viewManager

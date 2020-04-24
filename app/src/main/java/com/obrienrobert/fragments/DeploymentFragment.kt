@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.adapters.DeploymentAdapter
+import kotlinx.android.synthetic.main.deployment_fragment.view.*
 import com.obrienrobert.main.R
 
 class DeploymentFragment : BaseFragment() {
@@ -26,7 +27,7 @@ class DeploymentFragment : BaseFragment() {
         val viewAdapter: RecyclerView.Adapter<*> = DeploymentAdapter(arrayList)
 
 
-        view.findViewById<RecyclerView>(R.id.deployment_recycler_view).apply {
+        view.deployment_recycler_view.apply {
 
             setHasFixedSize(true)
             layoutManager = viewManager
@@ -37,7 +38,6 @@ class DeploymentFragment : BaseFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.add_cluster_menu_item -> {
-                // navigateTo(AddClusterFragment.newInstance())
                 return false
             }
         }

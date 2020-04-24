@@ -24,6 +24,7 @@ import com.obrienrobert.models.ClusterStore
 import com.obrienrobert.util.SwipeToDeleteCallback
 import com.obrienrobert.util.SwipeToEditCallback
 import kotlinx.android.synthetic.main.cluster_card_view.view.*
+import kotlinx.android.synthetic.main.cluster_fragment.view.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
@@ -58,8 +59,8 @@ class ClusterFragment : BaseFragment(), AnkoLogger, View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recyclerView = view.findViewById(R.id.cluster_recycler_view)
-        noData = view.findViewById(R.id.no_data) as TextView
+        recyclerView = view.cluster_recycler_view
+        noData = view.no_data as TextView
 
         val query: Query = app.database.child("user-clusters").child(app.auth.currentUser!!.uid)
         val options: FirebaseRecyclerOptions<ClusterModel?> =
@@ -200,7 +201,7 @@ class ClusterFragment : BaseFragment(), AnkoLogger, View.OnClickListener {
         fun bind(cluster: ClusterModel) {
             itemView.cluster_name.text = cluster.clusterName
 
-            itemView.cluster_info.text = cluster.masterURL
+            itemView.cluster_url.append(cluster.masterURL)
 
             // Setting the uid as a text view so that the swipe gestures work
             itemView.firebase_uid.text = cluster.uid

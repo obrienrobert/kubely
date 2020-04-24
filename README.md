@@ -18,6 +18,7 @@ Version `4.7.1` of the [fabric8io/kubernetes-client](https://github.com/fabric8i
 
 - Login/Authentication with Firebase Authentication
 - CRUD functionality - list, create, delete and update user defined cluster models
+- Export/Import `JSON` cluster model
 - Swipe to delete/edit clusters
 - View and create API resources
 
@@ -27,5 +28,7 @@ Version `4.7.1` of the [fabric8io/kubernetes-client](https://github.com/fabric8i
 - [fabric8io/kubernetes-client](https://github.com/fabric8io/kubernetes-client) - Openshift client
 - [Firebase](https://firebase.google.com/) - Backend storage and UI
 - [Glide](https://github.com/bumptech/glide) - Image loading
+- [HiddenSearchWithRecyclerView](https://github.com/lnicolet/HiddenSearchWithRecyclerView) - For searching/filtering
 - [MaterialDrawerKt](https://github.com/zsmb13/MaterialDrawerKt) - Navigation drawer
+- [Material-Dialogs](https://github.com/afollestad/material-dialogs) - Dialog creation
 

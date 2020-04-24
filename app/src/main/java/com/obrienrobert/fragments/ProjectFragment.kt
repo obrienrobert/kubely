@@ -21,6 +21,7 @@ import com.obrienrobert.models.ClusterStore
 import com.obrienrobert.util.SwipeToDeleteCallback
 import io.fabric8.openshift.api.model.Project
 import kotlinx.android.synthetic.main.project_card_view.view.*
+import kotlinx.android.synthetic.main.project_fragment.view.*
 import me.nikhilchaudhari.asynkio.core.async
 import org.jetbrains.anko.AnkoLogger
 import java.util.*
@@ -57,12 +58,12 @@ class ProjectFragment : BaseFragment(), AnkoLogger {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recyclerView = view.findViewById(R.id.project_recycler_view)
+        recyclerView = view.project_recycler_view
 
         async {
             projectList = await { Requests(ActiveClient.newInstance()).getAllNamespaces() }
 
-            noData = view.findViewById(R.id.no_data) as TextView
+            noData = view.no_data as TextView
 
             when {
                 projectList.isNullOrEmpty() -> {
