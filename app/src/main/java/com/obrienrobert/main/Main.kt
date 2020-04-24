@@ -221,7 +221,7 @@ class Main : AppCompatActivity(), AnkoLogger {
 
     private fun navigateTo(fragment: Fragment) {
         supportFragmentManager.apply {
-            beginTransaction()
+            beginTransaction().setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
                 .replace(R.id.homeFragment, fragment)
                 .addToBackStack(null)
                 .commit()
