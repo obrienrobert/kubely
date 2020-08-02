@@ -1,30 +1,16 @@
 package com.obrienrobert.main
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import co.zsmb.materialdrawerkt.builders.accountHeader
 import co.zsmb.materialdrawerkt.builders.drawer
 import co.zsmb.materialdrawerkt.draweritems.badgeable.primaryItem
-import co.zsmb.materialdrawerkt.draweritems.profile.profile
 import co.zsmb.materialdrawerkt.draweritems.sectionHeader
-import co.zsmb.materialdrawerkt.imageloader.drawerImageLoader
-import com.bumptech.glide.Glide
-import com.google.firebase.auth.FirebaseAuth
 import com.obrienrobert.fragments.*
-import com.obrienrobert.util.readImageUri
-import com.obrienrobert.util.uploadImageView
-import com.obrienrobert.util.writeImageRef
-import com.squareup.picasso.Callback
-import com.squareup.picasso.Picasso
-import jp.wasabeef.picasso.transformations.CropCircleTransformation
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.profile.*
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.startActivity
 
 
 class Main : AppCompatActivity(), AnkoLogger {
@@ -35,19 +21,6 @@ class Main : AppCompatActivity(), AnkoLogger {
         super.onCreate(savedInstanceState)
 
         app = application as Shifty
-        app.auth = FirebaseAuth.getInstance()
-
-        drawerImageLoader {
-            set { imageView, uri, _, _ ->
-                Glide.with(applicationContext)
-                    .load(uri)
-                    .placeholder(R.drawable.profile)
-                    .into(imageView)
-            }
-            cancel { imageView ->
-                Glide.with(applicationContext).clear(imageView)
-            }
-        }
 
         navigateTo(ClusterFragment.newInstance())
         createNavDrawer()
@@ -73,35 +46,9 @@ class Main : AppCompatActivity(), AnkoLogger {
         setSupportActionBar(toolBarResource)
         supportActionBar?.title = R.string.clusters.toString()
 
-        val uid = app.auth.currentUser!!.uid
-        val imageRef = app.storage.child("photos").child("${uid}.jpg").metadata
-
-        // If the user is not a Google user, no username will exist. Otherwise, load the Google image.
-        var userName = ""
-        if (!app.auth.currentUser?.displayName.isNullOrEmpty()) {
-            userName = app.auth.currentUser?.displayName!!
-        }
 
         // Nav draw setup
-        app.result = drawer {
-            app.headerResult = accountHeader {
-                profile(userName, app.auth.currentUser?.email) {
-                    if (!app.auth.currentUser?.displayName.isNullOrEmpty()) {
-                        iconUrl =
-                            app.auth.currentUser!!.photoUrl.toString().replace("s96-c", "s400-c")
-                    } else {
-                        imageRef.addOnSuccessListener { it ->
-                            val result = it.reference?.downloadUrl
-                            result?.addOnSuccessListener {
-                                val imageLink = it.toString()
-                                iconUrl = imageLink
-                            }
-                        }
-                    }
-                }
-                background = R.color.md_black_1000
-                textColorRes = R.color.md_white_1000
-            }
+        drawer {
             sectionHeader("Home").divider = false
             primaryItem("Clusters") {
                 icon = R.drawable.openshift
@@ -198,24 +145,6 @@ class Main : AppCompatActivity(), AnkoLogger {
                     false
                 }
             }
-            sectionHeader("Access Control")
-            primaryItem("Profile") {
-                icon = R.drawable.profile
-                onClick { _ ->
-                    navigateTo(ProfileFragment.newInstance())
-                    false
-                }
-            }
-            primaryItem("Sign Out") {
-                icon = R.drawable.signout
-                onClick { _ ->
-                    app.auth.signOut()
-                    app.googleSignInClient.signOut()
-                    startActivity<Login>()
-                    finish()
-                    false
-                }
-            }
         }
     }
 
@@ -225,27 +154,6 @@ class Main : AppCompatActivity(), AnkoLogger {
                 .replace(R.id.homeFragment, fragment)
                 .addToBackStack(null)
                 .commit()
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
-            1 -> {
-                if (data != null) {
-                    writeImageRef(app, readImageUri(resultCode, data).toString())
-                    Picasso.get().load(readImageUri(resultCode, data).toString())
-                        .resize(180, 180)
-                        .transform(CropCircleTransformation())
-                        .into(profile_image, object : Callback {
-                            override fun onSuccess() {
-                                uploadImageView(app, profile_image)
-                            }
-
-                            override fun onError(e: Exception) {}
-                        })
-                }
-            }
         }
     }
 }

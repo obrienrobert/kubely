@@ -7,8 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.adapters.DeploymentAdapter
-import kotlinx.android.synthetic.main.deployment_fragment.view.*
 import com.obrienrobert.main.R
+import kotlinx.android.synthetic.main.deployment_fragment.view.*
 
 class DeploymentFragment : BaseFragment() {
 

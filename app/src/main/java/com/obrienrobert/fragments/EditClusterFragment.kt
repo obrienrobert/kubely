@@ -6,20 +6,15 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.afollestad.vvalidator.field.FieldValue
 import com.afollestad.vvalidator.form
 import com.afollestad.vvalidator.form.FormResult
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
 import com.obrienrobert.main.R
 import com.obrienrobert.main.SharedViewModel
 import com.obrienrobert.models.ClusterModel
 import kotlinx.android.synthetic.main.edit_cluster.view.*
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 
 class EditClusterFragment : BaseFragment(), AnkoLogger {
 
@@ -34,21 +29,6 @@ class EditClusterFragment : BaseFragment(), AnkoLogger {
             ViewModelProviders.of(this).get(SharedViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
 
-        viewModel.data.observe(this, Observer {
-
-            app.database.child("user-clusters").child(app.auth.currentUser!!.uid)
-                .child(viewModel.data.value.toString()).addListenerForSingleValueEvent(
-                    object : ValueEventListener {
-                        override fun onDataChange(snapshot: DataSnapshot) {
-                            val cluster: ClusterModel? = snapshot.getValue(ClusterModel::class.java)
-                            populateFormFields(cluster)
-                        }
-
-                        override fun onCancelled(error: DatabaseError) {
-                            info("Firebase error : ${error.message}")
-                        }
-                    })
-        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -104,9 +84,6 @@ class EditClusterFragment : BaseFragment(), AnkoLogger {
                 "username" to username?.asString(),
                 "password" to password?.asString()
             )
-
-            app.database.child("user-clusters").child(app.auth.currentUser!!.uid)
-                .child(viewModel.data.value.toString()).updateChildren(map)
 
             navigateTo(ClusterFragment.newInstance())
             clearFormFields()

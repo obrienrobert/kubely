@@ -80,11 +80,6 @@ class ProjectAdapter(
                 ClusterStore.currentActiveNamespace = projects[position].metadata.name
                 itemView.setBackgroundColor(Color.GREEN)
                 notifyDataSetChanged()
-
-                app.database.child("user-clusters")
-                    .child(app.auth.currentUser!!.uid)
-                    .child(ClusterStore.clusterUid)
-                    .child("activeNamespace").setValue(projects[position].metadata.name)
             }
         }
     }

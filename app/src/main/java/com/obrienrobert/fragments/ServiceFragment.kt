@@ -12,9 +12,9 @@ import com.obrienrobert.adapters.ServiceAdapter
 import com.obrienrobert.client.ActiveClient
 import com.obrienrobert.client.Requests
 import com.obrienrobert.main.R
-import kotlinx.android.synthetic.main.service_fragment.view.*
 import com.obrienrobert.models.ClusterStore
 import io.fabric8.kubernetes.api.model.Service
+import kotlinx.android.synthetic.main.service_fragment.view.*
 import me.nikhilchaudhari.asynkio.core.async
 
 

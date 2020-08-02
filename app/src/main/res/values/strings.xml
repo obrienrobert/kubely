@@ -2,7 +2,6 @@
 
     <!--Application-->
     <string name="add_cluster">Add Cluster</string>
-    <string name="no_cluster">No Clusters Available</string>
     <string name="add_project">Add Project</string>
     <string name="add_resource">Add Resource</string>
     <string name="cluster_api_url">Cluster API URL</string>
@@ -17,7 +16,6 @@
     <string name="edit_cluster">Edit Cluster</string>
     <string name="node_kubelet_version"><b><i>Kubelet Version:&#160;</i></b></string>
     <string name="password">Password</string>
-    <string name="profile">Profile</string>
     <string name="routes">Routes</string>
     <string name="pods">Pods</string>
     <string name="persistent_volume_claims">Persistent Volume Claims</string>
@@ -30,7 +28,6 @@
     <string name="node_provider_id"><b><i>Provider ID:&#160;</i></b></string>
     <string name="openshift_logo">Openshift Logo</string>
     <string name="resource_name">Resource name</string>
-    <string name="select_profile_image">Select Profile Image</string>
     <string name="secrets">Secrets</string>
     <string name="services">Services</string>
     <string name="user_name">Username</string>
@@ -40,18 +37,5 @@
     <string name="yes">Yes</string>
 
     <!--Authentication-->
-    <string name="sign_out">Sign Out</string>
-    <string name="email_password_status_fmt">Email User: %1$s (verified: %2$b)</string>
-    <string name="auth_failed">Authentication failed</string>
-    <string name="signed_out">Signed Out</string>
-    <string name="firebase_status_fmt">Firebase User: %s</string>
-    <string name="hint_email">Email</string>
-    <string name="hint_password">Password</string>
-    <string name="sign_in">Sign In</string>
-    <string name="create_account">Create Account</string>
-    <string name="verify_email">Verify Email</string>
-    <string name="desc_firebase_lockup">Firebase logo and name</string>
-    <string name="email_password_title_text">Please Login Below</string>
-    <string name="messageLoading">Please wait while we connect to the server</string>
 
 </resources>

@@ -8,7 +8,6 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.obrienrobert.main.Shifty
-import com.obrienrobert.util.createLoader
 
 abstract class BaseFragment : Fragment() {
 
@@ -21,7 +20,6 @@ abstract class BaseFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
         app = activity?.application as Shifty
-        loader = createLoader(activity!!)
         super.onCreate(savedInstanceState)
     }
 

@@ -6,8 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.obrienrobert.adapters.CronJobAdapter
-import kotlinx.android.synthetic.main.cronjob_fragment.view.*
 import com.obrienrobert.main.R
+import kotlinx.android.synthetic.main.cronjob_fragment.view.*
 
 class CronJobFragment : BaseFragment() {
 

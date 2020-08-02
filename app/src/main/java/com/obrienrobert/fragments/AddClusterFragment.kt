@@ -11,11 +11,8 @@ import com.afollestad.vvalidator.form.FormResult
 import com.obrienrobert.main.R
 import com.obrienrobert.models.ClusterModel
 import kotlinx.android.synthetic.main.add_cluster.view.*
-import com.obrienrobert.util.hideLoader
-import com.obrienrobert.util.showLoader
+
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
-import java.util.*
 
 class AddClusterFragment : BaseFragment(), AnkoLogger {
 
@@ -68,28 +65,12 @@ class AddClusterFragment : BaseFragment(), AnkoLogger {
             val username: FieldValue<*>? = result["username"]
             val password: FieldValue<*>? = result["password"]
 
-            showLoader(loader, "Adding cluster")
-
-            val uid = app.auth.currentUser!!.uid
-            val key = app.database.child("user-clusters").push().key
-
-            if (key == null) {
-                info("Firebase Error : Key Empty")
-                return
-            }
             val newCluster = ClusterModel(
-                key,
                 clusterURL?.asString(),
                 clusterName?.asString(),
                 username?.asString(),
                 password?.asString()
             ).toMap()
-
-            val childUpdates = HashMap<String, Any>()
-            childUpdates["/user-clusters/$uid/$key"] = newCluster
-
-            app.database.updateChildren(childUpdates)
-            hideLoader(loader)
 
             navigateTo(ClusterFragment.newInstance())
             clearFormFields()

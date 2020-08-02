@@ -15,8 +15,8 @@ import com.obrienrobert.client.Requests
 import com.obrienrobert.main.R
 import com.obrienrobert.models.ClusterStore
 import io.fabric8.kubernetes.api.model.Pod
-import me.nikhilchaudhari.asynkio.core.async
 import kotlinx.android.synthetic.main.pod_fragment.view.*
+import me.nikhilchaudhari.asynkio.core.async
 import org.jetbrains.anko.AnkoLogger
 
 
