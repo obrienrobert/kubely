@@ -12,10 +12,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.obrienrobert.adapters.ClusterAdapter
+import com.obrienrobert.adapters.CronJobAdapter
 import com.obrienrobert.main.R
 import com.obrienrobert.main.SharedViewModel
 import com.obrienrobert.models.ClusterModel
+import com.obrienrobert.models.ClusterStore
 import kotlinx.android.synthetic.main.cluster_fragment.view.*
+import kotlinx.android.synthetic.main.cronjob_fragment.view.*
 import org.jetbrains.anko.AnkoLogger
 
 
@@ -56,6 +60,13 @@ class ClusterFragment : BaseFragment(), AnkoLogger, View.OnClickListener {
         val viewManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = viewManager
 
+        val viewAdapter: RecyclerView.Adapter<*> = ClusterAdapter(ClusterStore.listOfClusters)
+
+        view.cluster_recycler_view.apply {
+            setHasFixedSize(true)
+            layoutManager = viewManager
+            adapter = viewAdapter
+        }
     }
 
     override fun onClick(v: View?) {

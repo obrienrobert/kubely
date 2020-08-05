@@ -2,7 +2,8 @@ package com.obrienrobert.models
 
 object ClusterStore {
 
-    lateinit var clusterUid: String
+    var listOfClusters = ArrayList<ClusterModel>()
+
     lateinit var currentActiveNamespace: String
 
     lateinit var apiURL: String

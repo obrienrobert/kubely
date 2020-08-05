@@ -9,6 +9,8 @@ import co.zsmb.materialdrawerkt.builders.drawer
 import co.zsmb.materialdrawerkt.draweritems.badgeable.primaryItem
 import co.zsmb.materialdrawerkt.draweritems.sectionHeader
 import com.obrienrobert.fragments.*
+import com.obrienrobert.models.ClusterModel
+import com.obrienrobert.models.ClusterStore
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.AnkoLogger
 
@@ -21,6 +23,17 @@ class Main : AppCompatActivity(), AnkoLogger {
         super.onCreate(savedInstanceState)
 
         app = application as Shifty
+
+        ClusterStore.listOfClusters.add(
+            ClusterModel(
+                "<MASTER_URL>",
+                "<API_URL>",
+                "Test cluster",
+                "kubeadmin",
+                "<PASSWORD>",
+                true
+            )
+        )
 
         navigateTo(ClusterFragment.newInstance())
         createNavDrawer()
